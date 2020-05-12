@@ -1,0 +1,6 @@
+framework module Pods_Seda {
+  umbrella header "Pods-Seda-umbrella.h"
+
+  export *
+  module * { export * }
+}
