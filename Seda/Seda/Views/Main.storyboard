@@ -208,21 +208,45 @@
             </objects>
             <point key="canvasLocation" x="1489.8550724637682" y="-158.03571428571428"/>
         </scene>
-        <!--View Controller-->
+        <!--Scan Card View Controller-->
         <scene sceneID="hjp-RM-7tr">
             <objects>
-                <viewController id="U1o-E4-8Ol" sceneMemberID="viewController">
+                <viewController id="U1o-E4-8Ol" customClass="ScanCardViewController" customModule="Seda" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7xs-oV-dJb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hZz-kb-hZj">
+                                <rect key="frame" x="58" y="329" width="299" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Scan Card">
+                                    <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="scanCardButtonIsPressed:" destination="U1o-E4-8Ol" eventType="touchUpInside" id="1EC-Rz-12z"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Credit Card Number:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gU-uK-ndd">
+                                <rect key="frame" x="77" y="198" width="206" height="101"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="2dK-eg-8wJ"/>
                     </view>
                     <navigationItem key="navigationItem" id="lQy-zP-rDe"/>
+                    <connections>
+                        <outlet property="cardNumberLabel" destination="4gU-uK-ndd" id="WWB-hk-ROv"/>
+                        <outlet property="scanCardButton" destination="hZz-kb-hZj" id="LTz-fq-rH1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q59-QU-669" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2367" y="100"/>
+            <point key="canvasLocation" x="2366.666666666667" y="99.776785714285708"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="L2r-xd-1mF">
