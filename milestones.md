@@ -3,7 +3,7 @@
 Milestone video [link](https://drive.google.com/file/d/1al8-9H5j6tfAxbMt9yCy2n3L_ePNk6WA/view)
 
 ## Josh  
-Last week: I worked on the proposal with the group, setup our stripe account. I also implemented CardScan.
+Last week: I worked on the proposal with the group, setup our stripe account. I also implemented CardScan.  
 Due next meeting: create mockup designs for login/register and payment screen UI. Implement "loading money" from card onto account and then removing traces of card.
 
 
