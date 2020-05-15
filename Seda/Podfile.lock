@@ -218,6 +218,11 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.7):
     - BoringSSL-GRPC/Interface (= 0.0.7)
   - BoringSSL-GRPC/Interface (0.0.7)
+  - CardScan (1.0.5032):
+    - CardScan/Core (= 1.0.5032)
+  - CardScan/Core (1.0.5032)
+  - CardScan/Stripe (1.0.5032):
+    - Stripe
   - Firebase/Auth (6.24.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.5.3)
@@ -310,8 +315,11 @@ PODS:
   - nanopb/decode (1.30905.0)
   - nanopb/encode (1.30905.0)
   - PromisesObjC (1.2.8)
+  - Stripe (19.2.0)
 
 DEPENDENCIES:
+  - CardScan
+  - CardScan/Stripe
   - Firebase/Auth
   - Firebase/Firestore
   - IQKeyboardManagerSwift
@@ -320,6 +328,7 @@ SPEC REPOS:
   trunk:
     - abseil
     - BoringSSL-GRPC
+    - CardScan
     - Firebase
     - FirebaseAuth
     - FirebaseAuthInterop
@@ -337,10 +346,12 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - PromisesObjC
+    - Stripe
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
+  CardScan: 0fa4a2f584afcfe8b2291b802fe37fb986f7cae8
   Firebase: b28e55c60efd98963cd9011fe2fac5a10c2ba124
   FirebaseAuth: 7047aec89c0b17ecd924a550c853f0c27ac6015e
   FirebaseAuthInterop: a0f37ae05833af156e72028f648d313f7e7592e9
@@ -358,7 +369,8 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
+  Stripe: d481c2dab9a892fd923f097f854661217f70dc7f
 
-PODFILE CHECKSUM: e8da623defe07ac4707346d9f09667ea8572f033
+PODFILE CHECKSUM: 98193475ed382215e6b07967662ae91014914e36
 
 COCOAPODS: 1.9.1
