@@ -22,7 +22,8 @@ onto a prepaid debit card?
 
 ## DJ 
 
-I learned the basic rules of Firebase and iOS segue last week. I will build a template with register and login function through Firebase, as well as learning how to interact Firebase with Stripe this week.
+Last week: learned the basic rules of Firebase and iOS segue and build a template with register and login function through Firebase
+Next week: Improve register and login function as well as learning how to interact Firebase with Stripe.
 
 ## LIUSIYU 
 
