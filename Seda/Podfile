@@ -9,5 +9,7 @@ target 'Seda' do
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'IQKeyboardManagerSwift'
+  pod 'CardScan'
+  pod 'CardScan/Stripe'
 
 end
