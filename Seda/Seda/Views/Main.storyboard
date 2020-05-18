@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vAR-IS-23x">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vAR-IS-23x">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -127,7 +127,7 @@
                         <outlet property="emailText" destination="5TU-3j-IlH" id="8ZQ-Ub-h6P"/>
                         <outlet property="passwordText" destination="SWq-C7-ENC" id="eLK-q3-Fsf"/>
                         <outlet property="warningLabel" destination="Mtq-Gu-lvg" id="dN3-qA-6jv"/>
-                        <segue destination="U1o-E4-8Ol" kind="show" identifier="LoginDone" id="ON5-AE-cok"/>
+                        <segue destination="j0Q-3h-zgl" kind="show" identifier="LoginDone" id="NE4-Pr-WR0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g1D-9E-in7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -151,7 +151,6 @@
                                         <state key="normal" title="Register"/>
                                         <connections>
                                             <action selector="registerPressed:" destination="qKI-Aj-aPa" eventType="touchUpInside" id="P0g-bi-HdI"/>
-                                            <segue destination="U1o-E4-8Ol" kind="show" identifier="RegisterDone" id="Mb2-7m-wJ1"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DYy-Wa-Gnl">
@@ -202,22 +201,23 @@
                         <outlet property="emailText" destination="WHW-qI-oww" id="XvM-FW-jk8"/>
                         <outlet property="passwordText" destination="DYy-Wa-Gnl" id="63W-1p-c9i"/>
                         <outlet property="warningLabel" destination="Kwp-8O-rCQ" id="EBS-9J-vEN"/>
+                        <segue destination="j0Q-3h-zgl" kind="show" identifier="RegisterDone" id="emD-Vu-TZb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nkE-wD-irZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1489.8550724637682" y="-158.03571428571428"/>
         </scene>
-        <!--Scan Card View Controller-->
+        <!--CardScanVC-->
         <scene sceneID="hjp-RM-7tr">
             <objects>
-                <viewController id="U1o-E4-8Ol" customClass="ScanCardViewController" customModule="Seda" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CardScanVC" title="CardScanVC" id="U1o-E4-8Ol" customClass="ScanCardViewController" customModule="Seda" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7xs-oV-dJb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hZz-kb-hZj">
-                                <rect key="frame" x="58" y="329" width="299" height="46"/>
+                                <rect key="frame" x="58" y="474" width="299" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Scan Card">
@@ -228,7 +228,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Credit Card Number:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gU-uK-ndd">
-                                <rect key="frame" x="77" y="198" width="206" height="101"/>
+                                <rect key="frame" x="58" y="329" width="206" height="101"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -246,7 +246,56 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q59-QU-669" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2366.666666666667" y="99.776785714285708"/>
+            <point key="canvasLocation" x="3364" y="157"/>
+        </scene>
+        <!--ProfileViewController-->
+        <scene sceneID="IjQ-in-ZwI">
+            <objects>
+                <viewController title="ProfileViewController" id="j0Q-3h-zgl" customClass="ProfileViewController" customModule="Seda" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="s2j-6G-94v">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Account Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EZN-Pi-rag">
+                                <rect key="frame" x="20" y="197" width="160" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sbo-N0-NPL">
+                                <rect key="frame" x="20" y="285" width="220" height="69"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Balance: $ 0.00"/>
+                                <connections>
+                                    <action selector="add_money:" destination="j0Q-3h-zgl" eventType="touchUpInside" id="Axg-Tr-agh"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VaD-MK-Zzq">
+                                <rect key="frame" x="20" y="124" width="230" height="65"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="54"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="VaD-MK-Zzq" firstAttribute="leading" secondItem="zVZ-Ns-Cjx" secondAttribute="leading" constant="20" id="7Lw-w4-BPM"/>
+                            <constraint firstItem="VaD-MK-Zzq" firstAttribute="top" secondItem="zVZ-Ns-Cjx" secondAttribute="top" constant="36" id="Ees-uQ-wkt"/>
+                            <constraint firstItem="zVZ-Ns-Cjx" firstAttribute="trailing" secondItem="VaD-MK-Zzq" secondAttribute="trailing" constant="164" id="tx7-T2-lb1"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="zVZ-Ns-Cjx"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="3A6-3D-UKG"/>
+                    <connections>
+                        <outlet property="balance" destination="sbo-N0-NPL" id="3Co-n9-dLG"/>
+                        <segue destination="U1o-E4-8Ol" kind="show" id="Coq-7b-6MO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2vx-KQ-8h6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2460.8695652173915" y="156.69642857142856"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="L2r-xd-1mF">
@@ -268,6 +317,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Mb2-7m-wJ1"/>
+        <segue reference="emD-Vu-TZb"/>
     </inferredMetricsTieBreakers>
 </document>

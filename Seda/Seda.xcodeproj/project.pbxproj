@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B1E736E0E3ACE0233FFD8242 /* Pods_Seda.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB45B031B71CF3F597015D7 /* Pods_Seda.framework */; };
+		BA915729247249AC00380F6A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA915728247249AC00380F6A /* ProfileViewController.swift */; };
 		C0319C7F2469B7D500447090 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0319C7E2469B7D500447090 /* AppDelegate.swift */; };
 		C0319C812469B7D600447090 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0319C802469B7D600447090 /* SceneDelegate.swift */; };
 		C0319C882469B7DA00447090 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0319C872469B7DA00447090 /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 		3EB45B031B71CF3F597015D7 /* Pods_Seda.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Seda.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		403AC6112B1FB145E057550E /* Pods-Seda.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seda.debug.xcconfig"; path = "Target Support Files/Pods-Seda/Pods-Seda.debug.xcconfig"; sourceTree = "<group>"; };
 		7684AFCAE6A7412AA1E1139B /* Pods-Seda.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seda.release.xcconfig"; path = "Target Support Files/Pods-Seda/Pods-Seda.release.xcconfig"; sourceTree = "<group>"; };
+		BA915728247249AC00380F6A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C0319C7B2469B7D500447090 /* Seda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Seda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0319C7E2469B7D500447090 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0319C802469B7D600447090 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				C0DAC069246A389000F6B22E /* LoginViewController.swift */,
 				C0DAC06B246A39A100F6B22E /* WelcomeViewController.swift */,
 				E601603F246CBD0600344918 /* ScanCardViewController.swift */,
+				BA915728247249AC00380F6A /* ProfileViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				C0DAC06C246A39A100F6B22E /* WelcomeViewController.swift in Sources */,
 				C0DAC06A246A389000F6B22E /* LoginViewController.swift in Sources */,
 				C0DAC068246A387100F6B22E /* RegisterViewController.swift in Sources */,
+				BA915729247249AC00380F6A /* ProfileViewController.swift in Sources */,
 				C0DAC070246A4AFE00F6B22E /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
