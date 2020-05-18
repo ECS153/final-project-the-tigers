@@ -15,6 +15,7 @@
 		C01962FD2474FA4B007142FE /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01962FB2474FA4B007142FE /* MessageTableViewCell.swift */; };
 		C01962FE2474FA4B007142FE /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01962FC2474FA4B007142FE /* MessageTableViewCell.xib */; };
 		C019630024751BBA007142FE /* TargetRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01962FF24751BBA007142FE /* TargetRequestViewController.swift */; };
+		C01962F424722FA9007142FE /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01962F324722FA9007142FE /* PaymentViewController.swift */; };
 		C0319C7F2469B7D500447090 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0319C7E2469B7D500447090 /* AppDelegate.swift */; };
 		C0319C812469B7D600447090 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0319C802469B7D600447090 /* SceneDelegate.swift */; };
 		C0319C882469B7DA00447090 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0319C872469B7DA00447090 /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 		C01962FB2474FA4B007142FE /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		C01962FC2474FA4B007142FE /* MessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageTableViewCell.xib; sourceTree = "<group>"; };
 		C01962FF24751BBA007142FE /* TargetRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TargetRequestViewController.swift; path = Seda/Views/TargetRequestViewController.swift; sourceTree = SOURCE_ROOT; };
+		C01962F324722FA9007142FE /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PaymentViewController.swift; path = Seda/Controllers/PaymentViewController.swift; sourceTree = SOURCE_ROOT; };
 		C0319C7B2469B7D500447090 /* Seda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Seda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0319C7E2469B7D500447090 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0319C802469B7D600447090 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				C01962FF24751BBA007142FE /* TargetRequestViewController.swift */,
 				C01962F72474EED9007142FE /* ChatViewController.swift */,
 				C01962F52474DFFC007142FE /* UserHomeViewController.swift */,
+				C01962F324722FA9007142FE /* PaymentViewController.swift */,
 				C0DAC067246A387100F6B22E /* RegisterViewController.swift */,
 				C0DAC069246A389000F6B22E /* LoginViewController.swift */,
 				C0DAC06B246A39A100F6B22E /* WelcomeViewController.swift */,
@@ -271,6 +274,7 @@
 				C0319C7F2469B7D500447090 /* AppDelegate.swift in Sources */,
 				E6016040246CBD0600344918 /* ScanCardViewController.swift in Sources */,
 				C0319C812469B7D600447090 /* SceneDelegate.swift in Sources */,
+				C01962F424722FA9007142FE /* PaymentViewController.swift in Sources */,
 				C0DAC06C246A39A100F6B22E /* WelcomeViewController.swift in Sources */,
 				C0DAC06A246A389000F6B22E /* LoginViewController.swift in Sources */,
 				C01962FD2474FA4B007142FE /* MessageTableViewCell.swift in Sources */,

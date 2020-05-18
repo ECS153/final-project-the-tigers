@@ -45,6 +45,13 @@ class ScanCardViewController: UIViewController, ScanDelegate {
         let expiryMonth = creditCard.expiryMonth
         let expiryYear = creditCard.expiryYear
         cardNumberLabel.text = cardNumberLabel.text! + number
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: Constants.paymentStoryboard) as! PaymentViewController
+        vc.scanStats = scanViewController.getScanStats()
+        vc.number = creditCard.number
+        vc.cardImage = creditCard.image
+        vc.expiration = creditCard.expiryForDisplay()
+        vc.name = creditCard.name
         
         // If you're using Stripe and you include the CardScan/Stripe pod, you
       // can get `STPCardParams` directly from CardScan `CreditCard` objects,
@@ -57,5 +64,6 @@ class ScanCardViewController: UIViewController, ScanDelegate {
     // information (e.g., CVV) before tokenizing.
 
         self.dismiss(animated: true)
+        self.present(vc, animated: true)
     }
 }
