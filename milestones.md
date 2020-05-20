@@ -1,3 +1,47 @@
+# 5/19/2020
+
+Milestone video [link](https://drive.google.com/file/d/12GaMmUEb9fIe4MyGOyKqKSRbm6R3bpwf/view?usp=sharing)
+
+## Josh
+
+Last week: Working on the UI, assisting on Stripe, and merged PR for CardScan [PR](https://github.com/ECS153/final-project-the-tigers/pull/1) .
+
+Next week: Finish the overall UI framework and continue assisting on Stripe
+
+
+## Ryland Sepic 
+
+Last week: Setup the database for Firebase, user information and transactions. Removed 
+the necessity for storing an email. ProfileViewController, where the user will be taken after login. 
+[PR](https://github.com/ECS153/final-project-the-tigers/pull/2). 
+
+Next week: working on sending payment information from one user to the next.
+
+Stuck on: push notifications
+
+
+## DJ 
+
+Last week: Improved register and login function, built a new view for Stripe payment
+
+Next week: Use Firebase function to interact with Stripe, built a template for the chat function
+
+Struck on: Separate the card number type in part in UI 
+
+## LIUSIYU 
+
+Last week: Successfully solve the last week problem(connecting viewcontroller with the pay button), finish the client part of Stripe
+
+Next week: try to connect with the server part (firebase), including learning how to use the firebase, getting the token for encryption
+
+Struck on: how to place the files of firebase into our xcode, try to modify the code in order to match our project
+
+
+---
+---
+---
+
+
 # 5/11/2020
 
 Milestone video [link](https://drive.google.com/file/d/1al8-9H5j6tfAxbMt9yCy2n3L_ePNk6WA/view)
