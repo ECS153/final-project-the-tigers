@@ -15,6 +15,8 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var messageText: UITextField!
     
+    var targetUser:String = ""
+    
     let db = Firestore.firestore()
     
     var messages: [Message] = []
@@ -28,7 +30,9 @@ class ChatViewController: UIViewController {
     }
     
     func loadMessages() {
-        db.collection("messages").order(by: "time").addSnapshotListener { (querySnapshot, error) in
+        db.collection("messages")
+            .order(by: "time")
+            .addSnapshotListener { (querySnapshot, error) in
             self.messages = []
             if let err = error {
                 print(err)
@@ -37,12 +41,14 @@ class ChatViewController: UIViewController {
                     for doc in documents {
                         let data = doc.data()
                         if let sender = data["sender"] as? String, let body = data["body"] as? String {
-                            let newMessage = Message(sender: sender, body: body)
-                            self.messages.append(newMessage)
-                            DispatchQueue.main.async {
-                                self.tableView.reloadData()
-                                let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
-                                self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+                            if sender == Auth.auth().currentUser?.email || sender == (self.targetUser + "@seda.com"){
+                                let newMessage = Message(sender: sender, body: body)
+                                self.messages.append(newMessage)
+                                DispatchQueue.main.async {
+                                    self.tableView.reloadData()
+                                    let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
+                                    self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+                                }
                             }
                         }
                     }

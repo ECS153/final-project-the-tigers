@@ -32,8 +32,8 @@ class UserHomeViewController: UIViewController {
     
     @IBAction func chatPressed(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let chatVC = storyboard.instantiateViewController(identifier: Constants.chatPage) as! ChatViewController
-        self.navigationController?.pushViewController(chatVC, animated: true)
+        let targetRequestVC = storyboard.instantiateViewController(identifier: Constants.targetRequestPage) as! TargetRequestViewController
+        self.navigationController?.pushViewController(targetRequestVC, animated: true)
         
     }
     
