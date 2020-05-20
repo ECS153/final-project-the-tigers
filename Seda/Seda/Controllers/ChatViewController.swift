@@ -40,8 +40,9 @@ class ChatViewController: UIViewController {
                 if let documents = querySnapshot?.documents {
                     for doc in documents {
                         let data = doc.data()
-                        if let sender = data["sender"] as? String, let body = data["body"] as? String {
-                            if sender == Auth.auth().currentUser?.email || sender == (self.targetUser + "@seda.com"){
+                        if let sender = data["sender"] as? String, let body = data["body"] as? String, let target = data["target"] as? String {
+                            if (sender == Auth.auth().currentUser?.email && target == (self.targetUser + "@seda.com"))
+                                || (target == Auth.auth().currentUser?.email && sender == (self.targetUser + "@seda.com")){
                                 let newMessage = Message(sender: sender, body: body)
                                 self.messages.append(newMessage)
                                 DispatchQueue.main.async {
@@ -59,7 +60,10 @@ class ChatViewController: UIViewController {
     
     @IBAction func sendPressed(_ sender: UIButton) {
         if let messageBody = messageText.text, let messageSender = Auth.auth().currentUser?.email {
-            db.collection("messages").addDocument(data: ["sender" : messageSender, "body": messageBody, "time": Date().timeIntervalSince1970]) { (error) in
+            db.collection("messages").addDocument(data: ["sender" : messageSender,
+                                                         "body": messageBody,
+                                                         "time": Date().timeIntervalSince1970,
+                                                         "target": (targetUser + "@seda.com")]) { (error) in
                 if let err = error {
                     print(err)
                 } else {
