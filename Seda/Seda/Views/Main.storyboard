@@ -333,21 +333,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="hYl-0C-xJk">
-                                <rect key="frame" x="20" y="387.5" width="374" height="121.5"/>
+                                <rect key="frame" x="20" y="356.5" width="374" height="183.5"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wq4-17-vXi">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Who do you want to talk to:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pnl-Dw-is6">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="62" width="374" height="25.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D5f-ib-HBt">
-                                        <rect key="frame" x="0.0" y="37.5" width="374" height="34"/>
+                                        <rect key="frame" x="0.0" y="99.5" width="374" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Is-0v-jhb">
-                                        <rect key="frame" x="0.0" y="83.5" width="374" height="38"/>
+                                        <rect key="frame" x="0.0" y="145.5" width="374" height="38"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <state key="normal" title="Start the conversation"/>
                                         <connections>
@@ -357,8 +363,10 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="3Is-0v-jhb" firstAttribute="leading" secondItem="hYl-0C-xJk" secondAttribute="leading" id="2h4-Vz-NzV"/>
+                                    <constraint firstItem="Wq4-17-vXi" firstAttribute="leading" secondItem="hYl-0C-xJk" secondAttribute="leading" id="3hB-SY-QxJ"/>
                                     <constraint firstAttribute="trailing" secondItem="pnl-Dw-is6" secondAttribute="trailing" id="RMF-2F-L8c"/>
                                     <constraint firstItem="pnl-Dw-is6" firstAttribute="leading" secondItem="hYl-0C-xJk" secondAttribute="leading" id="RXl-hL-HQg"/>
+                                    <constraint firstAttribute="trailing" secondItem="Wq4-17-vXi" secondAttribute="trailing" id="TRH-nl-kWY"/>
                                     <constraint firstAttribute="trailing" secondItem="D5f-ib-HBt" secondAttribute="trailing" id="TRo-3c-4uI"/>
                                     <constraint firstItem="D5f-ib-HBt" firstAttribute="leading" secondItem="hYl-0C-xJk" secondAttribute="leading" id="Uq1-k4-9tj"/>
                                     <constraint firstAttribute="trailing" secondItem="3Is-0v-jhb" secondAttribute="trailing" id="cwT-Px-VZV"/>
@@ -377,6 +385,7 @@
                     <navigationItem key="navigationItem" id="QfD-hK-RmX"/>
                     <connections>
                         <outlet property="targetTextField" destination="D5f-ib-HBt" id="gMi-y4-WcV"/>
+                        <outlet property="warningLabel" destination="Wq4-17-vXi" id="fdd-Bn-b7z"/>
                         <segue destination="VrV-HH-iym" kind="show" id="s9U-rf-IgD"/>
                     </connections>
                 </viewController>

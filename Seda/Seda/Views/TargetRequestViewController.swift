@@ -7,10 +7,15 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class TargetRequestViewController: UIViewController {
 
     @IBOutlet weak var targetTextField: UITextField!
+    @IBOutlet weak var warningLabel: UILabel!
+    
+    let db = Firestore.firestore()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,21 +24,35 @@ class TargetRequestViewController: UIViewController {
     
 
     @IBAction func startPressed(_ sender: UIButton) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let chatVC = storyboard.instantiateViewController(identifier: Constants.chatPage) as! ChatViewController
-        self.navigationController?.pushViewController(chatVC, animated: true)
         if let targetUser = targetTextField.text{
-            chatVC.targetUser = targetUser
+            self.warningLabel.text = ""
+            checkUser(targetUser)
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func checkUser(_ targetUser: String) {
+        db.collection("users").addSnapshotListener { (querySnapshot, error) in
+            if let err = error {
+                print(err)
+            } else {
+                if let documents = querySnapshot?.documents {
+                    for doc in documents {
+                        let data = doc.data()
+                        if let username = data["username"] as? String {
+                            if username == targetUser {
+                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                let chatVC = storyboard.instantiateViewController(identifier: Constants.chatPage) as! ChatViewController
+                                self.navigationController?.pushViewController(chatVC, animated: true)
+                                chatVC.targetUser = targetUser
+                            } else {
+                                self.warningLabel.text = "User Not Found"
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
-    */
+
 
 }
