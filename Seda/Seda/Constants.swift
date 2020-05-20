@@ -9,4 +9,6 @@
 struct Constants {
     static let userHomePage = "UserHomeVC"
     static let profilePage = "ProfileVC"
+    static let chatPage = "ChatVC"
+    static let chatPrototypeCell = "ChatPrototypeCell"
 }
