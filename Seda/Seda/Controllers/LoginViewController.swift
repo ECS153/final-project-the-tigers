@@ -37,10 +37,10 @@ class LoginViewController: UIViewController {
                 } else {
                     //navigate to the next page
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let profileVC = storyboard.instantiateViewController(identifier: "ProfileVC") as! ProfileViewController
+                    let userHomeVC = storyboard.instantiateViewController(identifier: Constants.userHomePage) as! UserHomeViewController
                         
-                    profileVC.userEmail = self.userEmail
-                    self.navigationController?.pushViewController(profileVC, animated: true)
+                    userHomeVC.userEmail = self.userEmail
+                    self.navigationController?.pushViewController(userHomeVC, animated: true)
                 }
             }
         }
