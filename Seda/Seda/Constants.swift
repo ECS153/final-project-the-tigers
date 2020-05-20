@@ -7,6 +7,6 @@
 //
 
 struct Constants {
-    static let registerSegue = "RegisterDone"
-    static let loginSegue = "LoginDone"
+    static let userHomePage = "UserHomeVC"
+    static let profilePage = "ProfileVC"
 }

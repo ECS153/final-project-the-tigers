@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vAR-IS-23x">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vAR-IS-23x">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -127,7 +127,7 @@
                         <outlet property="emailText" destination="5TU-3j-IlH" id="8ZQ-Ub-h6P"/>
                         <outlet property="passwordText" destination="SWq-C7-ENC" id="eLK-q3-Fsf"/>
                         <outlet property="warningLabel" destination="Mtq-Gu-lvg" id="dN3-qA-6jv"/>
-                        <segue destination="j0Q-3h-zgl" kind="show" identifier="LoginDone" id="NE4-Pr-WR0"/>
+                        <segue destination="bfP-Rz-hut" kind="show" identifier="LoginDone" id="ED6-Vc-qdS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g1D-9E-in7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -201,7 +201,7 @@
                         <outlet property="emailText" destination="WHW-qI-oww" id="XvM-FW-jk8"/>
                         <outlet property="passwordText" destination="DYy-Wa-Gnl" id="63W-1p-c9i"/>
                         <outlet property="warningLabel" destination="Kwp-8O-rCQ" id="EBS-9J-vEN"/>
-                        <segue destination="j0Q-3h-zgl" kind="show" identifier="RegisterDone" id="emD-Vu-TZb"/>
+                        <segue destination="bfP-Rz-hut" kind="show" identifier="RegisterDone" id="24v-Jl-CyV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nkE-wD-irZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -246,7 +246,74 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q59-QU-669" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3364" y="157"/>
+            <point key="canvasLocation" x="4110" y="-158"/>
+        </scene>
+        <!--User Home View Controller-->
+        <scene sceneID="YkU-0L-BNY">
+            <objects>
+                <viewController storyboardIdentifier="UserHomeVC" id="bfP-Rz-hut" customClass="UserHomeViewController" customModule="Seda" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gl1-HK-kld">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r9r-v3-G1l">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="46" translatesAutoresizingMaskIntoConstraints="NO" id="XJY-qh-Tu5">
+                                        <rect key="frame" x="20" y="351.5" width="374" height="193.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ors-1D-Z0f">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="25.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOu-gl-Bch">
+                                                <rect key="frame" x="0.0" y="71.5" width="374" height="38"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                <state key="normal" title="My Wallet"/>
+                                                <connections>
+                                                    <action selector="myWalletPressed:" destination="bfP-Rz-hut" eventType="touchUpInside" id="jA9-Bo-E0J"/>
+                                                    <segue destination="j0Q-3h-zgl" kind="show" id="vhy-gu-sFM"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hGC-x9-CCR">
+                                                <rect key="frame" x="0.0" y="155.5" width="374" height="38"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                <state key="normal" title="Chat"/>
+                                                <connections>
+                                                    <action selector="chatPressed:" destination="bfP-Rz-hut" eventType="touchUpInside" id="qdf-qI-d0O"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="XJY-qh-Tu5" firstAttribute="leading" secondItem="r9r-v3-G1l" secondAttribute="leading" constant="20" id="0sw-kA-l7W"/>
+                                    <constraint firstItem="XJY-qh-Tu5" firstAttribute="centerY" secondItem="r9r-v3-G1l" secondAttribute="centerY" id="Xtq-PE-p38"/>
+                                    <constraint firstItem="XJY-qh-Tu5" firstAttribute="centerX" secondItem="r9r-v3-G1l" secondAttribute="centerX" id="tGh-Rh-4VK"/>
+                                    <constraint firstAttribute="trailing" secondItem="XJY-qh-Tu5" secondAttribute="trailing" constant="20" id="x8o-ha-9qW"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="r9r-v3-G1l" secondAttribute="bottom" id="PUs-Og-Ycd"/>
+                            <constraint firstItem="r9r-v3-G1l" firstAttribute="trailing" secondItem="cnr-hp-ZJv" secondAttribute="trailing" id="g63-cy-8rL"/>
+                            <constraint firstItem="r9r-v3-G1l" firstAttribute="top" secondItem="gl1-HK-kld" secondAttribute="top" id="iTo-3F-qQc"/>
+                            <constraint firstItem="r9r-v3-G1l" firstAttribute="leading" secondItem="cnr-hp-ZJv" secondAttribute="leading" id="ptf-xP-Cwf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="cnr-hp-ZJv"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="8eS-hk-UjR"/>
+                    <connections>
+                        <outlet property="welcomeLabel" destination="Ors-1D-Z0f" id="5Zd-Kl-Rdu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pec-ik-AF2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2418.840579710145" y="134.59821428571428"/>
         </scene>
         <!--ProfileVC-->
         <scene sceneID="IjQ-in-ZwI">
@@ -322,7 +389,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2vx-KQ-8h6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2460.8695652173915" y="156.69642857142856"/>
+            <point key="canvasLocation" x="3265" y="-158"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="L2r-xd-1mF">
@@ -344,6 +411,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="emD-Vu-TZb"/>
+        <segue reference="ED6-Vc-qdS"/>
     </inferredMetricsTieBreakers>
 </document>
