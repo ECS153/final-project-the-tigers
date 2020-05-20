@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class UserHomeViewController: UIViewController {
     
@@ -16,7 +17,8 @@ class UserHomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //hide Back Button on the navigation bar
+        self.navigationItem.setHidesBackButton(true, animated: false)
         // Do any additional setup after loading the view.
     }
     
@@ -29,6 +31,16 @@ class UserHomeViewController: UIViewController {
     }
     
     @IBAction func chatPressed(_ sender: UIButton) {
+    }
+    
+    @IBAction func logOutPressed(_ sender: UIButton) {
+        let firebaseAuth = Auth.auth()
+        do {
+          try firebaseAuth.signOut()
+            navigationController?.popToRootViewController(animated: true)
+        } catch let signOutError as NSError {
+          print ("Error signing out: %@", signOutError)
+        }
     }
     /*
     // MARK: - Navigation
