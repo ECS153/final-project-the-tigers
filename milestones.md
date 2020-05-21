@@ -1,6 +1,6 @@
 # 5/19/2020
 
-Milestone video [link](https://drive.google.com/file/d/12GaMmUEb9fIe4MyGOyKqKSRbm6R3bpwf/view?usp=sharing)
+Milestone video [link](https://drive.google.com/file/d/1NnZnNlRbVT2dfhaQEsFHAZvx76gaH-ew/view?usp=sharing)
 
 ## Josh
 
