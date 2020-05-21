@@ -11,21 +11,22 @@ import Stripe
 import CardScan
 
 class PaymentViewController: UIViewController {
-
     @IBOutlet weak var cardTextField: STPPaymentCardTextField!
-    let BackendUrl = "http://127.0.0.1:4242/"
     @IBOutlet weak var cardNumberLabel: UILabel!
-
+    @IBOutlet weak var cashAmount: UITextField!
+    
+    let backendUrl = "http://localhost:4242/"
     var scanStats: ScanStats?
     var number: String?
     var expiration: String?
     var name: String?
     var cardImage: UIImage?
-    
+    var cashToSend: String = "0.00"
     var paymentIntentClientSecret: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("viewDidLoad")
         startCheckout()
         //self.cardNumberLabel.text = format(number: self.number ?? "")
         // Do any additional setup after loading the view.
@@ -70,33 +71,33 @@ class PaymentViewController: UIViewController {
     func startCheckout() {
         // Request a PaymentIntent from your server and store its client secret
         // Create a PaymentIntent by calling the sample server's /create-payment-intent endpoint.
-        let url = URL(string: BackendUrl + "create-payment-intent")!
+        
+        let url = URL(string: backendUrl + "create-payment-intent")!
         let json: [String: Any] = [
-            "currency": "usd",
-            "items": [
-                "id": "photo_subscription"
-            ]
+          "items": [
+              ["id": "CASHTOSEND"]//TODO: CASHTOSEND should be taken from the UITextField, checked that it's a valid amount, and sent to our server
+          ]
         ]
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = try? JSONSerialization.data(withJSONObject: json)
         let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
-            guard let response = response as? HTTPURLResponse,
-                response.statusCode == 200,
-                let data = data,
-                let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
-                let clientSecret = json["clientSecret"] as? String,
-                let publishableKey = json["publishableKey"] as? String else {
-                    let message = error?.localizedDescription ?? "Failed to decode response from server."
-                    self?.displayAlert(title: "Error loading page", message: message)
-                    return
-            }
-            print("Created PaymentIntent")
-            self?.paymentIntentClientSecret = clientSecret
+          guard let response = response as? HTTPURLResponse,
+            response.statusCode == 200,
+            let data = data,
+            let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
+            let clientSecret = json["clientSecret"] as? String else {
+                let message = error?.localizedDescription ?? "Failed to decode response from server."
+                self?.displayAlert(title: "Error loading page", message: message)
+                return
+          }
+          print("Created PaymentIntent")
+          self?.paymentIntentClientSecret = clientSecret
+            print("Set Client Secret")
             // Configure the SDK with your Stripe publishable key so that it can make requests to the Stripe API
             // For added security, our sample app gets the publishable key from the server
-            Stripe.setDefaultPublishableKey(publishableKey)
+            //Stripe.setDefaultPublishableKey(publishableKey)
         })
         task.resume()
     }
@@ -119,6 +120,7 @@ class PaymentViewController: UIViewController {
     
     @objc
     func pay() {
+        print("Payment processing...")
         guard let paymentIntentClientSecret = paymentIntentClientSecret else {
             return;
         }
