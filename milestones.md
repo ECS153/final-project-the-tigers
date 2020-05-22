@@ -22,11 +22,11 @@ Stuck on: push notifications
 
 ## DJ 
 
-Last week: Improved register and login function, built a new view for Stripe payment
+Last week: Improved register and login function, built a new view for Stripe payment, built a chat function
 
-Next week: Use Firebase function to interact with Stripe, built a template for the chat function
+Next week: Use Firebase function to interact with Stripe, improve the security of the chat function
 
-Struck on: Separate the card number type in part in UI 
+Struck on: Separate the card number type in part of pre-build UI 
 
 ## LIUSIYU 
 
