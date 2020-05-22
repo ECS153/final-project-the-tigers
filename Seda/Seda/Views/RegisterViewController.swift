@@ -63,7 +63,9 @@ class RegisterViewController: UIViewController {
         
         db.collection("users").document(uid).setData([
             "username" : name,
-            "balance" : 0.01 // Adding a penny to confirm something was added
+            "balance" : 0.01, // Adding a penny to confirm something was added
+            "stripeId" : "none",
+            "uid": uid
         ]) { error in
             if error != nil {
                 print("Error initializing user account")
