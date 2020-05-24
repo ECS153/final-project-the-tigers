@@ -16,6 +16,7 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var messageText: UITextField!
     
     var targetUser:String = ""
+    var crypto: Crypto = Crypto()
     
     let db = Firestore.firestore()
     
@@ -59,10 +60,15 @@ class ChatViewController: UIViewController {
     }
     
     @IBAction func sendPressed(_ sender: UIButton) {
+        guard let publicKey = crypto.createPublicKey() else {
+            return
+        }
+        
         if let messageBody = messageText.text, let messageSender = Auth.auth().currentUser?.email {
             db.collection("messages").addDocument(data: ["sender" : messageSender,
                                                          "body": messageBody,
                                                          "time": Date().timeIntervalSince1970,
+                                                         "sender_public_key" : publicKey,
                                                          "target": (targetUser + "@seda.com")]) { (error) in
                 if let err = error {
                     print(err)

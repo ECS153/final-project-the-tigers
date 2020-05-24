@@ -59,6 +59,7 @@ class RegisterViewController: UIViewController {
      * Take the unique user ID and creates a user in the Firebase database
      */
     func createUser(uid: String, name: String) {
+        
         let db = Firestore.firestore()
         
         db.collection("users").document(uid).setData([
