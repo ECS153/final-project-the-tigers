@@ -17,6 +17,7 @@ class ChatViewController: UIViewController {
     
     var targetUser:String = ""
     var crypto: Crypto = Crypto()
+    var other_public_key: String = ""
     
     let db = Firestore.firestore()
     
@@ -44,7 +45,15 @@ class ChatViewController: UIViewController {
                         if let sender = data["sender"] as? String, let body = data["body"] as? String, let target = data["target"] as? String {
                             if (sender == Auth.auth().currentUser?.email && target == (self.targetUser + "@seda.com"))
                                 || (target == Auth.auth().currentUser?.email && sender == (self.targetUser + "@seda.com")){
-                                let newMessage = Message(sender: sender, body: body)
+                                
+                                self.other_public_key = data["sender_public_key"] as? String ?? ""
+                                
+                                guard let clearText = self.crypto.decrypt(dataString: body) else {
+                                    print("Could not obtain clear text")
+                                    continue
+                                }
+                                let newMessage = Message(sender: sender, body: clearText)
+                                
                                 self.messages.append(newMessage)
                                 DispatchQueue.main.async {
                                     self.tableView.reloadData()
@@ -64,11 +73,30 @@ class ChatViewController: UIViewController {
             return
         }
         
+        let publicKeyStr = crypto.convertKeyToString(publicKey: publicKey)
+        guard let publicKey_unwrapped = publicKeyStr else {
+            print("Could not get public key ready for Firebase")
+            return
+        }
+            
+        guard let mess = messageText.text else {
+            print("Could not unwrap message")
+            return
+        }
+        var cipherTextSend = "Initial message"
+        let receiver_pub_key = crypto.convertStringToKey(keyRaw: other_public_key)
+        if let target_key = receiver_pub_key {
+            guard let cipherText = crypto.encrypt(publicKey: target_key, clearText: mess) else {
+                return
+            }
+            cipherTextSend = cipherText
+        }
+        
         if let messageBody = messageText.text, let messageSender = Auth.auth().currentUser?.email {
             db.collection("messages").addDocument(data: ["sender" : messageSender,
-                                                         "body": messageBody,
+                                                         "body": cipherTextSend,
                                                          "time": Date().timeIntervalSince1970,
-                                                         "sender_public_key" : publicKey,
+                                                         "sender_public_key" : publicKey_unwrapped,
                                                          "target": (targetUser + "@seda.com")]) { (error) in
                 if let err = error {
                     print(err)
