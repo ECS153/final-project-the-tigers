@@ -22,7 +22,7 @@ class Crypto {
     let keyType = kSecAttrKeyTypeEC    // Choose cryptography key to use (ex: RSA, EC, etc.)
     let keySize = 256  // Size of the key in bits
     let keyTag_raw: Data? = "SedaKey".data(using: .utf8)   // This is the name of the key to retrieve it from the key chain.
-    let algorithm: SecKeyAlgorithm = .rsaEncryptionOAEPSHA512   // The algorithm used to protect the message
+    let algorithm: SecKeyAlgorithm = .eciesEncryptionCofactorVariableIVX963SHA256AESGCM   // The algorithm used to protect the message
     
     let keyTag: Data
     
@@ -121,7 +121,7 @@ class Crypto {
         publicKey: the public key you want to use to secure the message
         clearText: the text you want secured
      */
-    func encrypt(publicKey: SecKey, clearText: String) -> Data? {
+    func encrypt(publicKey: SecKey, clearText: String) -> String? {
         guard SecKeyIsAlgorithmSupported(publicKey, .encrypt, algorithm) else {
             print("VERY BAD: The ecyrption algorithm is not supported")
             return nil
@@ -134,10 +134,83 @@ class Crypto {
         }
         
         var err: Unmanaged<CFError>?
-        return SecKeyCreateEncryptedData(publicKey,
+        let cipherTextRaw = SecKeyCreateEncryptedData(publicKey,
                                          algorithm,
                                          clearTextData as CFData,
                                          &err) as Data?
-
+        
+        guard let cipherText = cipherTextRaw?.base64EncodedString() else {
+            print("Cipher text could not be converted")
+            return nil
+        }
+        
+        return cipherText
+    }
+    
+    func decrypt(dataString: String) -> String? {
+        guard let data = Data(base64Encoded: dataString) else {
+            print("decrypt(): Could not convert string to data")
+            return nil
+        }
+        
+        if priv_key == nil {
+            loadPrivKey()
+        }
+        
+        guard let privKey = priv_key else {
+            print("Something is VERY WRONG")
+            return nil
+        }
+        
+        guard SecKeyIsAlgorithmSupported(privKey, .decrypt, algorithm) else {
+             print("VERY BAD: The ecyrption algorithm is not supported")
+             return nil
+        }
+        
+        var err: Unmanaged<CFError>?
+        guard let clearData = SecKeyCreateDecryptedData(privKey, algorithm, data as CFData, &err) as Data? else {
+            print("Could not decrypt the data")
+            return nil
+        }
+        
+        return String(decoding: clearData, as: UTF8.self)
+    }
+    
+    /*
+     * Pass in the necessary public key
+     * Will mostly be the reciever's public key, accept for on the initial share
+     */
+    func convertKeyToString(publicKey: SecKey) -> String? {
+        var err:Unmanaged<CFError>?
+        
+        let keyData = SecKeyCopyExternalRepresentation(publicKey, &err)
+        guard let keyData_unwrapped = keyData else {
+            print("convertKeyToString(): could not unwrap the key's data")
+            return nil
+        }
+        let data:Data = keyData_unwrapped as Data
+        return data.base64EncodedString()
+    }
+    
+    func convertStringToKey(keyRaw: String) -> SecKey? {
+        guard let data = Data.init(base64Encoded: keyRaw) else {
+            print("Could not convert data to string")
+            return nil
+        }
+        
+        let attributes: [String:Any] = [
+            kSecAttrKeyType             as String: kSecAttrKeyTypeEC,
+            kSecAttrKeyClass            as String: kSecAttrKeyClassPublic,
+            kSecAttrKeySizeInBits       as String: keySize,
+            kSecReturnPersistentRef     as String: true
+        ]
+        
+        var err:Unmanaged<CFError>?
+        guard let key = SecKeyCreateWithData(data as CFData, attributes as CFDictionary, &err) else {
+            print("Unable to generate a key with data")
+            return nil
+        }
+        
+        return key
     }
 }
