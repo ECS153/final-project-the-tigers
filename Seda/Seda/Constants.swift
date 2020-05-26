@@ -12,4 +12,7 @@ struct Constants {
     static let chatPage = "ChatVC"
     static let chatPrototypeCell = "ChatPrototypeCell"
     static let targetRequestPage =  "TargetRequestVC"
+    static let registerSegue = "RegisterDone"
+    static let loginSegue = "LoginDone"
+    static let paymentStoryboard = "Payment"
 }

@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import IQKeyboardManagerSwift
 import CardScan
+import Stripe
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,7 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         IQKeyboardManager.shared.enableAutoToolbar = false
-        ScanViewController.configure(apiKey: "fkeuabRTa4p3x6sNrLtv0JPDaNiEDIv1")
+        ScanViewController.configure(apiKey: "yTAstrsjCkEQ45aoUXNnGdDqd1JNXBXQ")
+        Stripe.setDefaultPublishableKey("pk_test_qQPflEDEKNFFOnxpCDWYRk5Q00xYbiMrY9")
+
         return true
     }
 
