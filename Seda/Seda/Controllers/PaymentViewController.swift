@@ -9,13 +9,14 @@
 import UIKit
 import Stripe
 import CardScan
+import FirebaseFunctions
 
 class PaymentViewController: UIViewController {
     @IBOutlet weak var cardTextField: STPPaymentCardTextField!
     @IBOutlet weak var cardNumberLabel: UILabel!
     @IBOutlet weak var cashAmount: UITextField!
     
-    let backendUrl = "http://localhost:4242/"
+    let backendUrl = "https://us-central1-seda-63547.cloudfunctions.net/createPaymentIntent"
     var scanStats: ScanStats?
     var number: String?
     var expiration: String?
@@ -27,7 +28,8 @@ class PaymentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewDidLoad")
-        startCheckout()
+        //startCheckout()
+        startCheckoutFirebase(with: backendUrl)
         //self.cardNumberLabel.text = format(number: self.number ?? "")
         // Do any additional setup after loading the view.
     }
@@ -72,10 +74,11 @@ class PaymentViewController: UIViewController {
         // Request a PaymentIntent from your server and store its client secret
         // Create a PaymentIntent by calling the sample server's /create-payment-intent endpoint.
         
-        let url = URL(string: backendUrl + "create-payment-intent")!
+        let url = URL(string: backendUrl)!
         let json: [String: Any] = [
-          "items": [
-              ["id": "CASHTOSEND"]//TODO: CASHTOSEND should be taken from the UITextField, checked that it's a valid amount, and sent to our server
+          "body": [
+              ["amount": "100"],
+              ["currency": "usd"]//TODO: CASHTOSEND should be taken from the UITextField, checked that it's a valid amount, and sent to our server
           ]
         ]
         var request = URLRequest(url: url)
@@ -102,6 +105,7 @@ class PaymentViewController: UIViewController {
         task.resume()
     }
     
+    
     func displayAlert(title: String, message: String, restartDemo: Bool = false) {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -115,6 +119,37 @@ class PaymentViewController: UIViewController {
                 alert.addAction(UIAlertAction(title: "OK", style: .cancel))
             }
             self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func startCheckoutFirebase(with urlString: String) {
+        if let url = URL(string: urlString) {
+            let session = URLSession(configuration: .default)
+            let task = session.dataTask(with: url) { (data, response, error) in
+                if error != nil {
+                    print("error")
+                    return
+                }
+                if let safeData = data {
+                    if let clientSecret = self.parseJSON(safeData) {
+                        self.paymentIntentClientSecret = clientSecret
+                    }
+                }
+            }
+            task.resume()
+        }
+    }
+    
+    func parseJSON(_ clientData: Data) -> String? {
+        let decoder = JSONDecoder()
+        do {
+            let decodedData = try decoder.decode(ClientData.self, from: clientData)
+            let clientSecret = decodedData.clientSecret
+            return clientSecret
+            
+        } catch {
+            print("failllllll")
+            return nil
         }
     }
     

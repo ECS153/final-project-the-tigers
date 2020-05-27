@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         IQKeyboardManager.shared.enableAutoToolbar = false
         ScanViewController.configure(apiKey: "yTAstrsjCkEQ45aoUXNnGdDqd1JNXBXQ")
-        Stripe.setDefaultPublishableKey("pk_test_qQPflEDEKNFFOnxpCDWYRk5Q00xYbiMrY9")
+        Stripe.setDefaultPublishableKey("pk_test_p30YdZ9cUHnjMjfE1dttZn6k0017n2egmd")
 
         return true
     }
