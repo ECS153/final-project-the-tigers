@@ -1,3 +1,43 @@
+# 5/26/2020
+
+Milestone video [link](https://drive.google.com/file/d/1qbPz6FIEkKNNK1eehlJoo37HZgBaqtId/view?usp=sharing)
+
+## Josh
+
+Last week: Working on the UI and integrating Stripe, including setting up the server.
+Worked on a PR with DJ [PR](https://github.com/ECS153/final-project-the-tigers/pull/5)
+
+Next week: Working on the user experience and assisting on Stripe.
+
+## Ryland Sepic
+
+Last week: Working on creating a set of encryption functions that everyone can use in 
+order to encrypt and decrypt messages being sent to and from Firebase. [PR](https://github.com/ECS153/final-project-the-tigers/pull/6) 
+and [Design Doc](https://docs.google.com/document/d/17L7sCGY2r1CfZtjht2tPovifRarhnVrO5iAtdoJZc2A/edit)
+
+Next week: The encryption library is working according to the tests, however, their 
+needs to be a safe method for exchanging the public keys.
+
+Stuck On: Efficient and safe method for exchanging public keys.
+
+## DJ
+
+Last week: implemented a chat function for the project and worked with Josh on implementing Stripe.
+Has also been working with Liusiyu on integrating Stripe with Firebase. [PR](https://github.com/ECS153/final-project-the-tigers/pull/3)
+
+Next week: Finish integrating Stripe with Firebase and have it working. 
+
+## LIUSIYU
+
+Last week: Working on setting up Stripe with Firebase. Finished the pay function. [Current branch](https://github.com/ECS153/final-project-the-tigers/tree/glsy)
+
+Next week: Continue working on integrating stripe with Firebase
+
+---
+---
+---
+
+>>>>>>> Stashed changes
 # 5/19/2020
 
 Milestone video [link](https://drive.google.com/file/d/1NnZnNlRbVT2dfhaQEsFHAZvx76gaH-ew/view?usp=sharing)
