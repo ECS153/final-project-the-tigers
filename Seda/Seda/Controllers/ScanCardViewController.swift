@@ -24,9 +24,9 @@ class ScanCardViewController: UIViewController, ScanDelegate {
     }
     
     @IBAction func scanCardButtonIsPressed(_ sender: UIButton) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc1 = storyboard.instantiateViewController(withIdentifier: Constants.paymentStoryboard) as! PaymentViewController
-        self.present(vc1, animated: true)
+        //let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        //let vc1 = storyboard.instantiateViewController(withIdentifier: Constants.paymentStoryboard) as! PaymentViewController
+        //self.present(vc1, animated: true)
         guard let vc = ScanViewController.createViewController(withDelegate: self) else {
             print("This device is incompatible with CardScan")
             return
@@ -55,7 +55,8 @@ class ScanCardViewController: UIViewController, ScanDelegate {
         vc.cardImage = creditCard.image
         vc.expiration = creditCard.expiryForDisplay()
         vc.name = creditCard.name
-        
+        vc.expiryMonth = expiryMonth
+        vc.expiryYear = expiryYear
         // If you're using Stripe and you include the CardScan/Stripe pod, you
       // can get `STPCardParams` directly from CardScan `CreditCard` objects,
     // which you can use with Stripe's APIs
