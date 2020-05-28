@@ -15,7 +15,8 @@ class PaymentViewController: UIViewController {
     @IBOutlet weak var cardTextField: STPPaymentCardTextField!
     @IBOutlet weak var cardNumberLabel: UILabel!
     @IBOutlet weak var cashAmount: UITextField!
-    @IBOutlet weak var expirationTextField: UITextField!
+    @IBOutlet weak var expirationMonthTextField: UITextField!
+    @IBOutlet weak var expirationYearTextField: UITextField!
     @IBOutlet weak var cvcTextField: UITextField!
     @IBOutlet weak var zipTextField: UITextField!
     let backendUrl = "https://us-central1-seda-63547.cloudfunctions.net/createPaymentIntent"
@@ -23,6 +24,8 @@ class PaymentViewController: UIViewController {
     var number: String?
     var expiration: String?
     var name: String?
+    var expiryMonth: String?
+    var expiryYear: String?
     var cardImage: UIImage?
     var cashToSend: String = "0.00"
     var paymentIntentClientSecret: String?
@@ -32,7 +35,13 @@ class PaymentViewController: UIViewController {
         print("viewDidLoad")
         //startCheckout()
         startCheckoutFirebase(with: backendUrl)
-        //self.cardNumberLabel.text = format(number: self.number ?? "")
+        self.cardNumberLabel.text = format(number: self.number ?? "4242424242424242")
+        if expiration != nil {
+            expirationMonthTextField.text = expiryMonth
+            expirationYearTextField.text = expiryYear
+            expirationMonthTextField.isUserInteractionEnabled = false
+            expirationYearTextField.isUserInteractionEnabled = false
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -150,7 +159,7 @@ class PaymentViewController: UIViewController {
             return clientSecret
             
         } catch {
-            print("failllllll")
+            print("fail to decode the clientSecret")
             return nil
         }
     }
@@ -162,9 +171,23 @@ class PaymentViewController: UIViewController {
             return;
         }
         // Collect card details
-        if let expiration = self.expiration {
-        }
         let cardParams = cardTextField.cardParams
+        if let number = number {
+            cardParams.number = number
+        }
+        //use the test card number
+        cardParams.number = "4242424242424242"
+        if expiryMonth == nil {
+            cardParams.expMonth = NSNumber(value: Int(expirationMonthTextField.text ?? "") ?? 0)
+            cardParams.expYear = NSNumber(value: Int(expirationYearTextField.text ?? "") ?? 0)
+        } else {
+            cardParams.expMonth = NSNumber(value: Int(expiryMonth  ?? "") ?? 0)
+            cardParams.expYear = NSNumber(value: Int(expiryYear  ?? "") ?? 0)
+        }
+        if let cvc = cvcTextField.text {
+            cardParams.cvc = cvc
+           // cardTextField.postalCode = zip
+        }
         let paymentMethodParams = STPPaymentMethodParams(card: cardParams, billingDetails: nil, metadata: nil)
         let paymentIntentParams = STPPaymentIntentParams(clientSecret: paymentIntentClientSecret)
         paymentIntentParams.paymentMethodParams = paymentMethodParams
