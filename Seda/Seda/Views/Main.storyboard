@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vAR-IS-23x">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vAR-IS-23x">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -80,7 +80,7 @@
                                                 <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5TU-3j-IlH">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5TU-3j-IlH">
                                                 <rect key="frame" x="0.0" y="81" width="374" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" textContentType="email"/>
@@ -142,33 +142,68 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ARU-tc-bwy">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dia-hF-Fbu">
-                                        <rect key="frame" x="8" y="354" width="398" height="60"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <state key="normal" title="Pay">
-                                            <color key="titleColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="payPressed:" destination="E5V-aj-gvr" eventType="touchUpInside" id="wwh-uy-dfi"/>
-                                        </connections>
-                                    </button>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="abp-uB-Pxi" customClass="STPPaymentCardTextField">
-                                        <rect key="frame" x="20" y="278" width="374" height="68"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                    </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="cardNumberLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iVR-Jz-nHI">
-                                        <rect key="frame" x="125" y="435" width="164" height="26"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="2RO-J4-MTo">
+                                        <rect key="frame" x="20" y="286" width="374" height="324.33333333333326"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="abp-uB-Pxi" customClass="STPPaymentCardTextField">
+                                                <rect key="frame" x="20" y="0.0" width="334" height="44"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dia-hF-Fbu">
+                                                <rect key="frame" x="170" y="67" width="34" height="38"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                <state key="normal" title="Pay">
+                                                    <color key="titleColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="payPressed:" destination="E5V-aj-gvr" eventType="touchUpInside" id="wwh-uy-dfi"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cardNumberLabel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iVR-Jz-nHI">
+                                                <rect key="frame" x="20" y="127.99999999999999" width="334" height="25.333333333333329"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="MM/YY" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EWs-6z-fVf">
+                                                <rect key="frame" x="149.66666666666666" y="176.33333333333331" width="75" height="34"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="75" id="td5-s4-BHH"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="CVC" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ctQ-bj-uRo">
+                                                <rect key="frame" x="157" y="233.33333333333337" width="60" height="34"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="60" id="F1D-FK-tjN"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ZIP" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="clm-Sv-hyA">
+                                                <rect key="frame" x="149.66666666666666" y="290.33333333333337" width="75" height="34"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="75" id="frA-jj-yjn"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="abp-uB-Pxi" secondAttribute="trailing" constant="20" id="0Ap-VD-XwQ"/>
+                                            <constraint firstItem="iVR-Jz-nHI" firstAttribute="leading" secondItem="2RO-J4-MTo" secondAttribute="leading" constant="20" id="7hA-5W-WOG"/>
+                                            <constraint firstAttribute="trailing" secondItem="iVR-Jz-nHI" secondAttribute="trailing" constant="20" id="MnT-uP-bRs"/>
+                                            <constraint firstItem="abp-uB-Pxi" firstAttribute="leading" secondItem="2RO-J4-MTo" secondAttribute="leading" constant="20" id="cgb-4s-B6b"/>
+                                        </constraints>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="abp-uB-Pxi" secondAttribute="trailing" constant="20" id="ZRq-8q-QdM"/>
-                                    <constraint firstItem="abp-uB-Pxi" firstAttribute="leading" secondItem="ARU-tc-bwy" secondAttribute="leading" constant="20" id="qjP-Ld-zhy"/>
+                                    <constraint firstAttribute="trailing" secondItem="2RO-J4-MTo" secondAttribute="trailing" constant="20" id="7Y4-q0-1OC"/>
+                                    <constraint firstItem="2RO-J4-MTo" firstAttribute="centerY" secondItem="ARU-tc-bwy" secondAttribute="centerY" id="J9H-OD-EUE"/>
+                                    <constraint firstItem="2RO-J4-MTo" firstAttribute="leading" secondItem="ARU-tc-bwy" secondAttribute="leading" constant="20" id="QNr-Ow-tZX"/>
+                                    <constraint firstItem="2RO-J4-MTo" firstAttribute="centerX" secondItem="ARU-tc-bwy" secondAttribute="centerX" id="ija-5M-T1v"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -181,14 +216,18 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PKl-md-IlM"/>
                     </view>
+                    <navigationItem key="navigationItem" id="pml-Dr-Uy0"/>
                     <connections>
                         <outlet property="cardNumberLabel" destination="iVR-Jz-nHI" id="Zfg-fh-2xU"/>
                         <outlet property="cardTextField" destination="abp-uB-Pxi" id="SLI-Xc-DEL"/>
+                        <outlet property="cvcTextField" destination="ctQ-bj-uRo" id="g6P-X5-lvk"/>
+                        <outlet property="expirationTextField" destination="EWs-6z-fVf" id="bHt-e3-vLy"/>
+                        <outlet property="zipTextField" destination="clm-Sv-hyA" id="5IK-QY-fpG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FMA-MI-JXV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3291" y="100"/>
+            <point key="canvasLocation" x="4978" y="-158"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="dDs-eA-kR5">
@@ -210,7 +249,7 @@
                                                 <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WHW-qI-oww">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WHW-qI-oww">
                                                 <rect key="frame" x="0.0" y="80" width="374" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" textContentType="email"/>
@@ -226,7 +265,6 @@
                                                 <state key="normal" title="Register"/>
                                                 <connections>
                                                     <action selector="registerPressed:" destination="qKI-Aj-aPa" eventType="touchUpInside" id="P0g-bi-HdI"/>
-                                                    <segue destination="U1o-E4-8Ol" kind="show" identifier="RegisterDone" id="Mb2-7m-wJ1"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -298,6 +336,7 @@
                     <connections>
                         <outlet property="cardNumberLabel" destination="4gU-uK-ndd" id="WWB-hk-ROv"/>
                         <outlet property="scanCardButton" destination="hZz-kb-hZj" id="LTz-fq-rH1"/>
+                        <segue destination="E5V-aj-gvr" kind="show" id="s6n-8w-1s4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q59-QU-669" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -316,7 +355,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="46" translatesAutoresizingMaskIntoConstraints="NO" id="XJY-qh-Tu5">
-                                        <rect key="frame" x="20" y="303.5" width="374" height="289"/>
+                                        <rect key="frame" x="20" y="303.66666666666669" width="374" height="289.00000000000006"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ors-1D-Z0f">
                                                 <rect key="frame" x="0.0" y="0.0" width="374" height="37"/>
@@ -341,7 +380,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fAr-Cl-l0E">
-                                                <rect key="frame" x="0.0" y="251" width="374" height="38"/>
+                                                <rect key="frame" x="0.0" y="250.99999999999994" width="374" height="38"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                                 <state key="normal" title="Logout"/>
                                                 <connections>
@@ -389,7 +428,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="hYl-0C-xJk">
-                                <rect key="frame" x="20" y="356.5" width="374" height="183.5"/>
+                                <rect key="frame" x="20" y="356.33333333333331" width="374" height="183.33333333333331"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wq4-17-vXi">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
@@ -398,18 +437,18 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Who do you want to talk to:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pnl-Dw-is6">
-                                        <rect key="frame" x="0.0" y="62" width="374" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="62.000000000000007" width="374" height="25.333333333333336"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="D5f-ib-HBt">
-                                        <rect key="frame" x="0.0" y="99.5" width="374" height="34"/>
+                                        <rect key="frame" x="0.0" y="99.333333333333371" width="374" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Is-0v-jhb">
-                                        <rect key="frame" x="0.0" y="145.5" width="374" height="38"/>
+                                        <rect key="frame" x="0.0" y="145.33333333333337" width="374" height="38"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                         <state key="normal" title="Start the conversation"/>
                                         <connections>

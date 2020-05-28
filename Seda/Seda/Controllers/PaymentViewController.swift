@@ -15,7 +15,9 @@ class PaymentViewController: UIViewController {
     @IBOutlet weak var cardTextField: STPPaymentCardTextField!
     @IBOutlet weak var cardNumberLabel: UILabel!
     @IBOutlet weak var cashAmount: UITextField!
-    
+    @IBOutlet weak var expirationTextField: UITextField!
+    @IBOutlet weak var cvcTextField: UITextField!
+    @IBOutlet weak var zipTextField: UITextField!
     let backendUrl = "https://us-central1-seda-63547.cloudfunctions.net/createPaymentIntent"
     var scanStats: ScanStats?
     var number: String?
@@ -160,6 +162,8 @@ class PaymentViewController: UIViewController {
             return;
         }
         // Collect card details
+        if let expiration = self.expiration {
+        }
         let cardParams = cardTextField.cardParams
         let paymentMethodParams = STPPaymentMethodParams(card: cardParams, billingDetails: nil, metadata: nil)
         let paymentIntentParams = STPPaymentIntentParams(clientSecret: paymentIntentClientSecret)
