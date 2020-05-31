@@ -21,7 +21,7 @@ class Crypto {
     // We want to use an EC type key because it is 256 bits so it can be stored in the enclave
     let keyType = kSecAttrKeyTypeEC    // Choose cryptography key to use (ex: RSA, EC, etc.)
     let keySize = 256  // Size of the key in bits
-    let keyTag_raw: Data? = "SedaKey".data(using: .utf8)   // This is the name of the key to retrieve it from the key chain.
+    //let keyTag_raw: Data? = "SedaKey".data(using: .utf8)   // This is the name of the key to retrieve it from the key chain.
     let algorithm: SecKeyAlgorithm = .eciesEncryptionCofactorVariableIVX963SHA256AESGCM   // The algorithm used to protect the message
     
     let keyTag: Data
@@ -30,8 +30,8 @@ class Crypto {
     var priv_key: SecKey? = nil
     var pub_key: SecKey? = nil
     
-    init() {
-        guard let tag = self.keyTag_raw else {
+    init(_ keyTag_raw: String) {
+        guard let tag = keyTag_raw.data(using: .utf8) else {
             print("SOMETHING IS VERY WRONG: Can't unwrap a standard string in Crypto initializer")
             // The keyTag needs to be initialized in the event that this cannot be unwrapped
             // Something would have to be very wrong for us to end up here
@@ -47,7 +47,7 @@ class Crypto {
         if priv_key == nil {
             createPrivKey() // Create the private key
         }
-    }
+    } // init()
     
     
     // Creates a private key and stores it in the enclave
@@ -55,7 +55,7 @@ class Crypto {
         let attributes: [String: Any] = [
             kSecAttrKeyType         as String:   keyType,
             kSecAttrKeySizeInBits   as String:   keySize,
-            kSecAttrTokenID         as String:   kSecAttrTokenIDSecureEnclave, // Store the key in the enclave
+            //kSecAttrTokenID         as String:   kSecAttrTokenIDSecureEnclave, // Store the key in the enclave
             kSecPrivateKeyAttrs     as String: [
                 kSecAttrIsPermanent     as String: true,   // Store the key in the keychain, so we will be able to get the key when the user logs back into the application
                 kSecAttrApplicationTag  as String : keyTag
@@ -86,6 +86,22 @@ class Crypto {
         
         pub_key = publicKey
         return publicKey
+    }
+    
+    // Creates a public key
+    func generatePublicKey() -> String? {
+        guard let key = priv_key else {
+            print("The user does not have a private key")
+            return nil
+        }
+        
+        guard let publicKey = SecKeyCopyPublicKey(key) else {
+            print("Unable to generate a public key")
+            return nil
+        }
+        
+        pub_key = publicKey
+        return convertKeyToString(publicKey: publicKey)
     }
     
     /*
