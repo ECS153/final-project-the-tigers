@@ -12,14 +12,13 @@ import CardScan
 import FirebaseFunctions
 
 class PaymentViewController: UIViewController {
-    @IBOutlet weak var cardTextField: STPPaymentCardTextField!
     @IBOutlet weak var cardNumberLabel: UILabel!
     @IBOutlet weak var cashAmount: UITextField!
     @IBOutlet weak var expirationMonthTextField: UITextField!
     @IBOutlet weak var expirationYearTextField: UITextField!
     @IBOutlet weak var cvcTextField: UITextField!
     @IBOutlet weak var zipTextField: UITextField!
-    let backendUrl = "https://us-central1-seda-63547.cloudfunctions.net/createPaymentIntent"
+    let backendUrl = "https://us-central1-seda-63547.cloudfunctions.net/createPaymentIntentTest"
     var scanStats: ScanStats?
     var number: String?
     var expiration: String?
@@ -27,14 +26,14 @@ class PaymentViewController: UIViewController {
     var expiryMonth: String?
     var expiryYear: String?
     var cardImage: UIImage?
-    var cashToSend: String = "0.00"
+    var cashToSend: String?
     var paymentIntentClientSecret: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("viewDidLoad")
         //startCheckout()
-        startCheckoutFirebase(with: backendUrl)
+        startCheckoutFirebaseTest(with: backendUrl)
         self.cardNumberLabel.text = format(number: self.number ?? "4242424242424242")
         if expiration != nil {
             expirationMonthTextField.text = expiryMonth
@@ -81,49 +80,12 @@ class PaymentViewController: UIViewController {
         return displayNumber
     }
     
-    func startCheckout() {
-        // Request a PaymentIntent from your server and store its client secret
-        // Create a PaymentIntent by calling the sample server's /create-payment-intent endpoint.
-        
-        let url = URL(string: backendUrl)!
-        let json: [String: Any] = [
-          "body": [
-              ["amount": "100"],
-              ["currency": "usd"]//TODO: CASHTOSEND should be taken from the UITextField, checked that it's a valid amount, and sent to our server
-          ]
-        ]
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try? JSONSerialization.data(withJSONObject: json)
-        let task = URLSession.shared.dataTask(with: request, completionHandler: { [weak self] (data, response, error) in
-          guard let response = response as? HTTPURLResponse,
-            response.statusCode == 200,
-            let data = data,
-            let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
-            let clientSecret = json["clientSecret"] as? String else {
-                let message = error?.localizedDescription ?? "Failed to decode response from server."
-                self?.displayAlert(title: "Error loading page", message: message)
-                return
-          }
-          print("Created PaymentIntent")
-          self?.paymentIntentClientSecret = clientSecret
-            print("Set Client Secret")
-            // Configure the SDK with your Stripe publishable key so that it can make requests to the Stripe API
-            // For added security, our sample app gets the publishable key from the server
-            //Stripe.setDefaultPublishableKey(publishableKey)
-        })
-        task.resume()
-    }
-    
-    
     func displayAlert(title: String, message: String, restartDemo: Bool = false) {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             if restartDemo {
                 alert.addAction(UIAlertAction(title: "Restart demo", style: .cancel) { _ in
-                    self.cardTextField.clear()
-                    self.startCheckout()
+                    self.startCheckoutFirebaseTest(with: self.backendUrl)
                 })
             }
             else {
@@ -133,10 +95,13 @@ class PaymentViewController: UIViewController {
         }
     }
     
-    func startCheckoutFirebase(with urlString: String) {
-        if let url = URL(string: urlString) {
+    func startCheckoutFirebaseTest(with urlString: String) {
+        if var url = URLComponents(string: urlString) {
+            url.queryItems = [
+                URLQueryItem(name: "amount", value: "\(cashToSend)")
+            ]
             let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: url) { (data, response, error) in
+            let task = session.dataTask(with: url.url!) { (data, response, error) in
                 if error != nil {
                     print("error")
                     return
@@ -171,7 +136,7 @@ class PaymentViewController: UIViewController {
             return;
         }
         // Collect card details
-        let cardParams = cardTextField.cardParams
+        let cardParams = STPPaymentMethodCardParams()
         if let number = number {
             cardParams.number = number
         }

@@ -27,6 +27,7 @@
 		C0DAC06C246A39A100F6B22E /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DAC06B246A39A100F6B22E /* WelcomeViewController.swift */; };
 		C0DAC06E246A432D00F6B22E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0DAC06D246A432D00F6B22E /* GoogleService-Info.plist */; };
 		C0DAC070246A4AFE00F6B22E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DAC06F246A4AFE00F6B22E /* Constants.swift */; };
+		C0F7C42224846E7B0018F09D /* LoadBalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F7C42124846E7B0018F09D /* LoadBalanceViewController.swift */; };
 		E6016040246CBD0600344918 /* ScanCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E601603F246CBD0600344918 /* ScanCardViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		C0DAC06B246A39A100F6B22E /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		C0DAC06D246A432D00F6B22E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C0DAC06F246A4AFE00F6B22E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C0F7C42124846E7B0018F09D /* LoadBalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadBalanceViewController.swift; sourceTree = "<group>"; };
 		E601603F246CBD0600344918 /* ScanCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanCardViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,6 +137,7 @@
 		C0CFDACA246A3566004DB390 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C0F7C42124846E7B0018F09D /* LoadBalanceViewController.swift */,
 				C01962FF24751BBA007142FE /* TargetRequestViewController.swift */,
 				C01962F72474EED9007142FE /* ChatViewController.swift */,
 				C01962F52474DFFC007142FE /* UserHomeViewController.swift */,
@@ -289,6 +292,7 @@
 				C01962F82474EED9007142FE /* ChatViewController.swift in Sources */,
 				C0DAC070246A4AFE00F6B22E /* Constants.swift in Sources */,
 				C0B3233E247E4D1F0088124E /* ClientData.swift in Sources */,
+				C0F7C42224846E7B0018F09D /* LoadBalanceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
