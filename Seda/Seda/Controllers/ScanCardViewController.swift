@@ -14,9 +14,10 @@ class ScanCardViewController: UIViewController, ScanDelegate {
     @IBOutlet weak var scanCardButton: UIButton!
     @IBOutlet weak var cardNumberLabel: UILabel!
     
-    
+    var cashToSend: String?
     override func viewDidLoad() {
         super.viewDidLoad()
+        cardNumberLabel.text = "Load Balance: $\(cashToSend)"
         scanCardButton.layer.cornerRadius = 25;
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -57,6 +58,7 @@ class ScanCardViewController: UIViewController, ScanDelegate {
         vc.name = creditCard.name
         vc.expiryMonth = expiryMonth
         vc.expiryYear = expiryYear
+        vc.cashToSend = cashToSend
         // If you're using Stripe and you include the CardScan/Stripe pod, you
       // can get `STPCardParams` directly from CardScan `CreditCard` objects,
     // which you can use with Stripe's APIs
