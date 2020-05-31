@@ -7,11 +7,13 @@ import Firebase
 
 class Request {
     var name:String
-    var doc:QueryDocumentSnapshot
+    var docID:String
+    var friend_pub_key:String
     
-    init(name: String, doc: QueryDocumentSnapshot) {
+    init(name: String, _ doc: String, _ friend_pub_key: String) {
         self.name = name
-        self.doc = doc
+        self.docID = doc
+        self.friend_pub_key = friend_pub_key
     }
 }
 
@@ -29,9 +31,13 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         loadFriends()
         
+        friendsTable.allowsSelection = true
         friendsTable.delegate = self
         friendsTable.dataSource = self
-        friendsTable.register(UITableViewCell.self, forCellReuseIdentifier: "FriendsCell")
+        
+        friendsTable.register(FriendCell.self, forCellReuseIdentifier: "FriendCell")
+       
+        //friendsTable.register(UINib(nibName: "FriendCell", bundle: nil), forCellReuseIdentifier: "FriendCell")
     }
     
     @IBAction func add_friend(_ sender: Any) {
@@ -69,6 +75,9 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
             print("TransactionVC: unable to unwrap uid")
             return
         }
+        db.collection("friend_requests").document("\(request_ref.documentID)").updateData([
+            "docID": "\(request_ref.documentID)"
+        ])
         
         db.collection("users").document("\(uid)").updateData([
             "friend_requests": FieldValue.arrayUnion(["\(request_ref.documentID)"])
@@ -87,11 +96,11 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
                 if let documents = querySnapshot?.documents {
                     for doc in documents {
                         let data = doc.data()
-                        if let sender = data["sender"] as? String, let target = data["target"] as? String {
+                        if let sender = data["sender"] as? String, let target = data["target"] as? String, let docID = data["docID"] as? String, let friend_pub_key = data["sender_public_key"] as? String {
                             print("Going well \(self.user) \(target)")
                             if (target == self.user){
                                 
-                                let newRequest = Request(name: sender, doc: doc)
+                                let newRequest = Request(name: sender, docID, friend_pub_key)
                                 print("New Request \(newRequest)")
                                 self.requests.append(newRequest)
                                 
@@ -114,10 +123,28 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let req = requests[indexPath.row]
-        let cell  = tableView.dequeueReusableCell(withIdentifier: "FriendsCell", for: indexPath)
+        let cell  = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendCell
         cell.textLabel?.text = "You have a friend request from " + req.name
+       
+        cell.accessoryType = .detailDisclosureButton
+        
+        cell.actionBlock = { [unowned self] in
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let acceptFriendVC = storyboard.instantiateViewController(identifier: "AcceptFriendVC") as! AcceptFriendViewController
+            acceptFriendVC.request = self.requests[indexPath.row]
+            acceptFriendVC.crypto = self.crypto
+            self.navigationController?.pushViewController(acceptFriendVC, animated: true)
+        }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let acceptFriendVC = storyboard.instantiateViewController(identifier: "AcceptFriendVC") as! AcceptFriendViewController
+        acceptFriendVC.request = self.requests[indexPath.row]
+        acceptFriendVC.crypto = self.crypto
+        self.navigationController?.pushViewController(acceptFriendVC, animated: true)
     }
     
     // If user touches the friend request
@@ -129,6 +156,14 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.navigationController?.pushViewController(acceptFriendVC, animated: true)
     }
 } // class FriendsVC
+
+class FriendCell: UITableViewCell {
+    var actionBlock = { }
+
+    func userPressedCell() { // some action like button tap in cell occured
+        actionBlock()
+    }
+}
 
 
 
