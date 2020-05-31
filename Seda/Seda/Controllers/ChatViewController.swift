@@ -96,7 +96,6 @@ class ChatViewController: UIViewController {
             db.collection("messages").addDocument(data: ["sender" : messageSender,
                                                          "body": cipherTextSend,
                                                          "time": Date().timeIntervalSince1970,
-                                                         "sender_public_key" : publicKey_unwrapped,
                                                          "target": (targetUser + "@seda.com")]) { (error) in
                 if let err = error {
                     print(err)

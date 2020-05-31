@@ -36,6 +36,9 @@ class LoginViewController: UIViewController {
                     self.passwordText.text = ""
                 } else {
                     //navigate to the next page
+                    
+                    self.updateAccount(user: self.userEmail)
+                    
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let userHomeVC = storyboard.instantiateViewController(identifier: Constants.userHomePage) as! UserHomeViewController
                         
@@ -46,5 +49,37 @@ class LoginViewController: UIViewController {
         }
     }
     
-
+    func updateAccount(user: String) {
+        // Get current user
+        let curr_user = Auth.auth().currentUser
+        guard let uid = curr_user?.uid else {
+            print("TransactionVC: unable to unwrap uid")
+            return
+        }
+        
+        let db = Firestore.firestore()
+        db.collection("friend_requests").addSnapshotListener { (querySnapshot, error) in
+          
+            if let err = error {
+                print(err)
+            } else {
+                if let documents = querySnapshot?.documents {
+                    for doc in documents {
+                        let data = doc.data()
+                        if let sender = data["sender"] as? String, let target = data["target"] as? String, let docID = data["docID"] as? String, let friend_pub_key = data["target_public_key"] as? String, let user_pub_key = data["sender_public_key"] as? String {
+                            print("Going well \(user) \(target)")
+                            if (sender == user){
+                                let data = [
+                                    "user_public_key" : user_pub_key,
+                                    "friend_public_key" : friend_pub_key
+                                ]
+                                
+                                db.collection("users").document("\(uid)").collection("friends").document(target).setData(data)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
