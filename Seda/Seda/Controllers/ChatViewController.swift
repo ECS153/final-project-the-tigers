@@ -16,7 +16,7 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var messageText: UITextField!
     
     var targetUser:String = ""
-    var crypto: Crypto = Crypto()
+    var crypto: Crypto = Crypto("ryland")
     var other_public_key: String = ""
     
     let db = Firestore.firestore()

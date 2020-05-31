@@ -14,16 +14,32 @@ import FirebaseFirestore
 class ProfileViewController: UIViewController {
     @IBOutlet weak var balance: UILabel!
     @IBOutlet weak var username: UILabel!
+    @IBOutlet weak var friends_button: UIButton!
     
     var uid:String = ""
     var userEmail:String = ""
+    var crypto:Crypto? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
+            
+        let icon = UIImage(named: "friends_icon")
+        friends_button.setImage(icon, for: .normal)
+        friends_button.imageView?.contentMode = .scaleAspectFit
+
         username.text = userEmail
+        crypto = Crypto(userEmail)
         loadFromDB()
     }
     
+    @IBAction func friend_button_pressed(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let friendVC = storyboard.instantiateViewController(identifier: "FriendsViewController") as! FriendsViewController
+        friendVC.user = userEmail
+        friendVC.crypto = crypto
+        friendVC.user_id = uid
+        self.navigationController?.pushViewController(friendVC, animated: true)
+    }
     
     @IBAction func add_money(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
