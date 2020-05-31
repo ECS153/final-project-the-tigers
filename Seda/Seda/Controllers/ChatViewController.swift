@@ -16,18 +16,16 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var messageText: UITextField!
     
     var targetUser:String = ""
-    var crypto: Crypto = Crypto("ryland")
-    var other_public_key: String = ""
     
     let db = Firestore.firestore()
-    
+    var crypto:Crypto? = nil
     var messages: [Message] = []
+    var friend_pub_key:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.register(UINib(nibName: "MessageTableViewCell", bundle: nil), forCellReuseIdentifier: Constants.chatPrototypeCell)
-        
         loadMessages()
     }
     
@@ -46,15 +44,15 @@ class ChatViewController: UIViewController {
                             if (sender == Auth.auth().currentUser?.email && target == (self.targetUser + "@seda.com"))
                                 || (target == Auth.auth().currentUser?.email && sender == (self.targetUser + "@seda.com")){
                                 
-                                self.other_public_key = data["sender_public_key"] as? String ?? ""
-                                
-                                guard let clearText = self.crypto.decrypt(dataString: body) else {
-                                    print("Could not obtain clear text")
-                                    continue
+                                print("body \(body)")
+                                if let clearText = self.crypto?.decrypt(dataString: body) {
+                                    let newMessage = Message(sender: sender, body: clearText)
+                                    self.messages.append(newMessage)
+                                } else {
+                                    let newMessage = Message(sender: sender, body: body)
+                                    self.messages.append(newMessage)
                                 }
-                                let newMessage = Message(sender: sender, body: clearText)
                                 
-                                self.messages.append(newMessage)
                                 DispatchQueue.main.async {
                                     self.tableView.reloadData()
                                     let indexPath = IndexPath(row: self.messages.count - 1, section: 0)
@@ -69,47 +67,75 @@ class ChatViewController: UIViewController {
     }
     
     @IBAction func sendPressed(_ sender: UIButton) {
-        guard let publicKey = crypto.createPublicKey() else {
+       // let friend_pub_key = retrieveFriendsKey(targetUser: self.targetUser)
+        
+        
+        let image_queue = DispatchQueue(label: "image_queue")
+        let group = DispatchGroup()
+        
+        guard let message_text = self.messageText.text else {
             return
         }
         
-        let publicKeyStr = crypto.convertKeyToString(publicKey: publicKey)
-        guard let publicKey_unwrapped = publicKeyStr else {
-            print("Could not get public key ready for Firebase")
-            return
-        }
+        // Post image loading to a separate thread.
+        image_queue.async {
             
-        guard let mess = messageText.text else {
-            print("Could not unwrap message")
-            return
-        }
-        var cipherTextSend = "Initial message"
-        let receiver_pub_key = crypto.convertStringToKey(keyRaw: other_public_key)
-        if let target_key = receiver_pub_key {
-            guard let cipherText = crypto.encrypt(publicKey: target_key, clearText: mess) else {
+            let cur_user = Auth.auth().currentUser
+            guard let uid = cur_user?.uid else {
+                print("This user does not have a uid")
                 return
             }
-            cipherTextSend = cipherText
-        }
-        
-        if let messageBody = messageText.text, let messageSender = Auth.auth().currentUser?.email {
-            db.collection("messages").addDocument(data: ["sender" : messageSender,
-                                                         "body": cipherTextSend,
-                                                         "time": Date().timeIntervalSince1970,
-                                                         "target": (targetUser + "@seda.com")]) { (error) in
-                if let err = error {
-                    print(err)
-                } else {
-                    DispatchQueue.main.async {
-                        self.messageText.text = ""
+            
+            
+            // Use the inputted username to access DB
+            let db = Firestore.firestore()
+            let users = db.collection("users").document(uid).collection("friends").document(self.targetUser)
+               
+            group.enter()
+            // dispatch image retreival from Firebase on a global thread.
+            DispatchQueue.global(qos: .userInitiated).async {
+                users.getDocument { (document, error) in
+                    if let document = document {
+                        // If balance is unable to be placed in then use -1
+                        guard let bal = document.get("friend_public_key") as? String else {
+                            return
+                        }
+                        self.friend_pub_key = bal
                     }
+                    
+                    group.leave()
                 }
             }
-        }
-    }
-    
-
-}
+            
+            group.wait()
+            
+            guard let friendsKey = self.crypto?.convertStringToKey(keyRaw: self.friend_pub_key) else {
+                return
+            }
+            
+            guard let messageBody = self.crypto?.encrypt(friendsKey, clearText: message_text) else {
+                print("Could not encrypt message")
+                return
+            }
+            print("messagebody \(messageBody)")
+            if let messageSender = Auth.auth().currentUser?.email {
+                
+                db.collection("messages").addDocument(data: ["sender" : messageSender,
+                                                             "body": messageBody,
+                                                             "time": Date().timeIntervalSince1970,
+                                                             "target": (self.targetUser + "@seda.com")]) { (error) in
+                    if let err = error {
+                        print(err)
+                    } else {
+                        DispatchQueue.main.async {
+                            self.messageText.text = ""
+                        }
+                    }
+                }
+            } // if
+        } // async queue
+    } // func
+} // class
 
 extension ChatViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

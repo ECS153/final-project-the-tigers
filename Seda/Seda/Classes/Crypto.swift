@@ -31,6 +31,7 @@ class Crypto {
     var pub_key: SecKey? = nil
     
     init(_ keyTag_raw: String) {
+        let keyTag_raww = "Key"
         guard let tag = keyTag_raw.data(using: .utf8) else {
             print("SOMETHING IS VERY WRONG: Can't unwrap a standard string in Crypto initializer")
             // The keyTag needs to be initialized in the event that this cannot be unwrapped
@@ -55,7 +56,7 @@ class Crypto {
         let attributes: [String: Any] = [
             kSecAttrKeyType         as String:   keyType,
             kSecAttrKeySizeInBits   as String:   keySize,
-            //kSecAttrTokenID         as String:   kSecAttrTokenIDSecureEnclave, // Store the key in the enclave
+          //  kSecAttrTokenID         as String:   kSecAttrTokenIDSecureEnclave, // Store the key in the enclave
             kSecPrivateKeyAttrs     as String: [
                 kSecAttrIsPermanent     as String: true,   // Store the key in the keychain, so we will be able to get the key when the user logs back into the application
                 kSecAttrApplicationTag  as String : keyTag
@@ -137,7 +138,7 @@ class Crypto {
         publicKey: the public key you want to use to secure the message
         clearText: the text you want secured
      */
-    func encrypt(publicKey: SecKey, clearText: String) -> String? {
+    func encrypt(_ publicKey: SecKey, clearText: String) -> String? {
         guard SecKeyIsAlgorithmSupported(publicKey, .encrypt, algorithm) else {
             print("VERY BAD: The ecyrption algorithm is not supported")
             return nil

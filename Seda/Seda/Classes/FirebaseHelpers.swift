@@ -33,6 +33,52 @@ func checkUserHelper(_ targetUser: String) -> Bool {
     return rtnVal
 }
 
+func getUID() -> String {
+    // Get current user
+    let curr_user = Auth.auth().currentUser
+    guard let uid = curr_user?.uid else {
+        print("TransactionVC: unable to unwrap uid")
+        return ""
+    }
+    
+    return uid
+}
+
+func retrieveFriendsKey(targetUser:String) -> String{
+    let uid = getUID()
+    var friend_pub_key:String = ""
+    let database = Firestore.firestore()
+    let uidRef = database.collection("users").document(uid) //.collection("friends").document(targetUser)
+    
+    let fb_queue = DispatchQueue(label: "fb_queue")
+    let group = DispatchGroup()
+    
+       
+    DispatchQueue.global(qos: .userInitiated).async {
+        uidRef.getDocument { (document, error) in
+            if let err = error {
+                print(err)
+                group.leave()
+            }
+            
+            if let document = document {
+                // If balance is unable to be placed in then use -1
+               // guard let data = document.get("friend_public_key") as? String else {
+                guard let data = document.get("balance") as? String else {
+                    return
+                }
+                friend_pub_key = data
+            }
+        }
+        
+        group.leave()
+    }
+    
+    group.wait()
+    
+    return friend_pub_key
+}
+
 func loadFriends(user: String) {
     let db = Firestore.firestore()
     db.collection("friend_requests")

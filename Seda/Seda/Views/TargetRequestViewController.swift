@@ -13,7 +13,7 @@ class TargetRequestViewController: UIViewController {
 
     @IBOutlet weak var targetTextField: UITextField!
     @IBOutlet weak var warningLabel: UILabel!
-    
+    var crypto:Crypto?
     let db = Firestore.firestore()
     
     override func viewDidLoad() {
@@ -42,6 +42,7 @@ class TargetRequestViewController: UIViewController {
                             if username == targetUser {
                                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                                 let chatVC = storyboard.instantiateViewController(identifier: Constants.chatPage) as! ChatViewController
+                                chatVC.crypto = self.crypto
                                 self.navigationController?.pushViewController(chatVC, animated: true)
                                 chatVC.targetUser = targetUser
                             } else {

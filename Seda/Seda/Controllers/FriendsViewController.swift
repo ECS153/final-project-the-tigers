@@ -124,7 +124,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let req = requests[indexPath.row]
         let cell  = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendCell
-        cell.textLabel?.text = "You have a friend request from " + req.name
+        cell.textLabel?.text = req.name
        
         cell.accessoryType = .detailDisclosureButton
         
@@ -155,6 +155,21 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         acceptFriendVC.crypto = self.crypto
         self.navigationController?.pushViewController(acceptFriendVC, animated: true)
     }
+    
+    /*
+     * Delegate function to recognize row selection. Segues to selected posting.
+     */
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let ViewPostingVC = storyboard.instantiateViewController(identifier: "AcceptFriendVC") as! AcceptFriendViewController
+        
+        ViewPostingVC.modalPresentationStyle = .fullScreen
+        ViewPostingVC.request = requests[indexPath.row]
+        ViewPostingVC.crypto = self.crypto
+        
+        self.navigationController?.pushViewController(ViewPostingVC, animated: true)
+    }
+    
 } // class FriendsVC
 
 class FriendCell: UITableViewCell {
