@@ -21,6 +21,7 @@ class ChatViewController: UIViewController {
     var crypto:Crypto? = nil
     var messages: [Message] = []
     var friend_pub_key:String = ""
+    var my_pub_key:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +47,9 @@ class ChatViewController: UIViewController {
                                 
                                 print("body \(body)")
                                 if let clearText = self.crypto?.decrypt(dataString: body) {
+                                    let newMessage = Message(sender: sender, body: clearText)
+                                    self.messages.append(newMessage)
+                                } else if let senderBody = data["senderBody"] as? String, let clearText = self.crypto?.decrypt(dataString: senderBody){
                                     let newMessage = Message(sender: sender, body: clearText)
                                     self.messages.append(newMessage)
                                 } else {
@@ -97,10 +101,11 @@ class ChatViewController: UIViewController {
                 users.getDocument { (document, error) in
                     if let document = document {
                         // If balance is unable to be placed in then use -1
-                        guard let bal = document.get("friend_public_key") as? String else {
+                        guard let bal = document.get("friend_public_key") as? String, let bal_mine = document.get("user_public_key") as? String else {
                             return
                         }
                         self.friend_pub_key = bal
+                        self.my_pub_key = bal_mine
                     }
                     
                     group.leave()
@@ -109,7 +114,7 @@ class ChatViewController: UIViewController {
             
             group.wait()
             
-            guard let friendsKey = self.crypto?.convertStringToKey(keyRaw: self.friend_pub_key) else {
+            guard let friendsKey = self.crypto?.convertStringToKey(keyRaw: self.friend_pub_key), let myPubKey = self.crypto?.convertStringToKey(keyRaw: self.my_pub_key) else {
                 return
             }
             
@@ -117,11 +122,18 @@ class ChatViewController: UIViewController {
                 print("Could not encrypt message")
                 return
             }
+            
+            guard let senderBody = self.crypto?.encrypt(myPubKey, clearText: message_text) else {
+                print("Could not encrypt message")
+                return
+            }
+            
             print("messagebody \(messageBody)")
             if let messageSender = Auth.auth().currentUser?.email {
                 
                 db.collection("messages").addDocument(data: ["sender" : messageSender,
                                                              "body": messageBody,
+                                                             "senderBody" : senderBody,
                                                              "time": Date().timeIntervalSince1970,
                                                              "target": (self.targetUser + "@seda.com")]) { (error) in
                     if let err = error {
