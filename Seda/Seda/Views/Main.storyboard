@@ -139,11 +139,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="abp-uB-Pxi" customClass="STPPaymentCardTextField">
-                                <rect key="frame" x="40" y="426" width="334" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ARU-tc-bwy">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
@@ -237,7 +232,6 @@
                     <navigationItem key="navigationItem" id="pml-Dr-Uy0"/>
                     <connections>
                         <outlet property="cardNumberLabel" destination="iVR-Jz-nHI" id="Zfg-fh-2xU"/>
-                        <outlet property="cardTextField" destination="abp-uB-Pxi" id="SLI-Xc-DEL"/>
                         <outlet property="cvcTextField" destination="ctQ-bj-uRo" id="dHT-8e-9oY"/>
                         <outlet property="expirationMonthTextField" destination="EWs-6z-fVf" id="ROd-iS-WMl"/>
                         <outlet property="expirationYearTextField" destination="bca-oK-Z4a" id="5kf-J4-H7E"/>
@@ -303,7 +297,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="C1N-DJ-vcP"/>
                     <connections>
-                        <outlet property="LoadTextField" destination="lhs-0H-12G" id="Pbr-Ye-3ge"/>
+                        <outlet property="LoadTextField" destination="Kzu-jl-lec" id="8wm-Qo-DZY"/>
                         <segue destination="U1o-E4-8Ol" kind="show" id="oAk-0G-UWH"/>
                     </connections>
                 </viewController>
@@ -432,7 +426,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="lQy-zP-rDe"/>
                     <connections>
-                        <outlet property="cardNumberLabel" destination="4gU-uK-ndd" id="WWB-hk-ROv"/>
+                        <outlet property="cardNumberLabel" destination="4gU-uK-ndd" id="T0n-qM-nGH"/>
                         <outlet property="scanCardButton" destination="hZz-kb-hZj" id="LTz-fq-rH1"/>
                         <segue destination="E5V-aj-gvr" kind="show" id="s6n-8w-1s4"/>
                     </connections>

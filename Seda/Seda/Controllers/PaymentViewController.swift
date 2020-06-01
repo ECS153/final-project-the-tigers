@@ -9,11 +9,12 @@
 import UIKit
 import Stripe
 import CardScan
+import Firebase
+import FirebaseFirestore
 import FirebaseFunctions
 
 class PaymentViewController: UIViewController {
     @IBOutlet weak var cardNumberLabel: UILabel!
-    @IBOutlet weak var cashAmount: UITextField!
     @IBOutlet weak var expirationMonthTextField: UITextField!
     @IBOutlet weak var expirationYearTextField: UITextField!
     @IBOutlet weak var cvcTextField: UITextField!
@@ -28,6 +29,7 @@ class PaymentViewController: UIViewController {
     var cardImage: UIImage?
     var cashToSend: String?
     var paymentIntentClientSecret: String?
+    var balance: Double?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,8 +86,10 @@ class PaymentViewController: UIViewController {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             if restartDemo {
-                alert.addAction(UIAlertAction(title: "Restart demo", style: .cancel) { _ in
-                    self.startCheckoutFirebaseTest(with: self.backendUrl)
+                alert.addAction(UIAlertAction(title: "Back to Profile", style: .cancel) { _ in
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let profileVC = storyboard.instantiateViewController(identifier: Constants.profilePage) as! ProfileViewController
+                    self.navigationController?.pushViewController(profileVC, animated: true)
                 })
             }
             else {
@@ -95,10 +99,43 @@ class PaymentViewController: UIViewController {
         }
     }
     
+    func addBalance() {
+        let cur_user = Auth.auth().currentUser
+        guard let uid = cur_user?.uid else {
+            print("This user does not have a uid")
+            return
+        }
+        print(uid)
+        let db = Firestore.firestore()
+        let users = db.collection("users").document(uid)
+        
+        users.getDocument { (document, error) in
+            if let err = error {
+                print(err)
+            } else {
+                // If balance is unable to be placed in then use -1
+                let balance = document!.get("balance") as? Double ?? -1
+                if let cashToSend = self.cashToSend {
+                    let updateBalance: Double = balance + Double(cashToSend)!
+                    print(updateBalance)
+                    db.collection("users").document(uid).setData([
+                        "balance" : updateBalance
+                    ]) { error in
+                        if error != nil {
+                            print("Error updating balance")
+                        } else {
+                            print("Balance update!")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func startCheckoutFirebaseTest(with urlString: String) {
         if var url = URLComponents(string: urlString) {
             url.queryItems = [
-                URLQueryItem(name: "amount", value: "\(cashToSend)")
+                URLQueryItem(name: "amount", value: cashToSend! + "00")
             ]
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url.url!) { (data, response, error) in
@@ -168,6 +205,7 @@ class PaymentViewController: UIViewController {
                 self.displayAlert(title: "Payment canceled", message: error?.localizedDescription ?? "")
                 break
             case .succeeded:
+                self.addBalance()
                 self.displayAlert(title: "Payment succeeded", message: paymentIntent?.description ?? "", restartDemo: true)
                 break
             @unknown default:

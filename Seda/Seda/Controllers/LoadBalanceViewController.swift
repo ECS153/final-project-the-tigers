@@ -10,7 +10,8 @@ import UIKit
 
 class LoadBalanceViewController: UIViewController {
 
-    @IBOutlet weak var LoadTextField: UIStackView!
+    @IBOutlet weak var LoadTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         LoadTextField.text = ""
