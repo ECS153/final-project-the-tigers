@@ -13,6 +13,7 @@ import FirebaseFirestore
 
 class ProfileViewController: UIViewController {
     @IBOutlet weak var balance: UILabel!
+    
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var friends_button: UIButton!
     

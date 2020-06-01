@@ -8,41 +8,54 @@
 
 /* Begin PBXBuildFile section */
 		B1E736E0E3ACE0233FFD8242 /* Pods_Seda.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB45B031B71CF3F597015D7 /* Pods_Seda.framework */; };
-		BA915729247249AC00380F6A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA915728247249AC00380F6A /* ProfileViewController.swift */; };
-		C01962F424722FA9007142FE /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01962F324722FA9007142FE /* PaymentViewController.swift */; };
-		C01962F62474DFFC007142FE /* UserHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01962F52474DFFC007142FE /* UserHomeViewController.swift */; };
-		C01962F82474EED9007142FE /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01962F72474EED9007142FE /* ChatViewController.swift */; };
+		BA4C4CF92484BABD00C36256 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4CF82484BABD00C36256 /* Crypto.swift */; };
+		BA4C4D062484BAED00C36256 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4CFB2484BAED00C36256 /* ChatViewController.swift */; };
+		BA4C4D072484BAED00C36256 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4CFC2484BAED00C36256 /* FriendsViewController.swift */; };
+		BA4C4D082484BAED00C36256 /* LoadBalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4CFD2484BAED00C36256 /* LoadBalanceViewController.swift */; };
+		BA4C4D092484BAED00C36256 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4CFE2484BAED00C36256 /* Message.swift */; };
+		BA4C4D0A2484BAED00C36256 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4CFF2484BAED00C36256 /* WelcomeViewController.swift */; };
+		BA4C4D0B2484BAED00C36256 /* AcceptFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4D002484BAED00C36256 /* AcceptFriendViewController.swift */; };
+		BA4C4D0C2484BAED00C36256 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4D012484BAED00C36256 /* PaymentViewController.swift */; };
+		BA4C4D0D2484BAED00C36256 /* UserHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4D022484BAED00C36256 /* UserHomeViewController.swift */; };
+		BA4C4D0E2484BAED00C36256 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4D032484BAED00C36256 /* LoginViewController.swift */; };
+		BA4C4D0F2484BAED00C36256 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4D042484BAED00C36256 /* ProfileViewController.swift */; };
+		BA4C4D102484BAED00C36256 /* ScanCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4D052484BAED00C36256 /* ScanCardViewController.swift */; };
+		BA4C4D132484BB4100C36256 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4D112484BB4100C36256 /* RegisterViewController.swift */; };
+		BA4C4D142484BB4100C36256 /* TargetRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4D122484BB4100C36256 /* TargetRequestViewController.swift */; };
 		C01962FA2474F08C007142FE /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01962F92474F08C007142FE /* Message.swift */; };
 		C01962FD2474FA4B007142FE /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01962FB2474FA4B007142FE /* MessageTableViewCell.swift */; };
 		C01962FE2474FA4B007142FE /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C01962FC2474FA4B007142FE /* MessageTableViewCell.xib */; };
-		C019630024751BBA007142FE /* TargetRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01962FF24751BBA007142FE /* TargetRequestViewController.swift */; };
 		C0319C7F2469B7D500447090 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0319C7E2469B7D500447090 /* AppDelegate.swift */; };
 		C0319C812469B7D600447090 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0319C802469B7D600447090 /* SceneDelegate.swift */; };
 		C0319C882469B7DA00447090 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0319C872469B7DA00447090 /* Assets.xcassets */; };
 		C0319C8B2469B7DA00447090 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0319C892469B7DA00447090 /* LaunchScreen.storyboard */; };
 		C0B3233E247E4D1F0088124E /* ClientData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B3233D247E4D1F0088124E /* ClientData.swift */; };
 		C0DAC066246A36F200F6B22E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0DAC065246A36F200F6B22E /* Main.storyboard */; };
-		C0DAC068246A387100F6B22E /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DAC067246A387100F6B22E /* RegisterViewController.swift */; };
-		C0DAC06A246A389000F6B22E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DAC069246A389000F6B22E /* LoginViewController.swift */; };
-		C0DAC06C246A39A100F6B22E /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DAC06B246A39A100F6B22E /* WelcomeViewController.swift */; };
 		C0DAC06E246A432D00F6B22E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C0DAC06D246A432D00F6B22E /* GoogleService-Info.plist */; };
 		C0DAC070246A4AFE00F6B22E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DAC06F246A4AFE00F6B22E /* Constants.swift */; };
-		C0F7C42224846E7B0018F09D /* LoadBalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F7C42124846E7B0018F09D /* LoadBalanceViewController.swift */; };
-		E6016040246CBD0600344918 /* ScanCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E601603F246CBD0600344918 /* ScanCardViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3EB45B031B71CF3F597015D7 /* Pods_Seda.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Seda.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		403AC6112B1FB145E057550E /* Pods-Seda.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seda.debug.xcconfig"; path = "Target Support Files/Pods-Seda/Pods-Seda.debug.xcconfig"; sourceTree = "<group>"; };
 		7684AFCAE6A7412AA1E1139B /* Pods-Seda.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seda.release.xcconfig"; path = "Target Support Files/Pods-Seda/Pods-Seda.release.xcconfig"; sourceTree = "<group>"; };
-		BA915728247249AC00380F6A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		C01962F324722FA9007142FE /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PaymentViewController.swift; path = Seda/Controllers/PaymentViewController.swift; sourceTree = SOURCE_ROOT; };
-		C01962F52474DFFC007142FE /* UserHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserHomeViewController.swift; path = Seda/Controllers/UserHomeViewController.swift; sourceTree = SOURCE_ROOT; };
-		C01962F72474EED9007142FE /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		BA4C4CF82484BABD00C36256 /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
+		BA4C4CFB2484BAED00C36256 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		BA4C4CFC2484BAED00C36256 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		BA4C4CFD2484BAED00C36256 /* LoadBalanceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadBalanceViewController.swift; sourceTree = "<group>"; };
+		BA4C4CFE2484BAED00C36256 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		BA4C4CFF2484BAED00C36256 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		BA4C4D002484BAED00C36256 /* AcceptFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptFriendViewController.swift; sourceTree = "<group>"; };
+		BA4C4D012484BAED00C36256 /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
+		BA4C4D022484BAED00C36256 /* UserHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserHomeViewController.swift; sourceTree = "<group>"; };
+		BA4C4D032484BAED00C36256 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		BA4C4D042484BAED00C36256 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		BA4C4D052484BAED00C36256 /* ScanCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanCardViewController.swift; sourceTree = "<group>"; };
+		BA4C4D112484BB4100C36256 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		BA4C4D122484BB4100C36256 /* TargetRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetRequestViewController.swift; sourceTree = "<group>"; };
 		C01962F92474F08C007142FE /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Message.swift; path = Seda/Controllers/Message.swift; sourceTree = SOURCE_ROOT; };
 		C01962FB2474FA4B007142FE /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		C01962FC2474FA4B007142FE /* MessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageTableViewCell.xib; sourceTree = "<group>"; };
-		C01962FF24751BBA007142FE /* TargetRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TargetRequestViewController.swift; path = Seda/Views/TargetRequestViewController.swift; sourceTree = SOURCE_ROOT; };
 		C0319C7B2469B7D500447090 /* Seda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Seda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0319C7E2469B7D500447090 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0319C802469B7D600447090 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,13 +64,8 @@
 		C0319C8C2469B7DA00447090 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0B3233D247E4D1F0088124E /* ClientData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClientData.swift; path = Seda/ClientData.swift; sourceTree = SOURCE_ROOT; };
 		C0DAC065246A36F200F6B22E /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		C0DAC067246A387100F6B22E /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RegisterViewController.swift; path = Seda/Views/RegisterViewController.swift; sourceTree = SOURCE_ROOT; };
-		C0DAC069246A389000F6B22E /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		C0DAC06B246A39A100F6B22E /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		C0DAC06D246A432D00F6B22E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C0DAC06F246A4AFE00F6B22E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		C0F7C42124846E7B0018F09D /* LoadBalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadBalanceViewController.swift; sourceTree = "<group>"; };
-		E601603F246CBD0600344918 /* ScanCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanCardViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +97,33 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		BA4C4CF72484BABD00C36256 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				BA4C4CF82484BABD00C36256 /* Crypto.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		BA4C4CFA2484BAED00C36256 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BA4C4D002484BAED00C36256 /* AcceptFriendViewController.swift */,
+				BA4C4CFB2484BAED00C36256 /* ChatViewController.swift */,
+				BA4C4CFC2484BAED00C36256 /* FriendsViewController.swift */,
+				BA4C4CFD2484BAED00C36256 /* LoadBalanceViewController.swift */,
+				BA4C4D032484BAED00C36256 /* LoginViewController.swift */,
+				BA4C4CFE2484BAED00C36256 /* Message.swift */,
+				BA4C4D012484BAED00C36256 /* PaymentViewController.swift */,
+				BA4C4D042484BAED00C36256 /* ProfileViewController.swift */,
+				BA4C4D052484BAED00C36256 /* ScanCardViewController.swift */,
+				BA4C4D022484BAED00C36256 /* UserHomeViewController.swift */,
+				BA4C4CFF2484BAED00C36256 /* WelcomeViewController.swift */,
+			);
+			name = Controllers;
+			path = Seda/Controllers;
+			sourceTree = SOURCE_ROOT;
+		};
 		C0319C722469B7D500447090 = {
 			isa = PBXGroup;
 			children = (
@@ -112,9 +147,10 @@
 			children = (
 				C0319C7E2469B7D500447090 /* AppDelegate.swift */,
 				C0319C802469B7D600447090 /* SceneDelegate.swift */,
+				BA4C4CF72484BABD00C36256 /* Classes */,
+				BA4C4CFA2484BAED00C36256 /* Controllers */,
 				C0CFDACB246A3573004DB390 /* Models */,
 				C0CFDAC9246A3557004DB390 /* Views */,
-				C0CFDACA246A3566004DB390 /* Controllers */,
 				C0319C872469B7DA00447090 /* Assets.xcassets */,
 				C0319C892469B7DA00447090 /* LaunchScreen.storyboard */,
 				C0DAC06F246A4AFE00F6B22E /* Constants.swift */,
@@ -130,25 +166,10 @@
 				C0DAC065246A36F200F6B22E /* Main.storyboard */,
 				C01962FB2474FA4B007142FE /* MessageTableViewCell.swift */,
 				C01962FC2474FA4B007142FE /* MessageTableViewCell.xib */,
+				BA4C4D112484BB4100C36256 /* RegisterViewController.swift */,
+				BA4C4D122484BB4100C36256 /* TargetRequestViewController.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		C0CFDACA246A3566004DB390 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				C0F7C42124846E7B0018F09D /* LoadBalanceViewController.swift */,
-				C01962FF24751BBA007142FE /* TargetRequestViewController.swift */,
-				C01962F72474EED9007142FE /* ChatViewController.swift */,
-				C01962F52474DFFC007142FE /* UserHomeViewController.swift */,
-				C01962F324722FA9007142FE /* PaymentViewController.swift */,
-				C0DAC067246A387100F6B22E /* RegisterViewController.swift */,
-				C0DAC069246A389000F6B22E /* LoginViewController.swift */,
-				C0DAC06B246A39A100F6B22E /* WelcomeViewController.swift */,
-				E601603F246CBD0600344918 /* ScanCardViewController.swift */,
-				BA915728247249AC00380F6A /* ProfileViewController.swift */,
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 		C0CFDACB246A3573004DB390 /* Models */ = {
@@ -278,21 +299,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0319C7F2469B7D500447090 /* AppDelegate.swift in Sources */,
-				E6016040246CBD0600344918 /* ScanCardViewController.swift in Sources */,
+				BA4C4D072484BAED00C36256 /* FriendsViewController.swift in Sources */,
+				BA4C4D0B2484BAED00C36256 /* AcceptFriendViewController.swift in Sources */,
+				BA4C4D0D2484BAED00C36256 /* UserHomeViewController.swift in Sources */,
+				BA4C4D132484BB4100C36256 /* RegisterViewController.swift in Sources */,
+				BA4C4D142484BB4100C36256 /* TargetRequestViewController.swift in Sources */,
 				C0319C812469B7D600447090 /* SceneDelegate.swift in Sources */,
-				C01962F424722FA9007142FE /* PaymentViewController.swift in Sources */,
-				C0DAC06C246A39A100F6B22E /* WelcomeViewController.swift in Sources */,
-				C0DAC06A246A389000F6B22E /* LoginViewController.swift in Sources */,
+				BA4C4D062484BAED00C36256 /* ChatViewController.swift in Sources */,
+				BA4C4CF92484BABD00C36256 /* Crypto.swift in Sources */,
+				BA4C4D102484BAED00C36256 /* ScanCardViewController.swift in Sources */,
+				BA4C4D0F2484BAED00C36256 /* ProfileViewController.swift in Sources */,
 				C01962FD2474FA4B007142FE /* MessageTableViewCell.swift in Sources */,
-				C019630024751BBA007142FE /* TargetRequestViewController.swift in Sources */,
-				C0DAC068246A387100F6B22E /* RegisterViewController.swift in Sources */,
+				BA4C4D0C2484BAED00C36256 /* PaymentViewController.swift in Sources */,
+				BA4C4D092484BAED00C36256 /* Message.swift in Sources */,
 				C01962FA2474F08C007142FE /* Message.swift in Sources */,
-				C01962F62474DFFC007142FE /* UserHomeViewController.swift in Sources */,
-				BA915729247249AC00380F6A /* ProfileViewController.swift in Sources */,
-				C01962F82474EED9007142FE /* ChatViewController.swift in Sources */,
+				BA4C4D082484BAED00C36256 /* LoadBalanceViewController.swift in Sources */,
+				BA4C4D0E2484BAED00C36256 /* LoginViewController.swift in Sources */,
+				BA4C4D0A2484BAED00C36256 /* WelcomeViewController.swift in Sources */,
 				C0DAC070246A4AFE00F6B22E /* Constants.swift in Sources */,
 				C0B3233E247E4D1F0088124E /* ClientData.swift in Sources */,
-				C0F7C42224846E7B0018F09D /* LoadBalanceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,7 +455,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W8A7T73D6L;
+				DEVELOPMENT_TEAM = QPBQ9RVVCY;
 				INFOPLIST_FILE = Seda/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -450,7 +475,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W8A7T73D6L;
+				DEVELOPMENT_TEAM = QPBQ9RVVCY;
 				INFOPLIST_FILE = Seda/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (

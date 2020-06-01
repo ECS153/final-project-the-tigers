@@ -36,6 +36,7 @@ class UserHomeViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let targetRequestVC = storyboard.instantiateViewController(identifier: Constants.targetRequestPage) as! TargetRequestViewController
         targetRequestVC.crypto = crypto
+        
         self.navigationController?.pushViewController(targetRequestVC, animated: true)
         
     }
