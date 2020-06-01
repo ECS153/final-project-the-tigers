@@ -86,10 +86,10 @@ class PaymentViewController: UIViewController {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             if restartDemo {
-                alert.addAction(UIAlertAction(title: "Back to Profile", style: .cancel) { _ in
+                alert.addAction(UIAlertAction(title: "Back to User Home", style: .cancel) { _ in
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let profileVC = storyboard.instantiateViewController(identifier: Constants.profilePage) as! ProfileViewController
-                    self.navigationController?.pushViewController(profileVC, animated: true)
+                    let userHomeVC = storyboard.instantiateViewController(identifier: Constants.userHomePage) as! UserHomeViewController
+                    self.navigationController?.pushViewController(userHomeVC, animated: true)
                 })
             }
             else {
