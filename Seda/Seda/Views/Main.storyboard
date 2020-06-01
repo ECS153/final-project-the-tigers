@@ -136,14 +136,14 @@
             <objects>
                 <viewController storyboardIdentifier="Payment" id="E5V-aj-gvr" customClass="PaymentViewController" customModule="Seda" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qOx-G2-gQa">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ARU-tc-bwy">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="2RO-J4-MTo">
-                                        <rect key="frame" x="20" y="280" width="374" height="282"/>
+                                        <rect key="frame" x="20" y="307" width="374" height="282"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iVR-Jz-nHI">
                                                 <rect key="frame" x="20" y="0.0" width="334" height="50"/>
@@ -383,11 +383,11 @@
             <objects>
                 <viewController storyboardIdentifier="CardScanVC" title="CardScanVC" id="U1o-E4-8Ol" customClass="ScanCardViewController" customModule="Seda" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7xs-oV-dJb">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="44" translatesAutoresizingMaskIntoConstraints="NO" id="6lU-jW-VGx">
-                                <rect key="frame" x="20" y="368.5" width="374" height="105.5"/>
+                                <rect key="frame" x="20" y="395.5" width="374" height="105.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Load Balance:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gU-uK-ndd">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="25.5"/>
@@ -692,6 +692,9 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tP9-UM-b1z">
                                 <rect key="frame" x="20" y="352" width="374" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="kKi-HZ-VTo"/>
+                                </constraints>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="friend_button_pressed:" destination="j0Q-3h-zgl" eventType="touchUpInside" id="eiV-HL-PeB"/>
@@ -724,6 +727,7 @@
                     <connections>
                         <outlet property="balance" destination="grR-Fn-QNe" id="c9u-CO-4u6"/>
                         <outlet property="friends_button" destination="tP9-UM-b1z" id="inN-Dj-ds4"/>
+                        <outlet property="username" destination="EZN-Pi-rag" id="qSS-zd-Tzu"/>
                         <segue destination="U1o-E4-8Ol" kind="show" id="Coq-7b-6MO"/>
                         <segue destination="bVz-vv-8lt" kind="show" id="qqi-AQ-Y9y"/>
                     </connections>
@@ -870,7 +874,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="ED6-Vc-qdS"/>
-        <segue reference="oAk-0G-UWH"/>
+        <segue reference="Coq-7b-6MO"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="friends_icon" width="512" height="512"/>
