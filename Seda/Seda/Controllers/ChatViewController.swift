@@ -74,7 +74,7 @@ class ChatViewController: UIViewController {
        // let friend_pub_key = retrieveFriendsKey(targetUser: self.targetUser)
         
         
-        let image_queue = DispatchQueue(label: "image_queue")
+        let encryption_queue = DispatchQueue(label: "encryption_queue")
         let group = DispatchGroup()
         
         guard let message_text = self.messageText.text else {
@@ -82,7 +82,7 @@ class ChatViewController: UIViewController {
         }
         
         // Post image loading to a separate thread.
-        image_queue.async {
+        encryption_queue.async {
             
             let cur_user = Auth.auth().currentUser
             guard let uid = cur_user?.uid else {
