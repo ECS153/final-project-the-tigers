@@ -17,7 +17,9 @@ class ScanCardViewController: UIViewController, ScanDelegate {
     var cashToSend: String?
     override func viewDidLoad() {
         super.viewDidLoad()
-        cardNumberLabel.text = "Load Balance: $\(cashToSend)"
+        if let cashToSend = cashToSend {
+            cardNumberLabel.text = "Load Balance: $\(cashToSend)"
+        }
         scanCardButton.layer.cornerRadius = 25;
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -25,9 +27,10 @@ class ScanCardViewController: UIViewController, ScanDelegate {
     }
     
     @IBAction func scanCardButtonIsPressed(_ sender: UIButton) {
-        //let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        //let vc1 = storyboard.instantiateViewController(withIdentifier: Constants.paymentStoryboard) as! PaymentViewController
-        //self.present(vc1, animated: true)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc1 = storyboard.instantiateViewController(withIdentifier: Constants.paymentStoryboard) as! PaymentViewController
+        vc1.cashToSend = cashToSend!
+        self.navigationController?.pushViewController(vc1, animated: true)
         guard let vc = ScanViewController.createViewController(withDelegate: self) else {
             print("This device is incompatible with CardScan")
             return
