@@ -13,11 +13,17 @@ class UserHomeViewController: UIViewController {
     
     @IBOutlet weak var welcomeLabel: UILabel!
     
-    var userEmail:String = ""
+    @IBOutlet weak var walletButton: UIButton!
+    @IBOutlet weak var chatButton: UIButton!
     
+    @IBOutlet weak var logoutButton: UIButton!
+    var userEmail:String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
+        walletButton.applyGradient(colors: [UIColorFromRGB(0x00b09b).cgColor,UIColorFromRGB(0x96c93d).cgColor])
         //hide Back Button on the navigation bar
+        chatButton.applyGradient(colors: [UIColorFromRGB(0xA6EAFF).cgColor,UIColorFromRGB(0x12D8FA).cgColor,UIColorFromRGB(0x1FA2FF).cgColor])
+        logoutButton.applyGradient(colors: [UIColorFromRGB(0xFF512F).cgColor,UIColorFromRGB(0xEF4746).cgColor,UIColorFromRGB(0xDD2476).cgColor])
         self.navigationItem.setHidesBackButton(true, animated: false)
         // Do any additional setup after loading the view.
     }
