@@ -118,7 +118,7 @@ class PaymentViewController: UIViewController {
                 if let cashToSend = self.cashToSend {
                     let updateBalance: Double = balance + Double(cashToSend)!
                     print(updateBalance)
-                    db.collection("users").document(uid).setData([
+                    db.collection("users").document(uid).updateData([
                         "balance" : updateBalance
                     ]) { error in
                         if error != nil {
