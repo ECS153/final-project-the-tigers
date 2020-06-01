@@ -13,15 +13,18 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var emailText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
     @IBOutlet weak var warningLabel: UILabel!
+    @IBOutlet weak var loginButton: UIButton!
     
     var userEmail:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        loginButton.applyGradient(colors: [UIColorFromRGB(0xFF512F).cgColor,UIColorFromRGB(0xEF4746).cgColor,UIColorFromRGB(0xDD2476).cgColor])
+        
         // Do any additional setup after loading the view.
     }
     
+  
     @IBAction func loginPressed(_ sender: UIButton) {
         self.warningLabel.text = nil
         if let email = emailText.text, let password = passwordText.text {
