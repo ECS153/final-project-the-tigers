@@ -27,10 +27,10 @@ class ScanCardViewController: UIViewController, ScanDelegate {
     }
     
     @IBAction func scanCardButtonIsPressed(_ sender: UIButton) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc1 = storyboard.instantiateViewController(withIdentifier: Constants.paymentStoryboard) as! PaymentViewController
-        vc1.cashToSend = cashToSend!
-        self.navigationController?.pushViewController(vc1, animated: true)
+        //let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        //let vc1 = storyboard.instantiateViewController(withIdentifier: Constants.paymentStoryboard) as! PaymentViewController
+        //vc1.cashToSend = cashToSend!
+        //self.navigationController?.pushViewController(vc1, animated: true)
         guard let vc = ScanViewController.createViewController(withDelegate: self) else {
             print("This device is incompatible with CardScan")
             return
@@ -51,7 +51,7 @@ class ScanCardViewController: UIViewController, ScanDelegate {
         let number = creditCard.number
         let expiryMonth = creditCard.expiryMonth
         let expiryYear = creditCard.expiryYear
-        cardNumberLabel.text = cardNumberLabel.text! + number
+        //cardNumberLabel.text = cardNumberLabel.text! + number
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: Constants.paymentStoryboard) as! PaymentViewController
         vc.scanStats = scanViewController.getScanStats()
@@ -73,6 +73,6 @@ class ScanCardViewController: UIViewController, ScanDelegate {
     // information (e.g., CVV) before tokenizing.
 
         self.dismiss(animated: true)
-        self.present(vc, animated: true)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
