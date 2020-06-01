@@ -503,7 +503,7 @@
                     <navigationItem key="navigationItem" id="8eS-hk-UjR"/>
                     <connections>
                         <outlet property="welcomeLabel" destination="Ors-1D-Z0f" id="5Zd-Kl-Rdu"/>
-                        <segue destination="j0Q-3h-zgl" kind="show" id="0ia-OY-ARq"/>
+                        <segue destination="j0Q-3h-zgl" kind="show" identifier="homeToProfile" id="0ia-OY-ARq"/>
                         <segue destination="S58-dK-YP5" kind="show" id="uTf-q5-zav"/>
                     </connections>
                 </viewController>
