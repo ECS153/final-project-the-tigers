@@ -69,6 +69,11 @@ class Crypto {
             print("Error in creating the private key" + (err!.takeRetainedValue() as! String))
             return
         }
+        let status = SecItemAdd(attributes as CFDictionary, nil)
+        guard status == errSecSuccess else {
+            print("Key could not be stored")
+            return
+        }
         
         priv_key = privateKey
     }
