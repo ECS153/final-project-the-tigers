@@ -36,8 +36,6 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         friendsTable.dataSource = self
         
         friendsTable.register(FriendCell.self, forCellReuseIdentifier: "FriendCell")
-       
-        //friendsTable.register(UINib(nibName: "FriendCell", bundle: nil), forCellReuseIdentifier: "FriendCell")
     }
     
     @IBAction func add_friend(_ sender: Any) {
@@ -59,6 +57,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
                 "sender" : self.user,
                 "sender_public_key" : pub_key,
                 "target": (searchText),
+                "pending" : true
 
             ]) { (error) in
             
@@ -82,7 +81,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         db.collection("users").document("\(uid)").updateData([
             "friend_requests": FieldValue.arrayUnion(["\(request_ref.documentID)"])
         ])
-     
+        
+        loadFriends()
     } // @IBAction func add_friend()
     
     func loadFriends() {
@@ -96,13 +96,34 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
                 if let documents = querySnapshot?.documents {
                     for doc in documents {
                         let data = doc.data()
-                        if let sender = data["sender"] as? String, let target = data["target"] as? String, let docID = data["docID"] as? String, let friend_pub_key = data["sender_public_key"] as? String {
-                            print("Going well \(self.user) \(target)")
-                            if (target == self.user){
+                        if let sender = data["sender"] as? String, let target = data["target"] as? String, let docID = data["docID"] as? String, let friend_pub_key = data["sender_public_key"] as? String, let pending = data["pending"] as? Bool {
+                            print("loadFriends \(self.user) \(target)")
+                            if (target == self.user) {
+                                print(pending)
+                                let newRequest = Request(name: "You have a request from \(sender)", docID, friend_pub_key)
+                                //print("New Request \(newRequest)")
+                                if self.requests.contains(where: { $0.name == newRequest.name}) == true || pending == false {
+                                    continue
+                                } else {
+                                    self.requests.append(newRequest)
+                                }
                                 
-                                let newRequest = Request(name: sender, docID, friend_pub_key)
-                                print("New Request \(newRequest)")
-                                self.requests.append(newRequest)
+                                DispatchQueue.main.async {
+                                    self.friendsTable.reloadData()
+                                    let indexPath = IndexPath(row: self.requests.count - 1, section: 0)
+                                    self.friendsTable.scrollToRow(at: indexPath, at: .top, animated: false)
+                                }
+                            }
+                            
+                            if (self.user == sender) {
+                                let newRequest = Request(name: "Waiting to here from \(target)", docID, friend_pub_key)
+                                //print("New Request \(newRequest)")
+                               
+                                if self.requests.contains(where: { $0.name == newRequest.name}) == true || pending == false {
+                                    continue
+                                } else {
+                                    self.requests.append(newRequest)
+                                }
                                 
                                 DispatchQueue.main.async {
                                     self.friendsTable.reloadData()
@@ -125,8 +146,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         let req = requests[indexPath.row]
         let cell  = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendCell
         cell.textLabel?.text = req.name
-       
-        cell.accessoryType = .detailDisclosureButton
+
         
         cell.actionBlock = { [unowned self] in
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -137,23 +157,6 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let acceptFriendVC = storyboard.instantiateViewController(identifier: "AcceptFriendVC") as! AcceptFriendViewController
-        acceptFriendVC.request = self.requests[indexPath.row]
-        acceptFriendVC.crypto = self.crypto
-        self.navigationController?.pushViewController(acceptFriendVC, animated: true)
-    }
-    
-    // If user touches the friend request
-    private func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let acceptFriendVC = storyboard.instantiateViewController(identifier: "AcceptFriendVC") as! AcceptFriendViewController
-        acceptFriendVC.request = requests[indexPath.row]
-        acceptFriendVC.crypto = self.crypto
-        self.navigationController?.pushViewController(acceptFriendVC, animated: true)
     }
     
     /*

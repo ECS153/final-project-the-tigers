@@ -28,7 +28,8 @@ class AcceptFriendViewController: UIViewController {
         }
         
         db.collection("friend_requests").document(req.docID).updateData([
-            "target_public_key": pub_key
+            "target_public_key": pub_key,
+            "pending": false
         ])
         
         // Get current user
@@ -44,7 +45,6 @@ class AcceptFriendViewController: UIViewController {
         ]
         
         db.collection("users").document("\(uid)").collection("friends").document(req.name).setData(data)
-    
         goBack()
     }
     
