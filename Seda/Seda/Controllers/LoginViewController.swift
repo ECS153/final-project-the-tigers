@@ -49,6 +49,11 @@ class LoginViewController: UIViewController {
         }
     }
     
+    /*
+     * This is where the user account is updated
+     * We cannot update accounts with Firebase unless they are logged into
+     * Do any updates necessary in here for when the user logs back in
+     */
     func updateAccount(user: String) {
         // Get current user
         let curr_user = Auth.auth().currentUser
@@ -58,8 +63,8 @@ class LoginViewController: UIViewController {
         }
         
         let db = Firestore.firestore()
+        /// Update the friend requests
         db.collection("friend_requests").addSnapshotListener { (querySnapshot, error) in
-          
             if let err = error {
                 print(err)
             } else {
@@ -85,6 +90,7 @@ class LoginViewController: UIViewController {
                                     delete_queue.async {
                                         group.enter()
                                         // dispatch image retreival from Firebase on a global thread.
+                                        // NOTE: Ideally the friend request should be deleted from DB
                                         DispatchQueue.global(qos: .userInitiated).async {
                                             db.collection("users").document("\(docID)").delete() { err in
                                                 if let err = err {

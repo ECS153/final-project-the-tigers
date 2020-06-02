@@ -32,7 +32,7 @@ class ProfileViewController: UIViewController {
         crypto = Crypto(userEmail)
         loadFromDB()
     }
-    
+
     @IBAction func friend_button_pressed(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let friendVC = storyboard.instantiateViewController(identifier: "FriendsViewController") as! FriendsViewController

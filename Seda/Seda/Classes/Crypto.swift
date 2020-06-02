@@ -15,27 +15,22 @@ import Foundation
  
  */
 class Crypto {
-    // This is information on the keys being used
-    // It is set in the code and is needed to create the key and
-    // to decipher the public key when it is read as a string from the database
-    // We want to use an EC type key because it is 256 bits so it can be stored in the enclave
-    let keyType = kSecAttrKeyTypeEC    // Choose cryptography key to use (ex: RSA, EC, etc.)
-    let keySize = 256  // Size of the key in bits
-    //let keyTag_raw: Data? = "SedaKey".data(using: .utf8)   // This is the name of the key to retrieve it from the key chain.
+    /// This is information on the keys being used
+    /// It is set in the code and is needed to create the key and
+    /// to decipher the public key when it is read as a string from the database
+    /// We want to use an EC type key because it is 256 bits so it can be stored in the enclave
+    let keyType = kSecAttrKeyTypeEC     // Choose cryptography key to use (ex: RSA, EC, etc.)
+    let keySize = 256                   // Size of the key in bits
     let algorithm: SecKeyAlgorithm = .eciesEncryptionCofactorVariableIVX963SHA256AESGCM   // The algorithm used to protect the message
     
     let keyTag: Data
-    
-    // Keys
     var priv_key: SecKey? = nil
-    var pub_key: SecKey? = nil
     
     init(_ keyTag_raw: String) {
-        let keyTag_raww = "Key"
         guard let tag = keyTag_raw.data(using: .utf8) else {
             print("SOMETHING IS VERY WRONG: Can't unwrap a standard string in Crypto initializer")
-            // The keyTag needs to be initialized in the event that this cannot be unwrapped
-            // Something would have to be very wrong for us to end up here
+            /// The keyTag needs to be initialized in the event that this cannot be unwrapped
+            /// Something would have to be very wrong for us to end up here
             let bytesPointer = UnsafeMutableRawPointer.allocate(byteCount: 1, alignment: 1)
             self.keyTag = Data(bytes: bytesPointer, count: 1)
             return
@@ -46,7 +41,8 @@ class Crypto {
         // Load the private key, if it doesn't exist, create a new one
         loadPrivKey()
         if priv_key == nil {
-            createPrivKey() // Create the private key
+            print("Create private key")
+            createPrivKey()
         }
     } // init()
     
@@ -69,16 +65,11 @@ class Crypto {
             print("Error in creating the private key" + (err!.takeRetainedValue() as! String))
             return
         }
-        let status = SecItemAdd(attributes as CFDictionary, nil)
-        guard status == errSecSuccess else {
-            print("Key could not be stored")
-            return
-        }
         
         priv_key = privateKey
     }
     
-    // Creates a public key
+    // Creates a public key and returns the key
     func createPublicKey() -> SecKey? {
         guard let key = priv_key else {
             print("The user does not have a private key")
@@ -90,23 +81,16 @@ class Crypto {
             return nil
         }
         
-        pub_key = publicKey
         return publicKey
     }
     
-    // Creates a public key
+    // Creates a public key and returns a string
     func generatePublicKey() -> String? {
-        guard let key = priv_key else {
-            print("The user does not have a private key")
-            return nil
-        }
-        
-        guard let publicKey = SecKeyCopyPublicKey(key) else {
+        guard let publicKey = createPublicKey() else {
             print("Unable to generate a public key")
             return nil
         }
-        
-        pub_key = publicKey
+
         return convertKeyToString(publicKey: publicKey)
     }
     
