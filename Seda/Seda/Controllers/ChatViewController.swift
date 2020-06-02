@@ -45,7 +45,10 @@ class ChatViewController: UIViewController {
                             if (sender == Auth.auth().currentUser?.email && target == (self.targetUser + "@seda.com"))
                                 || (target == Auth.auth().currentUser?.email && sender == (self.targetUser + "@seda.com")){
                                 
-                                print("body \(body)")
+                                /// Try three steps of decrytption
+                                /// 1. Decrypt with friends public key
+                                /// 2. Decrypt with your own key
+                                /// 3. Assume this is clear text sent without encryption and just display it
                                 if let clearText = self.crypto?.decrypt(dataString: body) {
                                     let newMessage = Message(sender: sender, body: clearText)
                                     self.messages.append(newMessage)
@@ -81,7 +84,7 @@ class ChatViewController: UIViewController {
             return
         }
         
-        // Post image loading to a separate thread.
+        // Run this in a separate thread because Firebase is slower than the function
         encryption_queue.async {
             
             let cur_user = Auth.auth().currentUser
@@ -89,7 +92,6 @@ class ChatViewController: UIViewController {
                 print("This user does not have a uid")
                 return
             }
-            
             
             // Use the inputted username to access DB
             let db = Firestore.firestore()

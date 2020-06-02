@@ -25,15 +25,20 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var friendsTable: UITableView!
     @IBOutlet weak var search_bar: UITextField!
+    @IBOutlet weak var add_friend_button: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadFriends()
-        
+        // Round button
+        add_friend_button.layer.cornerRadius = 5
+        add_friend_button.layer.borderWidth = 1
+            
         friendsTable.allowsSelection = true
         friendsTable.delegate = self
         friendsTable.dataSource = self
+        
+        loadFriends()
         
         friendsTable.register(FriendCell.self, forCellReuseIdentifier: "FriendCell")
     }
@@ -100,7 +105,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
                             print("loadFriends \(self.user) \(target)")
                             if (target == self.user) {
                                 print(pending)
-                                let newRequest = Request(name: "You have a request from \(sender)", docID, friend_pub_key)
+                                let newRequest = Request(name: "\(sender)", docID, friend_pub_key)
                                 //print("New Request \(newRequest)")
                                 if self.requests.contains(where: { $0.name == newRequest.name}) == true || pending == false {
                                     continue
@@ -116,7 +121,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
                             }
                             
                             if (self.user == sender) {
-                                let newRequest = Request(name: "Waiting to here from \(target)", docID, friend_pub_key)
+                                let newRequest = Request(name: "\(target)", docID, friend_pub_key)
                                 //print("New Request \(newRequest)")
                                
                                 if self.requests.contains(where: { $0.name == newRequest.name}) == true || pending == false {
@@ -145,7 +150,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let req = requests[indexPath.row]
         let cell  = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendCell
-        cell.textLabel?.text = req.name
+        cell.textLabel?.text = "You have a pending request with " + req.name
 
         
         cell.actionBlock = { [unowned self] in
