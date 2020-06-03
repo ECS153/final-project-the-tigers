@@ -753,21 +753,21 @@
         <scene sceneID="uRm-fP-4Hj">
             <objects>
                 <viewController storyboardIdentifier="FriendsViewController" id="bVz-vv-8lt" customClass="FriendsViewController" customModule="Seda" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="luy-8s-1TY" customClass="UITableView">
+                    <view key="view" contentMode="scaleToFill" id="luy-8s-1TY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nX4-fG-Qvd">
-                                <rect key="frame" x="0.0" y="88" width="414" height="420"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="422"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wMP-6W-4vw">
-                                <rect key="frame" x="40" y="808" width="265" height="34"/>
+                                <rect key="frame" x="20" y="550" width="269" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L1M-TA-gvU">
-                                <rect key="frame" x="313" y="808" width="61" height="34"/>
+                                <rect key="frame" x="289" y="550" width="105" height="34"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="ADD">
@@ -781,17 +781,18 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="wMP-6W-4vw" firstAttribute="leading" secondItem="Ifx-V9-DQ6" secondAttribute="leading" constant="40" id="1TS-iR-KUo"/>
-                            <constraint firstItem="Ifx-V9-DQ6" firstAttribute="bottom" secondItem="wMP-6W-4vw" secondAttribute="bottom" constant="20" id="2px-HA-bqd"/>
                             <constraint firstItem="nX4-fG-Qvd" firstAttribute="leading" secondItem="Ifx-V9-DQ6" secondAttribute="leading" id="4yZ-VA-2ef"/>
-                            <constraint firstItem="L1M-TA-gvU" firstAttribute="top" secondItem="nX4-fG-Qvd" secondAttribute="bottom" constant="300" id="861-Sd-fzt"/>
-                            <constraint firstItem="L1M-TA-gvU" firstAttribute="leading" secondItem="Ifx-V9-DQ6" secondAttribute="leading" constant="313" id="8lx-Yc-x41"/>
                             <constraint firstItem="nX4-fG-Qvd" firstAttribute="top" secondItem="Ifx-V9-DQ6" secondAttribute="top" id="Axg-fQ-eFl"/>
-                            <constraint firstItem="Ifx-V9-DQ6" firstAttribute="trailing" secondItem="L1M-TA-gvU" secondAttribute="trailing" constant="40" id="Djz-6R-Ju9"/>
                             <constraint firstItem="nX4-fG-Qvd" firstAttribute="trailing" secondItem="Ifx-V9-DQ6" secondAttribute="trailing" id="FJE-F8-XaD"/>
-                            <constraint firstItem="Ifx-V9-DQ6" firstAttribute="bottom" secondItem="L1M-TA-gvU" secondAttribute="bottom" constant="20" id="PBX-Eu-uv8"/>
-                            <constraint firstItem="L1M-TA-gvU" firstAttribute="leading" secondItem="wMP-6W-4vw" secondAttribute="trailing" constant="8" id="frs-vc-4ey"/>
-                            <constraint firstItem="wMP-6W-4vw" firstAttribute="top" secondItem="nX4-fG-Qvd" secondAttribute="bottom" constant="300" id="mJw-fv-Gpl"/>
+                            <constraint firstItem="L1M-TA-gvU" firstAttribute="leading" secondItem="wMP-6W-4vw" secondAttribute="trailing" id="HG8-Sw-SfR"/>
+                            <constraint firstItem="wMP-6W-4vw" firstAttribute="leading" secondItem="Ifx-V9-DQ6" secondAttribute="leading" constant="20" id="J0Q-Nh-zmp"/>
+                            <constraint firstItem="Ifx-V9-DQ6" firstAttribute="bottom" secondItem="L1M-TA-gvU" secondAttribute="bottom" constant="278" id="OhB-IC-EiX"/>
+                            <constraint firstItem="L1M-TA-gvU" firstAttribute="top" secondItem="nX4-fG-Qvd" secondAttribute="bottom" constant="40" id="Pk3-J8-QQR"/>
+                            <constraint firstItem="Ifx-V9-DQ6" firstAttribute="trailing" secondItem="L1M-TA-gvU" secondAttribute="trailing" constant="20" id="QMf-jD-Pbc"/>
+                            <constraint firstItem="Ifx-V9-DQ6" firstAttribute="bottom" secondItem="wMP-6W-4vw" secondAttribute="bottom" constant="278" id="eWx-Qo-drs"/>
+                            <constraint firstItem="wMP-6W-4vw" firstAttribute="top" secondItem="nX4-fG-Qvd" secondAttribute="bottom" constant="40" id="hMR-mZ-TaS"/>
+                            <constraint firstItem="Ifx-V9-DQ6" firstAttribute="trailing" secondItem="wMP-6W-4vw" secondAttribute="trailing" constant="125" id="mTZ-rx-CAT"/>
+                            <constraint firstItem="nX4-fG-Qvd" firstAttribute="top" secondItem="Ifx-V9-DQ6" secondAttribute="top" id="oiZ-Me-ZlW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ifx-V9-DQ6"/>
                     </view>
