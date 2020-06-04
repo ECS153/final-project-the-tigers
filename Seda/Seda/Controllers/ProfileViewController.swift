@@ -11,27 +11,28 @@ import UIKit
 import Firebase
 import FirebaseFirestore
 
-class ProfileViewController: UIViewController {
+protocol refreshProfile {
+    func loadFromDB()
+}
+
+class ProfileViewController: UIViewController, refreshProfile {
     @IBOutlet weak var balance: UILabel!
-    
     @IBOutlet weak var username: UILabel!
     @IBOutlet weak var friends_button: UIButton!
-    
+    @IBOutlet weak var send_money_button: UIButton!
     var uid:String = ""
     var userEmail:String = ""
     var crypto:Crypto? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-            
-        let icon = UIImage(named: "friends_icon")
-        friends_button.setImage(icon, for: .normal)
-        friends_button.imageView?.contentMode = .scaleAspectFit
 
         username.text = userEmail
         crypto = Crypto(userEmail)
+        FirebaseHelper.shared_instance.profile_delegate = self
         loadFromDB()
     }
+    
 
     @IBAction func friend_button_pressed(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -49,6 +50,13 @@ class ProfileViewController: UIViewController {
         self.navigationController?.pushViewController(addMoneyVC, animated: true)
     }
     
+    @IBAction func send_money_pressed(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let transactionVC = storyboard.instantiateViewController(identifier: "TransactionVC") as! TransactionViewController
+        
+        self.navigationController?.pushViewController(transactionVC, animated: true)
+    }
+   
     /*
      * Load user's information from Firebase
      */

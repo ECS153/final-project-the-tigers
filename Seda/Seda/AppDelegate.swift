@@ -14,9 +14,6 @@ import Stripe
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         IQKeyboardManager.shared.enable = true
@@ -24,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enableAutoToolbar = false
         ScanViewController.configure(apiKey: "yTAstrsjCkEQ45aoUXNnGdDqd1JNXBXQ")
         Stripe.setDefaultPublishableKey("pk_test_p30YdZ9cUHnjMjfE1dttZn6k0017n2egmd")
-
+                
         return true
     }
 
