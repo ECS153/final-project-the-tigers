@@ -5,15 +5,11 @@
 import UIKit
 import Firebase
 
-class Request {
-    var name:String
-    var docID:String
-    var friend_pub_key:String
-    
-    init(name: String, _ doc: String, _ friend_pub_key: String) {
-        self.name = name
-        self.docID = doc
-        self.friend_pub_key = friend_pub_key
+class FriendCell: UITableViewCell {
+    var actionBlock = { }
+
+    func userPressedCell() { // some action like button tap in cell occured
+        actionBlock()
     }
 }
 
@@ -180,13 +176,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
 } // class FriendsVC
 
-class FriendCell: UITableViewCell {
-    var actionBlock = { }
 
-    func userPressedCell() { // some action like button tap in cell occured
-        actionBlock()
-    }
-}
 
 
 
