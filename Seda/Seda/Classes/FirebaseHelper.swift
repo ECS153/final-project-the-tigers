@@ -3,7 +3,7 @@
 //
 
 /// This file is a helper that stores contstanct information related to the current logged in user
-/// 
+///
 
 import Firebase
 
@@ -37,7 +37,7 @@ class FirebaseHelper {
         return uid
     }
     
-    func make_transaction(target: String, amount: Int, message: String) {
+    func make_transaction(target: String, amount: Double, message: String) -> Bool  {
         /// Add the transaction to user data
         user_document.collection("transactions").addDocument(data: [
                 "sender": self.username,
@@ -48,33 +48,38 @@ class FirebaseHelper {
             ]
         )
         
-        let encryption_queue = DispatchQueue(label: "balance_queue")
         let group = DispatchGroup()
         
-        encryption_queue.async {
-            group.enter()
-            /// Update the user's balance
-            /// Run this asychronously and make sure that the balance is retrieved before it is updated
-            var prev_amount: Int = 0
-            self.user_document.getDocument { (doc, error) in
-                guard let fb_bal = doc?.get("balance") as? Int else {
-                    print("Could not retrieve user's balance from Firebase")
-                    return
-                }
-                prev_amount = fb_bal
-                group.leave()
+        group.enter()
+        /// Update the user's balance
+        /// Run this asychronously and make sure that the balance is retrieved before it is updated
+        var prev_amount: Double = 0
+        self.user_document.getDocument { (doc, error) in
+            guard let fb_bal = doc?.get("balance") as? Double else {
+                print("Could not retrieve user's balance from Firebase")
+                return // Doesn't rtn because within closure
             }
-            
-            group.wait()
+            prev_amount = fb_bal
+            group.leave()
+        }
+        
+        group.wait()
+        let updated_amount: Double = prev_amount - amount
+        /// Make sure user has enough money
+        if updated_amount >= 0 {
             self.user_document.updateData([
                  "balance" : (prev_amount - amount)
             ])
             
             /// Update the balance on the profile page
             FirebaseHelper.shared_instance.profile_delegate?.loadFromDB()
+            return true
+        } else {
+            print("User has insufficient funds")
+            return false
         }
-    }
-}
+    } // func
+} // class FirebaseHelper
 
 
 
