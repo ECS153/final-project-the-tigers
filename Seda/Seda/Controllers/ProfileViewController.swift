@@ -30,7 +30,8 @@ class ProfileViewController: UIViewController, refreshProfile {
         username.text = userEmail
         crypto = Crypto(userEmail)
         FirebaseHelper.shared_instance.profile_delegate = self
-        loadFromDB()
+        self.balance.text = "$" + String(format: "%.2f", FirebaseHelper.shared_instance.curr_balance)
+        //loadFromDB()
     }
     
 
