@@ -6,26 +6,63 @@
 ///
 
 import Firebase
+import Foundation
 
 class FirebaseHelper {
     /// privae(set): only modifiable within the class but readable outside of it
     static private(set) var shared_instance: FirebaseHelper!
-    let uid:String
+    
+    /// Firebase variables
     let db:Firestore
-    let username:String
     let user_document: DocumentReference
+    
+    /// Object variables
+    var curr_balance: Double
+    let uid:String
+    let username:String
+    
+    /// Delegate
     var profile_delegate: refreshProfile?   // Store delgate for ProfileViewController so it can be updated later
+    
     
     private init(_ name: String) {
         self.uid = FirebaseHelper.get_uid()
         self.db = Firestore.firestore()
         self.username = name
         self.user_document = db.collection("users").document(self.uid)
+        self.curr_balance = 0
     }
     
     static func initialize(_ username: String) {
         self.shared_instance = FirebaseHelper(username)
-     }
+        
+        var curr_amount:Double = 0
+        self.shared_instance.user_document.getDocument { (document, error) in
+            if let document = document {
+                // If balance is unable to be placed in then use -1
+                let bal = document.get("balance") as? Double ?? -1
+                curr_amount = bal
+            }
+            self.shared_instance.curr_balance = curr_amount
+        }
+    }
+    
+    /// Take the unique user ID and creates a user in the Firebase database
+    static func createUser(_uid: String, _name: String) {
+        let database = Firestore.firestore()
+        database.collection("users").document(_uid).setData([
+            "username" : _name,
+            "balance" : 0.00,
+            "stripeId" : "none",
+            "uid": _uid
+        ]) { error in
+            if error != nil {
+                print("Error initializing user account")
+            } else {
+                print("Account created!")
+            }
+        }
+    }
     
     static func get_uid () -> String {
         let cur_user = Auth.auth().currentUser
@@ -37,48 +74,61 @@ class FirebaseHelper {
         return uid
     }
     
-    func make_transaction(target: String, amount: Double, message: String) -> Bool  {
-        /// Add the transaction to user data
-        user_document.collection("transactions").addDocument(data: [
-                "sender": self.username,
-                "target" : target,
-                "amount" : amount,
-                "message" : message,
-                "time" : Date().timeIntervalSince1970
-            ]
-        )
-        
-        let group = DispatchGroup()
-        
-        group.enter()
-        /// Update the user's balance
-        /// Run this asychronously and make sure that the balance is retrieved before it is updated
-        var prev_amount: Double = 0
-        self.user_document.getDocument { (doc, error) in
-            guard let fb_bal = doc?.get("balance") as? Double else {
-                print("Could not retrieve user's balance from Firebase")
-                return // Doesn't rtn because within closure
-            }
-            prev_amount = fb_bal
-            group.leave()
+    /*
+     * This is where the user account is updated
+     * We cannot update accounts with Firebase unless they are logged into
+     * Do any updates necessary in here for when the user logs back in
+     */
+    func updateFriends() {
+        /// Update the friend requests
+        db.collection("friend_requests").addSnapshotListener { (querySnapshot, error) in
+            if let err = error {
+                print(err)
+            } else {
+                if let documents = querySnapshot?.documents {
+                    for doc in documents {
+                        let data = doc.data()
+                        if let sender = data["sender"] as? String, let target = data["target"] as? String, let docID = data["docID"] as? String, let friend_pub_key = data["target_public_key"] as? String, let user_pub_key = data["sender_public_key"] as? String, let pending = data["pending"] as? Bool {
+                            if (sender == self.username){
+                                let data = [
+                                    "user_public_key" : user_pub_key,
+                                    "friend_public_key" : friend_pub_key
+                                ]
+                               
+                                self.db.collection("users").document("\(self.uid)").collection("friends").document(target).setData(data)
+                               
+                                if (pending == false) {
+                                    print("Delete friend request \(docID)")
+                                   
+                                    let delete_queue = DispatchQueue(label: "delete_queue")
+                                    let group = DispatchGroup()
+                                   
+                                    delete_queue.async {
+                                        group.enter()
+                                        // dispatch retreival from Firebase on a global thread.
+                                        // NOTE: Ideally the friend request should be deleted from DB
+                                        DispatchQueue.global(qos: .userInitiated).async {
+                                                self.db.collection("users").document("\(docID)").delete() { err in
+                                                    if let err = err {
+                                                        print("Error removing document: \(err)")
+                                                    } else {
+                                                        print("Document successfully removed!")
+                                                    }
+                                               
+                                                    group.leave()
+                                                }
+                                        }
+                                       
+                                        group.wait()
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } // update account()
+            } // class FirebaseHelper
         }
-        
-        group.wait()
-        let updated_amount: Double = prev_amount - amount
-        /// Make sure user has enough money
-        if updated_amount >= 0 {
-            self.user_document.updateData([
-                 "balance" : (prev_amount - amount)
-            ])
-            
-            /// Update the balance on the profile page
-            FirebaseHelper.shared_instance.profile_delegate?.loadFromDB()
-            return true
-        } else {
-            print("User has insufficient funds")
-            return false
-        }
-    } // func
+    }
 } // class FirebaseHelper
 
 

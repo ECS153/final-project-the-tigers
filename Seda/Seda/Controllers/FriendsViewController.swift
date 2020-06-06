@@ -49,7 +49,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
             print("Could not obtain public key")
             return
         }
-   
+                
         /// Send friend request
         let db = Firestore.firestore()
         
@@ -86,6 +86,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         loadFriends()
     } // @IBAction func add_friend()
     
+    /// Loads the table by searching friend request
+    /// Then finding which friends this user in involved with
     func loadFriends() {
         let db = Firestore.firestore()
         db.collection("friend_requests")
@@ -118,9 +120,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
                             
                             if (self.user == sender) {
                                 let newRequest = Request(name: "\(target)", docID, friend_pub_key)
-                                //print("New Request \(newRequest)")
                                
-                                if self.requests.contains(where: { $0.name == newRequest.name}) == true || pending == false {
+                                if self.requests.contains(where: {$0.name == newRequest.name}) == true || pending == false {
                                     continue
                                 } else {
                                     self.requests.append(newRequest)
