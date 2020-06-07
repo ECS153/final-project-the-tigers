@@ -83,8 +83,8 @@ class FirebaseHelper {
     
         return uid
     }
-    // Class Functions ///
     
+    // Class Functions ///
     func checkUser(_ targetUser: String, completionHandler: @escaping ((_ exist : Bool) -> Void)) {
         db.collection("users").addSnapshotListener { (querySnapshot, error) in
             if let err = error {
@@ -156,8 +156,6 @@ class FirebaseHelper {
                     }
                 } // update account()
             } // class FirebaseHelper
-        }
-    }
 } // class FirebaseHelper
 
 
