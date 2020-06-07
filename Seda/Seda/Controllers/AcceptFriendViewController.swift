@@ -14,6 +14,13 @@ class AcceptFriendViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        guard let req = request else {
+            print("Could not unwarp request type")
+            return
+        }
+        
+        titleLabel.text = "Accept friend request from " + req.name
+        
     }
     
     @IBAction func yes_pressed(_ sender: Any) {
@@ -70,6 +77,12 @@ class AcceptFriendViewController: UIViewController {
     }
     
     func goBack() {
-        navigationController?.popViewController(animated: true)
+        //navigationController?.popViewController(animated: true)
+        /// Locate view controller in stack and bring user back to their profile
+        guard let vc = self.navigationController?.viewControllers.filter({$0 is ProfileViewController}).first else {
+            print("Cannot return to view controller")
+            return
+        }
+        self.navigationController?.popToViewController(vc, animated: true)
     }
 }
