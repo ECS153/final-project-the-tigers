@@ -30,7 +30,7 @@ class ProfileViewController: UIViewController, refreshProfile {
         username.text = userEmail
         crypto = Crypto(userEmail)
         FirebaseHelper.shared_instance.profile_delegate = self
-        self.balance.text = "$" + String(format: "%.2f", FirebaseHelper.shared_instance.curr_balance)
+        loadFromDB()
         //loadFromDB()
     }
     
@@ -59,25 +59,9 @@ class ProfileViewController: UIViewController, refreshProfile {
     }
    
     /*
-     * Load user's information from Firebase
+     * Load user's balance
      */
     func loadFromDB() {
-        let cur_user = Auth.auth().currentUser
-        guard let uid = cur_user?.uid else {
-            print("This user does not have a uid")
-            return
-        }
-        
-        // Use the inputted username to access DB
-        let db = Firestore.firestore()
-        let users = db.collection("users").document(uid)
-        
-        users.getDocument { (document, error) in
-            if let document = document {
-                // If balance is unable to be placed in then use -1
-                let bal = document.get("balance") as? Double ?? -1
-                self.balance.text = "$" + String(format: "%.2f", bal)
-            }
-        }
+        self.balance.text = "$" + String(format: "%.2f", FirebaseHelper.shared_instance.curr_balance)
     } // loadFromDB()
 }

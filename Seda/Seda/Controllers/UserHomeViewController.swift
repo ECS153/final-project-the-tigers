@@ -43,6 +43,7 @@ class UserHomeViewController: UIViewController {
     
     @IBAction func logOutPressed(_ sender: UIButton) {
         let firebaseAuth = Auth.auth()
+        FirebaseHelper.shared_instance.detatch_listeners()
         do {
           try firebaseAuth.signOut()
             navigationController?.popToRootViewController(animated: true)

@@ -36,11 +36,8 @@ class LoginViewController: UIViewController {
                     self.passwordText.text = ""
                 } else {
                     //navigate to the next page
-                    
+                
                     FirebaseHelper.initialize(self.userEmail) // To use the FirebaseHelper
-                    FirebaseHelper.shared_instance.updateFriends()  // Let this user know if somone accepted their friend request
-           //         FirebaseHelper.shared_instance.updateAccount()  // Retrieve the transfers given to this user while they were logged out
-                    
                     
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let userHomeVC = storyboard.instantiateViewController(identifier: Constants.userHomePage) as! UserHomeViewController
