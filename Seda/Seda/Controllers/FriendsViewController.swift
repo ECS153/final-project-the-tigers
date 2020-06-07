@@ -49,39 +49,8 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
             print("Could not obtain public key")
             return
         }
-                
-        /// Send friend request
-        let db = Firestore.firestore()
-        
-        let request_ref = db.collection("friend_requests").addDocument(data:
-            [
-                "sender" : self.user,
-                "sender_public_key" : pub_key,
-                "target": (searchText),
-                "pending" : true
-
-            ]) { (error) in
-            
-            if let err = error {
-                print(err)
-            } else {
-                print("Success delivering friend request")
-            }
-        }
-        
-        // Get current user
-        let curr_user = Auth.auth().currentUser
-        guard let uid = curr_user?.uid else {
-            print("TransactionVC: unable to unwrap uid")
-            return
-        }
-        db.collection("friend_requests").document("\(request_ref.documentID)").updateData([
-            "docID": "\(request_ref.documentID)"
-        ])
-        
-        db.collection("users").document("\(uid)").updateData([
-            "friend_requests": FieldValue.arrayUnion(["\(request_ref.documentID)"])
-        ])
+   
+        FirebaseHelper.shared_instance.addFriend(pub_key: pub_key, friend_name: searchText)
         
         loadFriends()
     } // @IBAction func add_friend()
