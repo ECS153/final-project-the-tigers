@@ -34,6 +34,12 @@ class ProfileViewController: UIViewController, refreshProfile {
         //loadFromDB()
     }
     
+    @IBAction func view_history(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let hisVC = storyboard.instantiateViewController(identifier: "HistoryVC") as! HistoryTableViewController
+        self.navigationController?.pushViewController(hisVC, animated: true)
+    }
+    
 
     @IBAction func friend_button_pressed(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

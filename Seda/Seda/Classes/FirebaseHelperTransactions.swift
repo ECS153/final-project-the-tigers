@@ -11,20 +11,23 @@ extension FirebaseHelper {
         /// Reverse sign of amount because it is being taken out of the account
         if updateBalance(update_amount: (amount * -1)) == true {
             /// Add the transaction to user data
-            let doc_ref = db.collection("transactions").addDocument(data: [
-                    "sender": self.username,
-                    "target" : target,
-                    "amount" : amount,
-                    "message" : message,
-                    "time" : Date().timeIntervalSince1970,
-                    "pending" : true
-                ]
-            )
+            let data = [
+                "sender": self.username,
+                "target" : target,
+                "amount" : amount,
+                "message" : message,
+                "time" : Date().timeIntervalSince1970,
+                "pending" : true
+                ] as [String : Any]
+            
+            let doc_ref = db.collection("transactions").addDocument(data: data)
             
             /// Add the transaction the user was involved with to their transaction array
             user_document.updateData([
                 "transactions" : FieldValue.arrayUnion(["\(doc_ref.documentID)"])
             ])
+            
+            user_document.collection("transactions").addDocument(data: data)
             
             return true
         }
@@ -33,7 +36,7 @@ extension FirebaseHelper {
         return false
     } // func
     
-    func update_account() {
+    func get_history () {
         
     }
     
@@ -46,7 +49,6 @@ extension FirebaseHelper {
         /// Retrive current account balance
         print("Calling update account")
         let group = DispatchGroup()
-        var updated_amount: Double = 0  /// Put new amount in here
         
         FirebaseHelper.shared_instance.money_listener = FirebaseHelper.shared_instance.db.collection("transactions").whereField("pending", isEqualTo: true).addSnapshotListener { querySnapshot, error in
             if let err = error {
