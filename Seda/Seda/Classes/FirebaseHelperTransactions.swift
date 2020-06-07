@@ -36,8 +36,37 @@ extension FirebaseHelper {
         return false
     } // func
     
-    func get_history () {
+    /// Accesses the transactions stored within this user's account info in Firebase
+    /// When this function is finished then the completion handler is executed where the local array is added to the
+    /// array in the view controller
+    func get_history (completionHandler: @escaping (_ transactions: [Transaction] ) -> Void) {
+        var transactions:[Transaction] = []
         
+        user_document.collection("transactions").getDocuments { querySnapshot, error in
+            if let err = error {
+                print(err)
+            } else {
+                guard let documents = querySnapshot?.documents else {
+                    print("Could not unwrap querySnapshot in updateAccount()")
+                    return
+                }
+                
+                for doc in documents {
+                    let data = doc.data()
+                    if let amount = data["amount"] as? Double,
+                        let sender = data["sender"] as? String,
+                        let target = data["target"] as? String,
+                        let message = data["message"] as? String,
+                        let pending = data["pending"] as? Bool {
+                        
+                        let t = Transaction(amount: amount, sender: sender, target: target, message: message)
+                        transactions.append(t)
+                    }
+                }
+            }
+                
+            completionHandler(transactions)
+        }
     }
     
     /// Accomplish 4 tasks
@@ -106,5 +135,4 @@ extension FirebaseHelper {
             return false
         }
     }
-
 }

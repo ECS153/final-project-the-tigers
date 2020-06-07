@@ -27,7 +27,6 @@ class FirebaseHelper {
     /// Delegate
     var profile_delegate: refreshProfile?   // Store delgate for ProfileViewController so it can be updated later
     
-    
     private init(_ name: String) {
         self.uid = FirebaseHelper.get_uid()
         self.db = Firestore.firestore()
