@@ -40,6 +40,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @IBAction func add_friend(_ sender: Any) {
+        print("Button pressed")
         guard let searchText = search_bar.text else {
             print("Could not unwrap text")
             return
@@ -49,17 +50,19 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
             print("Could not obtain public key")
             return
         }
-   
-        FirebaseHelper.shared_instance.addFriend(pub_key: pub_key, friend_name: searchText)
         
-        loadFriends()
+        /// Make sure this is not someone the user already friended
+        let cond: Bool = requests.map { $0.name == searchText }.reduce(false, {x, y in x || y})
+        if cond == true {
+            print("You have already friended this person")
+        } else {
+            FirebaseHelper.shared_instance.addFriend(pub_key: pub_key, friend_name: searchText)
+        }
     } // @IBAction func add_friend()
     
     func loadFriends() {
         let db = Firestore.firestore()
-        db.collection("friend_requests")
-            .addSnapshotListener { (querySnapshot, error) in
-          
+        db.collection("friend_requests").addSnapshotListener { (querySnapshot, error) in
             if let err = error {
                 print(err)
             } else {
