@@ -51,5 +51,15 @@ extension FirebaseHelper {
             } // if else
         } // db.collection for username
     } // func
+    
+    func reject_request(docID: String) {
+        db.collection("friend_requests").document("\(docID)").delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+    }
 } // extension FirebaseHelper
 

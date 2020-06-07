@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B1E736E0E3ACE0233FFD8242 /* Pods_Seda.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB45B031B71CF3F597015D7 /* Pods_Seda.framework */; };
+		BA220C5A248E090A00AE29D4 /* FirebaseHelperTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA220C59248E090A00AE29D4 /* FirebaseHelperTransactions.swift */; };
+		BA220C5C248E091000AE29D4 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA220C5B248E091000AE29D4 /* Transaction.swift */; };
 		BA3BD957248CBA9E007E24CF /* FirebaseHelperFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3BD956248CBA9E007E24CF /* FirebaseHelperFriends.swift */; };
 		BA4C4CF92484BABD00C36256 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4CF82484BABD00C36256 /* Crypto.swift */; };
 		BA4C4D062484BAED00C36256 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4CFB2484BAED00C36256 /* ChatViewController.swift */; };
@@ -22,6 +24,7 @@
 		BA4C4D102484BAED00C36256 /* ScanCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4D052484BAED00C36256 /* ScanCardViewController.swift */; };
 		BA4C4D132484BB4100C36256 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4D112484BB4100C36256 /* RegisterViewController.swift */; };
 		BA4C4D142484BB4100C36256 /* TargetRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4D122484BB4100C36256 /* TargetRequestViewController.swift */; };
+		BAAF7E69248CD55E00941A80 /* DeleteFriendRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAF7E68248CD55E00941A80 /* DeleteFriendRequestViewController.swift */; };
 		BABFAC742489905E0007256E /* TransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABFAC732489905E0007256E /* TransferViewController.swift */; };
 		BAD84A44248888C20025A8DE /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD84A43248888C20025A8DE /* Request.swift */; };
 		BAD84A46248888D10025A8DE /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD84A45248888D10025A8DE /* TransactionViewController.swift */; };
@@ -43,6 +46,8 @@
 		3EB45B031B71CF3F597015D7 /* Pods_Seda.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Seda.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		403AC6112B1FB145E057550E /* Pods-Seda.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seda.debug.xcconfig"; path = "Target Support Files/Pods-Seda/Pods-Seda.debug.xcconfig"; sourceTree = "<group>"; };
 		7684AFCAE6A7412AA1E1139B /* Pods-Seda.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seda.release.xcconfig"; path = "Target Support Files/Pods-Seda/Pods-Seda.release.xcconfig"; sourceTree = "<group>"; };
+		BA220C59248E090A00AE29D4 /* FirebaseHelperTransactions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseHelperTransactions.swift; sourceTree = "<group>"; };
+		BA220C5B248E091000AE29D4 /* Transaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		BA3BD956248CBA9E007E24CF /* FirebaseHelperFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHelperFriends.swift; sourceTree = "<group>"; };
 		BA4C4CF82484BABD00C36256 /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
 		BA4C4CFB2484BAED00C36256 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
@@ -57,6 +62,7 @@
 		BA4C4D052484BAED00C36256 /* ScanCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScanCardViewController.swift; sourceTree = "<group>"; };
 		BA4C4D112484BB4100C36256 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		BA4C4D122484BB4100C36256 /* TargetRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetRequestViewController.swift; sourceTree = "<group>"; };
+		BAAF7E68248CD55E00941A80 /* DeleteFriendRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteFriendRequestViewController.swift; sourceTree = "<group>"; };
 		BABFAC732489905E0007256E /* TransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferViewController.swift; sourceTree = "<group>"; };
 		BAD84A43248888C20025A8DE /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		BAD84A45248888D10025A8DE /* TransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
@@ -111,7 +117,9 @@
 				BA4C4CF82484BABD00C36256 /* Crypto.swift */,
 				BAD84A48248889050025A8DE /* FirebaseHelper.swift */,
 				BA3BD956248CBA9E007E24CF /* FirebaseHelperFriends.swift */,
+				BA220C59248E090A00AE29D4 /* FirebaseHelperTransactions.swift */,
 				BAD84A43248888C20025A8DE /* Request.swift */,
+				BA220C5B248E091000AE29D4 /* Transaction.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -121,6 +129,7 @@
 			children = (
 				BA4C4D002484BAED00C36256 /* AcceptFriendViewController.swift */,
 				BA4C4CFB2484BAED00C36256 /* ChatViewController.swift */,
+				BAAF7E68248CD55E00941A80 /* DeleteFriendRequestViewController.swift */,
 				BA4C4CFC2484BAED00C36256 /* FriendsViewController.swift */,
 				BA4C4CFD2484BAED00C36256 /* LoadBalanceViewController.swift */,
 				BA4C4D032484BAED00C36256 /* LoginViewController.swift */,
@@ -318,13 +327,16 @@
 				BAD84A49248889050025A8DE /* FirebaseHelper.swift in Sources */,
 				BA4C4D132484BB4100C36256 /* RegisterViewController.swift in Sources */,
 				BA4C4D142484BB4100C36256 /* TargetRequestViewController.swift in Sources */,
+				BA220C5A248E090A00AE29D4 /* FirebaseHelperTransactions.swift in Sources */,
 				C0319C812469B7D600447090 /* SceneDelegate.swift in Sources */,
 				BA4C4D062484BAED00C36256 /* ChatViewController.swift in Sources */,
 				BA4C4CF92484BABD00C36256 /* Crypto.swift in Sources */,
 				BA4C4D102484BAED00C36256 /* ScanCardViewController.swift in Sources */,
 				BA4C4D0F2484BAED00C36256 /* ProfileViewController.swift in Sources */,
+				BAAF7E69248CD55E00941A80 /* DeleteFriendRequestViewController.swift in Sources */,
 				C01962FD2474FA4B007142FE /* MessageTableViewCell.swift in Sources */,
 				BA4C4D0C2484BAED00C36256 /* PaymentViewController.swift in Sources */,
+				BA220C5C248E091000AE29D4 /* Transaction.swift in Sources */,
 				C01962FA2474F08C007142FE /* Message.swift in Sources */,
 				BA4C4D082484BAED00C36256 /* LoadBalanceViewController.swift in Sources */,
 				BA4C4D0E2484BAED00C36256 /* LoginViewController.swift in Sources */,
