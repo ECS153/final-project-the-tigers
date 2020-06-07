@@ -642,7 +642,63 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FV2-H0-3uG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4854" y="1294"/>
+            <point key="canvasLocation" x="4923" y="1465"/>
+        </scene>
+        <!--Delete Friend Request View Controller-->
+        <scene sceneID="8kD-To-f5I">
+            <objects>
+                <viewController storyboardIdentifier="DeleteVC" id="8sU-9Z-2sH" customClass="DeleteFriendRequestViewController" customModule="Seda" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DfV-Tl-tsb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delete request from [Friend]?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58b-1v-eFx">
+                                <rect key="frame" x="20" y="128" width="374" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="friends_icon" translatesAutoresizingMaskIntoConstraints="NO" id="GN2-rN-grN">
+                                <rect key="frame" x="102" y="198" width="210" height="161"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="210" id="OcL-NC-a2y"/>
+                                    <constraint firstAttribute="height" constant="161" id="rGf-yv-uPu"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYs-5j-BEW">
+                                <rect key="frame" x="132" y="409" width="150" height="153"/>
+                                <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="180"/>
+                                <state key="normal" title="X">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="delete_button:" destination="8sU-9Z-2sH" eventType="touchUpInside" id="XNg-ep-d81"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="cBQ-bC-nYm" firstAttribute="trailing" secondItem="GN2-rN-grN" secondAttribute="trailing" constant="102" id="50S-qh-OZQ"/>
+                            <constraint firstItem="cBQ-bC-nYm" firstAttribute="trailing" secondItem="58b-1v-eFx" secondAttribute="trailing" constant="20" id="T6S-Ql-3Rp"/>
+                            <constraint firstItem="PYs-5j-BEW" firstAttribute="leading" secondItem="cBQ-bC-nYm" secondAttribute="leading" constant="132" id="VYy-1X-jjQ"/>
+                            <constraint firstItem="cBQ-bC-nYm" firstAttribute="trailing" secondItem="PYs-5j-BEW" secondAttribute="trailing" constant="132" id="anu-km-aoC"/>
+                            <constraint firstItem="PYs-5j-BEW" firstAttribute="top" secondItem="GN2-rN-grN" secondAttribute="bottom" constant="50" id="b6e-CE-Sqe"/>
+                            <constraint firstItem="58b-1v-eFx" firstAttribute="leading" secondItem="cBQ-bC-nYm" secondAttribute="leading" constant="20" id="fVj-NS-aX7"/>
+                            <constraint firstItem="GN2-rN-grN" firstAttribute="top" secondItem="58b-1v-eFx" secondAttribute="bottom" constant="40" id="kGq-ni-QfR"/>
+                            <constraint firstItem="58b-1v-eFx" firstAttribute="top" secondItem="cBQ-bC-nYm" secondAttribute="top" constant="40" id="n5l-32-umF"/>
+                            <constraint firstItem="GN2-rN-grN" firstAttribute="leading" secondItem="cBQ-bC-nYm" secondAttribute="leading" constant="102" id="u5R-g0-eR0"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="cBQ-bC-nYm"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Kux-eY-Rvy"/>
+                    <connections>
+                        <outlet property="label" destination="58b-1v-eFx" id="1Ae-xE-ih5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1xG-Rh-kU5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6289.8550724637689" y="1326.5625"/>
         </scene>
         <!--ProfileVC-->
         <scene sceneID="IjQ-in-ZwI">
@@ -817,11 +873,12 @@
                         <outlet property="friendsTable" destination="nX4-fG-Qvd" id="SOL-qg-6Gb"/>
                         <outlet property="search_bar" destination="wMP-6W-4vw" id="u0h-2N-vNU"/>
                         <segue destination="2MU-Dc-fSC" kind="show" id="crK-rd-foI"/>
+                        <segue destination="8sU-9Z-2sH" kind="show" id="HFv-WF-akP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fjh-KC-yW8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4641" y="556"/>
+            <point key="canvasLocation" x="4854" y="582"/>
         </scene>
         <!--Transaction View Controller-->
         <scene sceneID="0Lf-Cv-YTK">

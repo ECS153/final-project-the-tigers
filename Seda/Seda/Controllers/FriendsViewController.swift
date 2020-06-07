@@ -18,6 +18,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     var crypto:Crypto? = nil
     var requests:[Request] = []
     var user_id:String = ""
+    var friends:[String] = []
     
     @IBOutlet weak var friendsTable: UITableView!
     @IBOutlet weak var search_bar: UITextField!
@@ -34,7 +35,22 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         friendsTable.delegate = self
         friendsTable.dataSource = self
         
-        loadFriends()
+        FirebaseHelper.shared_instance.user_document.collection("friends").getDocuments { (querySnapshot, error) in
+            if let err = error {
+                print(err)
+            } else {
+                guard let document = querySnapshot else {
+                    print("Transaction.loadFriends(): Could not unwrap the query snapshot")
+                    return
+                }
+                    
+                for doc in document.documents {
+                    self.friends.append(doc.documentID)
+                }
+            }
+            
+            self.loadFriends()
+        }
         
         friendsTable.register(FriendCell.self, forCellReuseIdentifier: "FriendCell")
     }
@@ -53,7 +69,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         /// Make sure this is not someone the user already friended
         let cond: Bool = requests.map { $0.name == searchText }.reduce(false, {x, y in x || y})
-        if cond == true {
+        if self.friends.contains(searchText) || cond{
             print("You have already friended this person")
         } else {
             FirebaseHelper.shared_instance.addFriend(pub_key: pub_key, friend_name: searchText)
@@ -71,9 +87,10 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
                         let data = doc.data()
                         if let sender = data["sender"] as? String, let target = data["target"] as? String, let docID = data["docID"] as? String, let friend_pub_key = data["sender_public_key"] as? String, let pending = data["pending"] as? Bool {
                             print("loadFriends \(self.user) \(target)")
+                            
                             if (target == self.user) {
                                 print(pending)
-                                let newRequest = Request(name: "\(sender)", docID, friend_pub_key)
+                                let newRequest = Request(name: "\(sender)", docID, friend_pub_key, false)
                                 //print("New Request \(newRequest)")
                                 if self.requests.contains(where: { $0.name == newRequest.name}) == true || pending == false {
                                     continue
@@ -89,7 +106,7 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
                             }
                             
                             if (self.user == sender) {
-                                let newRequest = Request(name: "\(target)", docID, friend_pub_key)
+                                let newRequest = Request(name: "\(target)", docID, friend_pub_key, true)
                                 //print("New Request \(newRequest)")
                                
                                 if self.requests.contains(where: { $0.name == newRequest.name}) == true || pending == false {
@@ -118,15 +135,11 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let req = requests[indexPath.row]
         let cell  = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath) as! FriendCell
-        cell.textLabel?.text = "You have a pending request with " + req.name
-
         
-        cell.actionBlock = { [unowned self] in
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let acceptFriendVC = storyboard.instantiateViewController(identifier: "AcceptFriendVC") as! AcceptFriendViewController
-            acceptFriendVC.request = self.requests[indexPath.row]
-            acceptFriendVC.crypto = self.crypto
-            self.navigationController?.pushViewController(acceptFriendVC, animated: true)
+        if req.s_or_r == true {
+            cell.textLabel?.text = "Waiting to hear from " + req.name
+        } else {
+            cell.textLabel?.text = "You have a request from " + req.name
         }
         
         return cell
@@ -137,13 +150,21 @@ class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewD
      */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let ViewPostingVC = storyboard.instantiateViewController(identifier: "AcceptFriendVC") as! AcceptFriendViewController
         
-        ViewPostingVC.modalPresentationStyle = .fullScreen
-        ViewPostingVC.request = requests[indexPath.row]
-        ViewPostingVC.crypto = self.crypto
-        
-        self.navigationController?.pushViewController(ViewPostingVC, animated: true)
+        if requests[indexPath.row].s_or_r == true {
+            print("Selecting a request you sent")
+            let deleteVC = storyboard.instantiateViewController(identifier: "DeleteVC") as! DeleteFriendRequestViewController
+            deleteVC.modalPresentationStyle = .fullScreen
+            deleteVC.request = requests[indexPath.row]
+            self.navigationController?.pushViewController(deleteVC, animated: true)
+            
+        } else {
+            let ViewPostingVC = storyboard.instantiateViewController(identifier: "AcceptFriendVC") as! AcceptFriendViewController
+            ViewPostingVC.modalPresentationStyle = .fullScreen
+            ViewPostingVC.request = requests[indexPath.row]
+            ViewPostingVC.crypto = self.crypto
+            self.navigationController?.pushViewController(ViewPostingVC, animated: true)
+        }
     }
     
 } // class FriendsVC
