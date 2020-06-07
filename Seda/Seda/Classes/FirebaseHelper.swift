@@ -36,6 +36,29 @@ class FirebaseHelper {
     
         return uid
     }
+    // Class Functions ///
+    
+    func checkUser(_ targetUser: String, completionHandler: @escaping ((_ exist : Bool) -> Void)) {
+        db.collection("users").addSnapshotListener { (querySnapshot, error) in
+            if let err = error {
+                print(err)
+            } else {
+                if let documents = querySnapshot?.documents {
+                    for doc in documents {
+                        let data = doc.data()
+                        if let username = data["username"] as? String {
+                            if username == targetUser {
+                                completionHandler(true)
+                                return
+                            } else {
+                                completionHandler(false)
+                            }
+                        }
+                    }
+                }
+            } // if else
+        } // db.collection
+    }
     
     func make_transaction(target: String, amount: Double, message: String) -> Bool  {
         /// Add the transaction to user data

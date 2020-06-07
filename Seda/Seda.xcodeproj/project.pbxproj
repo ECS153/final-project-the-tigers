@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B1E736E0E3ACE0233FFD8242 /* Pods_Seda.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB45B031B71CF3F597015D7 /* Pods_Seda.framework */; };
+		BA3BD957248CBA9E007E24CF /* FirebaseHelperFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3BD956248CBA9E007E24CF /* FirebaseHelperFriends.swift */; };
 		BA4C4CF92484BABD00C36256 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4CF82484BABD00C36256 /* Crypto.swift */; };
 		BA4C4D062484BAED00C36256 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4CFB2484BAED00C36256 /* ChatViewController.swift */; };
 		BA4C4D072484BAED00C36256 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4C4CFC2484BAED00C36256 /* FriendsViewController.swift */; };
@@ -42,6 +43,7 @@
 		3EB45B031B71CF3F597015D7 /* Pods_Seda.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Seda.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		403AC6112B1FB145E057550E /* Pods-Seda.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seda.debug.xcconfig"; path = "Target Support Files/Pods-Seda/Pods-Seda.debug.xcconfig"; sourceTree = "<group>"; };
 		7684AFCAE6A7412AA1E1139B /* Pods-Seda.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Seda.release.xcconfig"; path = "Target Support Files/Pods-Seda/Pods-Seda.release.xcconfig"; sourceTree = "<group>"; };
+		BA3BD956248CBA9E007E24CF /* FirebaseHelperFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseHelperFriends.swift; sourceTree = "<group>"; };
 		BA4C4CF82484BABD00C36256 /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
 		BA4C4CFB2484BAED00C36256 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		BA4C4CFC2484BAED00C36256 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			children = (
 				BA4C4CF82484BABD00C36256 /* Crypto.swift */,
 				BAD84A48248889050025A8DE /* FirebaseHelper.swift */,
+				BA3BD956248CBA9E007E24CF /* FirebaseHelperFriends.swift */,
 				BAD84A43248888C20025A8DE /* Request.swift */,
 			);
 			path = Classes;
@@ -123,7 +126,9 @@
 				BA4C4D032484BAED00C36256 /* LoginViewController.swift */,
 				BA4C4D012484BAED00C36256 /* PaymentViewController.swift */,
 				BA4C4D042484BAED00C36256 /* ProfileViewController.swift */,
+				BA4C4D112484BB4100C36256 /* RegisterViewController.swift */,
 				BA4C4D052484BAED00C36256 /* ScanCardViewController.swift */,
+				BA4C4D122484BB4100C36256 /* TargetRequestViewController.swift */,
 				BAD84A45248888D10025A8DE /* TransactionViewController.swift */,
 				BABFAC732489905E0007256E /* TransferViewController.swift */,
 				BA4C4D022484BAED00C36256 /* UserHomeViewController.swift */,
@@ -175,8 +180,6 @@
 				C0DAC065246A36F200F6B22E /* Main.storyboard */,
 				C01962FB2474FA4B007142FE /* MessageTableViewCell.swift */,
 				C01962FC2474FA4B007142FE /* MessageTableViewCell.xib */,
-				BA4C4D112484BB4100C36256 /* RegisterViewController.swift */,
-				BA4C4D122484BB4100C36256 /* TargetRequestViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				C01962FA2474F08C007142FE /* Message.swift in Sources */,
 				BA4C4D082484BAED00C36256 /* LoadBalanceViewController.swift in Sources */,
 				BA4C4D0E2484BAED00C36256 /* LoginViewController.swift in Sources */,
+				BA3BD957248CBA9E007E24CF /* FirebaseHelperFriends.swift in Sources */,
 				BABFAC742489905E0007256E /* TransferViewController.swift in Sources */,
 				BA4C4D0A2484BAED00C36256 /* WelcomeViewController.swift in Sources */,
 				BAD84A46248888D10025A8DE /* TransactionViewController.swift in Sources */,
