@@ -8,13 +8,13 @@ import Foundation
 class Transaction {
     var amount: Double
     var sender: String
-    var receiver: String
+    var target: String
     var message: String
     
-    init (amount: Double, sender: String, receiver: String, message: String) {
+    init (amount: Double, sender: String, target: String, message: String) {
         self.amount = amount
         self.sender = sender
-        self.receiver = receiver
+        self.target = target
         self.message = message
     }
 }
