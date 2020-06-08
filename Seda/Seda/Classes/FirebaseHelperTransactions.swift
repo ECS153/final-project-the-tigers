@@ -167,7 +167,8 @@ extension FirebaseHelper {
                                     self.user_document.collection("transactions").addDocument(data: myData)
                                 
                                 
-                                doc.reference.updateData(["pending": false])
+                                //doc.reference.updateData(["pending": false])
+                                doc.reference.delete()
                                 return  /// Snapshot queury will be launched again after updateData is done
                             }
                         }
