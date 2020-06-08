@@ -42,8 +42,8 @@ class FirebaseHelper {
         var curr_amount:Double = 0
         FirebaseHelper.shared_instance.user_document.getDocument { (document, error) in
             if let document = document {
-                // If balance is unable to be placed in then use -1
-                let bal = document.get("balance") as? Double ?? -1
+                // If balance is unable to be placed in then use 0
+                let bal = document.get("balance") as? Double ?? 0
                 curr_amount = bal
             }
             self.shared_instance.curr_balance = curr_amount

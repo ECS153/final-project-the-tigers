@@ -10,6 +10,7 @@ class TransferViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var message: UITextField!
     @IBOutlet weak var pay: UIButton!
     
+    var crypto:Crypto? = nil
     var recipient: String = ""
     
     override func viewDidLoad() {
@@ -30,7 +31,10 @@ class TransferViewController: UIViewController, UITextFieldDelegate {
         
         encryption_queue.async {
             /// Run this on background thread
-            let transaction_success:Bool = FirebaseHelper.shared_instance.make_transaction(target: self.recipient, amount: money, message: mess)
+            guard let crypt = self.crypto else {
+                return
+            }
+            let transaction_success:Bool = FirebaseHelper.shared_instance.make_transaction(target: self.recipient, amount: money, message: mess, crypto: crypt)
             
             /// Update UI on main thread
             DispatchQueue.main.async {

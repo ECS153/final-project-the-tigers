@@ -10,6 +10,7 @@ import UIKit
 
 class HistoryTableViewController: UITableViewController {
     var transactions: [Transaction] = []
+    var crypto:Crypto? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()

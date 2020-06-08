@@ -7,6 +7,7 @@ import UIKit
 
 class TransactionViewController: UITableViewController {
     var friends:[String] = []
+    var crypto:Crypto? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +62,7 @@ class TransactionViewController: UITableViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let transferVC = storyboard.instantiateViewController(identifier: "TransferVC") as! TransferViewController
         transferVC.recipient = friends[indexPath.row]
-    
+        transferVC.crypto = crypto
         self.navigationController?.pushViewController(transferVC, animated: true)
     }
 }

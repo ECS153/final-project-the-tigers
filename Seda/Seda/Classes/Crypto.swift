@@ -15,6 +15,9 @@ import Foundation
  
  */
 class Crypto {
+    /// privae(set): only modifiable within the class but readable outside of it
+    static private(set) var shared_instance: Crypto!
+    
     /// This is information on the keys being used
     /// It is set in the code and is needed to create the key and
     /// to decipher the public key when it is read as a string from the database
@@ -44,8 +47,14 @@ class Crypto {
             print("Create private key")
             createPrivKey()
         }
+        
+        print("private key = ")
+        print(priv_key!)
     } // init()
     
+    static func initialize(_ username: String) {
+        self.shared_instance = Crypto(username)
+    }
     
     // Creates a private key and stores it in the enclave
     func createPrivKey() {

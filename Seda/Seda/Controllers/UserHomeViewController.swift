@@ -10,18 +10,14 @@ import UIKit
 import Firebase
 
 class UserHomeViewController: UIViewController {
-    
-    @IBOutlet weak var welcomeLabel: UILabel!
-    
+    @IBOutlet weak var welcomeLabel: UILabel!    
     var userEmail:String = ""
-    var crypto:Crypto?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //hide Back Button on the navigation bar
         self.navigationItem.setHidesBackButton(true, animated: false)
         // Do any additional setup after loading the view.
-        crypto = Crypto(userEmail)
     }
     
     @IBAction func myWalletPressed(_ sender: UIButton) {
@@ -35,8 +31,6 @@ class UserHomeViewController: UIViewController {
     @IBAction func chatPressed(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let targetRequestVC = storyboard.instantiateViewController(identifier: Constants.targetRequestPage) as! TargetRequestViewController
-        targetRequestVC.crypto = crypto
-        
         self.navigationController?.pushViewController(targetRequestVC, animated: true)
         
     }
@@ -51,14 +45,4 @@ class UserHomeViewController: UIViewController {
           print ("Error signing out: %@", signOutError)
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
