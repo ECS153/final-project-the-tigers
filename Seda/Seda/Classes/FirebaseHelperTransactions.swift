@@ -135,7 +135,7 @@ extension FirebaseHelper {
                         let target = data["target"] as? String,
                         let message = data["message"] as? String,
                         let pending = data["pending"] as? Bool {
-                            if (target == FirebaseHelper.shared_instance.username && pending == true){
+                            if (target == FirebaseHelper.shared_instance.username && pending == true) {
                                 self.encryptData(target: sender) { their_key, my_key in
                                     /// Decrpty data
                                     guard let money_str = Crypto.shared_instance.decrypt(dataString: amount),
@@ -143,7 +143,8 @@ extension FirebaseHelper {
                                         let message_clear = Crypto.shared_instance.decrypt(dataString: message)
                                     else {
                                         return
-                                    }
+                                    } // guard
+                                    
                                     print(message_clear)
                                     /// Update the user's transactions
                                     if money_clear != 0 {
@@ -165,12 +166,14 @@ extension FirebaseHelper {
                                     
                                     /// Store reencrypted data with the user
                                     self.user_document.collection("transactions").addDocument(data: myData)
+                                    
+                                    
+                                    //doc.reference.updateData(["pending": false])
+                                    doc.reference.delete()
+                                    return  /// Snapshot queury will be launched again after updateData is done
+                            } // encryptData closure
                                 
-                                
-                                //doc.reference.updateData(["pending": false])
-                                doc.reference.delete()
-                                return  /// Snapshot queury will be launched again after updateData is done
-                            }
+                            return
                         }
                     }
                 } // for
