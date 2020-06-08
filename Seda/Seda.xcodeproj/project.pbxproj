@@ -134,6 +134,7 @@
 				BA4C4D042484BAED00C36256 /* ProfileViewController.swift */,
 				BA4C4D112484BB4100C36256 /* RegisterViewController.swift */,
 				BA4C4D052484BAED00C36256 /* ScanCardViewController.swift */,
+				BA4C4D122484BB4100C36256 /* TargetRequestViewController.swift */,
 				BAD84A45248888D10025A8DE /* TransactionViewController.swift */,
 				BABFAC732489905E0007256E /* TransferViewController.swift */,
 				BA4C4D022484BAED00C36256 /* UserHomeViewController.swift */,
@@ -185,7 +186,6 @@
 				C0DAC065246A36F200F6B22E /* Main.storyboard */,
 				C01962FB2474FA4B007142FE /* MessageTableViewCell.swift */,
 				C01962FC2474FA4B007142FE /* MessageTableViewCell.xib */,
-				BA4C4D122484BB4100C36256 /* TargetRequestViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

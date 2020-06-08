@@ -43,6 +43,7 @@ class RegisterViewController: UIViewController {
                         return
                     }
                     
+                    Crypto.initialize(self.userEmail)
                     FirebaseHelper.createUser(_uid: uid, _name: email)
                     FirebaseHelper.initialize(self.userEmail) // To use the FirebaseHelper
                     

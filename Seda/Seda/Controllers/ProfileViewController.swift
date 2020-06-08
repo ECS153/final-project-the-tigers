@@ -22,16 +22,13 @@ class ProfileViewController: UIViewController, refreshProfile {
     @IBOutlet weak var send_money_button: UIButton!
     var uid:String = ""
     var userEmail:String = ""
-    var crypto:Crypto? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         username.text = userEmail
-        crypto = Crypto(userEmail)
         FirebaseHelper.shared_instance.profile_delegate = self
         loadFromDB()
-        //loadFromDB()
     }
     
     @IBAction func view_history(_ sender: Any) {
@@ -45,7 +42,6 @@ class ProfileViewController: UIViewController, refreshProfile {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let friendVC = storyboard.instantiateViewController(identifier: "FriendsViewController") as! FriendsViewController
         friendVC.user = userEmail
-        friendVC.crypto = crypto
         friendVC.user_id = uid
         self.navigationController?.pushViewController(friendVC, animated: true)
     }
@@ -60,7 +56,6 @@ class ProfileViewController: UIViewController, refreshProfile {
     @IBAction func send_money_pressed(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let transactionVC = storyboard.instantiateViewController(identifier: "TransactionVC") as! TransactionViewController
-        
         self.navigationController?.pushViewController(transactionVC, animated: true)
     }
    

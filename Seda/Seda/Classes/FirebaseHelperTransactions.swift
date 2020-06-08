@@ -6,32 +6,54 @@ import Firebase
 import Foundation
 
 extension FirebaseHelper {
+    /// 1. Get public key corresponding to the target
+    func encryptData(target: String, crypto: Crypto, completionHandler: @escaping (_ their_key: SecKey) -> Bool) {
+        user_document.collection("friends").document(target).getDocument { document, error in
+            if let err = error {
+                print(err)
+            } else {
+                if let document = document {
+                    guard let t_key = document.get("friend_public_key") as? String, let m_key = document.get("user_public_key") as? String else {
+                        return
+                    }
+                    
+                    guard let their_key = crypto.convertStringToKey(keyRaw: t_key), let  my_key = crypto.convertStringToKey(keyRaw: m_key) else {
+                        print("Could not unwrap keys")
+                        return
+                    }
+                    
+                    completionHandler(their_key)
+                }
+            }
+        }
+    }
+    
     /// The user follows through with removing money from their account and giving it to someone else
-    func make_transaction(target: String, amount: Double, message: String) -> Bool  {
+    func make_transaction(target: String, amount: Double, message: String, crypto: Crypto) -> Bool  {
         /// Reverse sign of amount because it is being taken out of the account
         if updateBalance(update_amount: (amount * -1)) == true {
             /// Add the transaction to user data
-            let data = [
-                "sender": self.username,
-                "target" : target,
-                "amount" : amount,
-                "message" : message,
-                "time" : Date().timeIntervalSince1970,
-                "pending" : true
-                ] as [String : Any]
-            
-            let doc_ref = db.collection("transactions").addDocument(data: data)
-            
-            /// Add the transaction the user was involved with to their transaction array
-            user_document.updateData([
-                "transactions" : FieldValue.arrayUnion(["\(doc_ref.documentID)"])
-            ])
-            
-            user_document.collection("transactions").addDocument(data: data)
+            encryptData(target: target, crypto: crypto) { their_key in
+                let data = [
+                    "sender": self.username,
+                    "target" : target,
+                    "amount" : amount,
+                    "message" : crypto.encrypt(their_key, clearText: message) ?? "Error",
+                    "time" : Date().timeIntervalSince1970,
+                    "pending" : true
+                    ] as [String : Any]
+                
+                let doc_ref = self.db.collection("transactions").addDocument(data: data)
+                
+                /// Add the transaction the user was involved with to their transaction array
+                self.user_document.collection("transactions").addDocument(data: data)
+                
+                return true
+            }
             
             return true
         }
-            
+        
         /// Insufficient funds
         return false
     } // func
@@ -92,12 +114,12 @@ extension FirebaseHelper {
                 
                 for doc in documents {
                     let data = doc.data()
-                    if let target = data["target"] as? String, let amount = data["amount"] as? Double, let pending = data["pending"] as? Bool {
+                    if let target = data["target"] as? String,
+                        let amount = data["amount"] as? Double,
+                        let message = data["message"] as? String,
+                        let pending = data["pending"] as? Bool  {
                         if (target == FirebaseHelper.shared_instance.username && pending == true){
-                            /// Update pending to complete
-                            self.user_document.updateData([
-                                "transactions" : FieldValue.arrayUnion(["\(doc.documentID)"])
-                            ])
+                            self.user_document.collection("transactions").addDocument(data: data)
                             
                             if amount != 0 {
                                 if FirebaseHelper.shared_instance.updateBalance(update_amount: amount) == false {

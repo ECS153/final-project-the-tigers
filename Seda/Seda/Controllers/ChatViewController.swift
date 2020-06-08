@@ -11,7 +11,6 @@ import Firebase
 import FirebaseFirestore
 
 class ChatViewController: UIViewController {
-
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var messageText: UITextField!
     
@@ -27,6 +26,7 @@ class ChatViewController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.register(UINib(nibName: "MessageTableViewCell", bundle: nil), forCellReuseIdentifier: Constants.chatPrototypeCell)
+        crypto = Crypto.shared_instance
         loadMessages()
     }
     
@@ -76,7 +76,6 @@ class ChatViewController: UIViewController {
     @IBAction func sendPressed(_ sender: UIButton) {
        // let friend_pub_key = retrieveFriendsKey(targetUser: self.targetUser)
         
-        
         let encryption_queue = DispatchQueue(label: "encryption_queue")
         let group = DispatchGroup()
         
@@ -86,16 +85,8 @@ class ChatViewController: UIViewController {
         
         // Run this in a separate thread because Firebase is slower than the function
         encryption_queue.async {
-            
-            let cur_user = Auth.auth().currentUser
-            guard let uid = cur_user?.uid else {
-                print("This user does not have a uid")
-                return
-            }
-            
             // Use the inputted username to access DB
-            let db = Firestore.firestore()
-            let users = db.collection("users").document(uid).collection("friends").document(self.targetUser)
+            let users = FirebaseHelper.shared_instance.user_document.collection("friends").document(self.targetUser)
                
             group.enter()
             // dispatch image retreival from Firebase on a global thread.
@@ -133,7 +124,7 @@ class ChatViewController: UIViewController {
             print("messagebody \(messageBody)")
             if let messageSender = Auth.auth().currentUser?.email {
                 
-                db.collection("messages").addDocument(data: ["sender" : messageSender,
+                FirebaseHelper.shared_instance.db.collection("messages").addDocument(data: ["sender" : messageSender,
                                                              "body": messageBody,
                                                              "senderBody" : senderBody,
                                                              "time": Date().timeIntervalSince1970,

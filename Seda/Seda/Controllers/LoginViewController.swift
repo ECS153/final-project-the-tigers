@@ -36,7 +36,7 @@ class LoginViewController: UIViewController {
                     self.passwordText.text = ""
                 } else {
                     //navigate to the next page
-                
+                    Crypto.initialize(self.userEmail)
                     FirebaseHelper.initialize(self.userEmail) // To use the FirebaseHelper
                     
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)

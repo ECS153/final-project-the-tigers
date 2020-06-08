@@ -15,7 +15,7 @@ class FriendCell: UITableViewCell {
 
 class FriendsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var user:String = ""
-    var crypto:Crypto? = nil
+    var crypto:Crypto? = Crypto.shared_instance
     var requests:[Request] = []
     var user_id:String = ""
     
