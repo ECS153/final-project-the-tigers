@@ -48,11 +48,21 @@ class HistoryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "historyCell", for: indexPath)
-        cell.textLabel?.text =  String(transactions[indexPath.row].amount) + " " + transactions[indexPath.row].sender + " -> " + transactions[indexPath.row].target
+        cell.textLabel?.text = "($" + String(format: "%.2f", transactions[indexPath.row].amount) + ") " + transactions[indexPath.row].sender + " -> " + transactions[indexPath.row].target
         
         return cell
     }
     
+    /*
+     * Delegate function to recognize row selection. Segues to selected posting.
+     */
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let details = storyboard.instantiateViewController(identifier: "TransactionDetailsVC") as! TransactionDetailsViewController
+        details.modalPresentationStyle = .fullScreen
+        details.transaction = transactions[indexPath.row]
+        self.navigationController?.pushViewController(details, animated: true)
+    }
 
     /*
     // Override to support conditional editing of the table view.

@@ -856,10 +856,71 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="lib-Wa-f6k"/>
+                    <connections>
+                        <segue destination="xCL-2j-tlV" kind="show" id="eJO-dc-66r"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EiA-nc-TuO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4807" y="46"/>
+        </scene>
+        <!--TransactionDetailsVC-->
+        <scene sceneID="b1m-aM-Cqs">
+            <objects>
+                <viewController storyboardIdentifier="TransactionDetailsVC" title="TransactionDetailsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xCL-2j-tlV" customClass="TransactionDetailsViewController" customModule="Seda" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8We-0t-SoP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ac4-3s-gXH">
+                                <rect key="frame" x="20" y="128" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qex-do-X40">
+                                <rect key="frame" x="20" y="189" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdI-Xr-TSc">
+                                <rect key="frame" x="20" y="250" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iJm-87-FeN">
+                                <rect key="frame" x="20" y="311" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="iJm-87-FeN" firstAttribute="top" secondItem="hdI-Xr-TSc" secondAttribute="bottom" constant="40" id="4Mc-CV-St2"/>
+                            <constraint firstItem="hdI-Xr-TSc" firstAttribute="leading" secondItem="TUg-eH-fqY" secondAttribute="leading" constant="20" id="93c-Q2-FdS"/>
+                            <constraint firstItem="Qex-do-X40" firstAttribute="top" secondItem="ac4-3s-gXH" secondAttribute="bottom" constant="40" id="9vm-5x-eLk"/>
+                            <constraint firstItem="Qex-do-X40" firstAttribute="leading" secondItem="TUg-eH-fqY" secondAttribute="leading" constant="20" id="I6o-vE-7St"/>
+                            <constraint firstItem="iJm-87-FeN" firstAttribute="leading" secondItem="TUg-eH-fqY" secondAttribute="leading" constant="20" id="Nr2-Rz-QEQ"/>
+                            <constraint firstItem="hdI-Xr-TSc" firstAttribute="top" secondItem="Qex-do-X40" secondAttribute="bottom" constant="40" id="Y3x-Fm-kj4"/>
+                            <constraint firstItem="ac4-3s-gXH" firstAttribute="top" secondItem="TUg-eH-fqY" secondAttribute="top" constant="40" id="hC9-Gs-PSD"/>
+                            <constraint firstItem="ac4-3s-gXH" firstAttribute="leading" secondItem="TUg-eH-fqY" secondAttribute="leading" constant="20" id="iQi-eB-jkO"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="TUg-eH-fqY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="OhS-1Y-l3p"/>
+                    <connections>
+                        <outlet property="amount" destination="hdI-Xr-TSc" id="a7I-AW-cCV"/>
+                        <outlet property="message" destination="iJm-87-FeN" id="egA-5Y-9Yp"/>
+                        <outlet property="receiver" destination="Qex-do-X40" id="DGX-Do-Hgk"/>
+                        <outlet property="sender" destination="ac4-3s-gXH" id="oLP-Lq-fZX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ely-dq-ghA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6112" y="46"/>
         </scene>
         <!--Friends View Controller-->
         <scene sceneID="uRm-fP-4Hj">
@@ -919,7 +980,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fjh-KC-yW8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4854" y="582"/>
+            <point key="canvasLocation" x="4806" y="792"/>
         </scene>
         <!--Transaction View Controller-->
         <scene sceneID="0Lf-Cv-YTK">
@@ -1097,7 +1158,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dvl-Xc-Ksc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="JYW-CF-4h5" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="6112" y="730"/>
+            <point key="canvasLocation" x="6112" y="792"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="L2r-xd-1mF">

@@ -63,6 +63,8 @@ class ProfileViewController: UIViewController, refreshProfile {
      * Load user's balance
      */
     func loadFromDB() {
-        self.balance.text = "$" + String(format: "%.2f", FirebaseHelper.shared_instance.curr_balance)
+        DispatchQueue.main.async {
+            self.balance.text = "$" + String(format: "%.2f", FirebaseHelper.shared_instance.curr_balance)
+        }
     } // loadFromDB()
 }
