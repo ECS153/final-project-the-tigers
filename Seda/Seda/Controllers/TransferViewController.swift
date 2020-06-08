@@ -31,35 +31,33 @@ class TransferViewController: UIViewController, UITextFieldDelegate {
         
         encryption_queue.async {
             /// Run this on background thread
-            guard let crypt = self.crypto else {
-                return
-            }
-            let transaction_success:Bool = FirebaseHelper.shared_instance.make_transaction(target: self.recipient, amount: money, message: mess, crypto: crypt)
-            
-            /// Update UI on main thread
-            DispatchQueue.main.async {
-                if transaction_success == false {
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let alert = UIAlertController(title: "Insufficient funds", message: "Looks like you need to add more funds", preferredStyle: .alert)
-                    
-                    /// User can chose to add more money
-                    alert.addAction(UIAlertAction(title: "Add funds", style: .cancel) { _ in
-                        let addMoneyVC = storyboard.instantiateViewController(identifier: "LoadBalanceVC") as! LoadBalanceViewController
-                        self.navigationController?.pushViewController(addMoneyVC, animated: true)
-                    })
-                    
-                    /// User can continue
-                    alert.addAction(UIAlertAction(title: "Continue", style: .default))
-                    
-                    self.present(alert, animated: true, completion: nil)
+
+            FirebaseHelper.shared_instance.make_transaction(target: self.recipient, amount: money, message: mess) { success in
+                /// Update UI on main thread
+                DispatchQueue.main.async {
+                    if success == false {
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let alert = UIAlertController(title: "Insufficient funds", message: "Looks like you need to add more funds", preferredStyle: .alert)
+                        
+                        /// User can chose to add more money
+                        alert.addAction(UIAlertAction(title: "Add funds", style: .cancel) { _ in
+                            let addMoneyVC = storyboard.instantiateViewController(identifier: "LoadBalanceVC") as! LoadBalanceViewController
+                            self.navigationController?.pushViewController(addMoneyVC, animated: true)
+                        })
+                        
+                        /// User can continue
+                        alert.addAction(UIAlertAction(title: "Continue", style: .default))
+                        
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                
+                    /// Locate view controller in stack and bring user back to their profile
+                    guard let vc = self.navigationController?.viewControllers.filter({$0 is ProfileViewController}).first else {
+                        print("Cannot return to view controller")
+                        return
+                    }
+                    self.navigationController?.popToViewController(vc, animated: true)
                 }
-            
-                /// Locate view controller in stack and bring user back to their profile
-                guard let vc = self.navigationController?.viewControllers.filter({$0 is ProfileViewController}).first else {
-                    print("Cannot return to view controller")
-                    return
-                }
-                self.navigationController?.popToViewController(vc, animated: true)
             }
         }
     }

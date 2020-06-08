@@ -7,7 +7,7 @@ import Foundation
 
 extension FirebaseHelper {
     /// 1. Get public key corresponding to the target
-    func encryptData(target: String, crypto: Crypto, completionHandler: @escaping (_ their_key: SecKey) -> Bool) {
+    func encryptData(target: String, completionHandler: @escaping (_ their_key: SecKey, _ my_key: SecKey) -> Void) {
         user_document.collection("friends").document(target).getDocument { document, error in
             if let err = error {
                 print(err)
@@ -17,45 +17,52 @@ extension FirebaseHelper {
                         return
                     }
                     
-                    guard let their_key = crypto.convertStringToKey(keyRaw: t_key), let  my_key = crypto.convertStringToKey(keyRaw: m_key) else {
+                    guard let their_key = Crypto.shared_instance.convertStringToKey(keyRaw: t_key), let my_key = Crypto.shared_instance.convertStringToKey(keyRaw: m_key) else {
                         print("Could not unwrap keys")
                         return
                     }
                     
-                    completionHandler(their_key)
+                    completionHandler(their_key, my_key)
                 }
             }
         }
     }
     
     /// The user follows through with removing money from their account and giving it to someone else
-    func make_transaction(target: String, amount: Double, message: String, crypto: Crypto) -> Bool  {
+    func make_transaction(target: String, amount: Double, message: String, completionHandler: @escaping (_ success: Bool) -> Void)  {
         /// Reverse sign of amount because it is being taken out of the account
         if updateBalance(update_amount: (amount * -1)) == true {
             /// Add the transaction to user data
-            encryptData(target: target, crypto: crypto) { their_key in
+            encryptData(target: target) { their_key, my_key in
                 let data = [
                     "sender": self.username,
                     "target" : target,
-                    "amount" : amount,
-                    "message" : crypto.encrypt(their_key, clearText: message) ?? "Error",
+                    "amount" : Crypto.shared_instance.encrypt(their_key, clearText: String(amount)) ?? "Error",
+                    "message" : Crypto.shared_instance.encrypt(their_key, clearText: message) ?? "Error",
                     "time" : Date().timeIntervalSince1970,
                     "pending" : true
                     ] as [String : Any]
                 
-                let doc_ref = self.db.collection("transactions").addDocument(data: data)
+                self.db.collection("transactions").addDocument(data: data)
+                
+                let myData = [
+                    "sender": Crypto.shared_instance.encrypt(my_key, clearText: self.username) ?? "Error",
+                    "target" : Crypto.shared_instance.encrypt(my_key, clearText: target) ?? "Error",
+                    "amount" : Crypto.shared_instance.encrypt(my_key, clearText: String(amount)) ?? "Error",
+                    "message" : Crypto.shared_instance.encrypt(my_key, clearText: message) ?? "Error",
+                    "time" : Date().timeIntervalSince1970,
+                    "pending" : true
+                    ] as [String : Any]
                 
                 /// Add the transaction the user was involved with to their transaction array
-                self.user_document.collection("transactions").addDocument(data: data)
-                
-                return true
+                self.user_document.collection("transactions").addDocument(data: myData)
             }
             
-            return true
+            completionHandler(true)
+        } else {
+            /// Insufficient funds
+            completionHandler(false)
         }
-        
-        /// Insufficient funds
-        return false
     } // func
     
     /// Accesses the transactions stored within this user's account info in Firebase
@@ -75,13 +82,22 @@ extension FirebaseHelper {
                 
                 for doc in documents {
                     let data = doc.data()
-                    if let amount = data["amount"] as? Double,
+                    if let amount = data["amount"] as? String,
                         let sender = data["sender"] as? String,
                         let target = data["target"] as? String,
                         let message = data["message"] as? String,
                         let pending = data["pending"] as? Bool {
                         
-                        let t = Transaction(amount: amount, sender: sender, target: target, message: message)
+                        guard let money_str = Crypto.shared_instance.decrypt(dataString: amount),
+                            let money_d = Double(money_str),
+                            let target_clear = Crypto.shared_instance.decrypt(dataString: target),
+                            let send_clear = Crypto.shared_instance.decrypt(dataString: sender),
+                            let message_clear = Crypto.shared_instance.decrypt(dataString: message)
+                        else {
+                            continue
+                        }
+                        
+                        let t = Transaction(amount: money_d, sender: send_clear, target: target_clear, message: message_clear)
                         transactions.append(t)
                     }
                 }
@@ -114,21 +130,46 @@ extension FirebaseHelper {
                 
                 for doc in documents {
                     let data = doc.data()
-                    if let target = data["target"] as? String,
-                        let amount = data["amount"] as? Double,
+                    if let amount = data["amount"] as? String,
+                        let sender = data["sender"] as? String,
+                        let target = data["target"] as? String,
                         let message = data["message"] as? String,
-                        let pending = data["pending"] as? Bool  {
-                        if (target == FirebaseHelper.shared_instance.username && pending == true){
-                            self.user_document.collection("transactions").addDocument(data: data)
-                            
-                            if amount != 0 {
-                                if FirebaseHelper.shared_instance.updateBalance(update_amount: amount) == false {
-                                    print("Something very wrong happened with updating the user's balance")
-                                } // if
+                        let pending = data["pending"] as? Bool {
+                            if (target == FirebaseHelper.shared_instance.username && pending == true){
+                                self.encryptData(target: sender) { their_key, my_key in
+                                    /// Decrpty data
+                                    guard let money_str = Crypto.shared_instance.decrypt(dataString: amount),
+                                        let money_clear = Double(money_str),
+                                        let message_clear = Crypto.shared_instance.decrypt(dataString: message)
+                                    else {
+                                        return
+                                    }
+                                    print(message_clear)
+                                    /// Update the user's transactions
+                                    if money_clear != 0 {
+                                        if FirebaseHelper.shared_instance.updateBalance(update_amount: money_clear) == false {
+                                            print("Something very wrong happened with updating the user's balance")
+                                        } // if
+                                    }
+
+                                    
+                                    /// Reencrypt
+                                    let myData = [
+                                        "sender": Crypto.shared_instance.encrypt(my_key, clearText: sender) ?? "Error",
+                                        "target" : Crypto.shared_instance.encrypt(my_key, clearText: target) ?? "Error",
+                                        "amount" : Crypto.shared_instance.encrypt(my_key, clearText: String(money_clear)) ?? "Error",
+                                        "message" : Crypto.shared_instance.encrypt(my_key, clearText: message_clear) ?? "Error",
+                                        "time" : Date().timeIntervalSince1970,
+                                        "pending" : true
+                                        ] as [String : Any]
+                                    
+                                    /// Store reencrypted data with the user
+                                    self.user_document.collection("transactions").addDocument(data: myData)
+                                
+                                
+                                doc.reference.updateData(["pending": false])
+                                return  /// Snapshot queury will be launched again after updateData is done
                             }
-                            
-                            doc.reference.updateData(["pending": false])
-                            return  /// Snapshot queury will be launched again after updateData is done
                         }
                     }
                 } // for
