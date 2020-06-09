@@ -1,35 +1,69 @@
-# Seda
-Highly secure peer-to-peer payment app. Platform: iOS
+# Updated Slides 
 
-## How to debug making Stripe payments on an iOS simulator
-1. Run the server on localhost
-	- Change to the directory with `server.py`
-	- Run  `server.py` in development mode.
-	```
-	$ export FLASK_APP=server.py
-	$ export FLASK_ENV=development
-	$ python3 -m flask run --port=4242
-	```
-2. Make sure `PaymentViewController`  occurs before `CardScan`
-	- Note: Since this is being run in an iOS simulator, CardScan is unable to scan cards, so we want to force `PaymentViewController` earlier.
-	- Note: Where you do this doesn't matter too much (right now) as long as it happens before Card Scan is able to get called. I just had `PaymentViewController` get called when the app starts. 
-	- What I did was add the following lines to `viewDidLoad()` in ` WelcomeViewController.swift`
-		```python
-		override func viewDidLoad() {
-			super.viewDidLoad()
-			#-->let storyboard = UIStoryboard(name: "Main", bundle: nil)
-			#-->let vc1 = storyboard.instantiateViewController(withIdentifier: 	Constants.paymentStoryboard) as! PaymentViewController
-			#-->self.present(vc1, animated: true)
-3. Run the iOS simulator.
-4. The option to add payment information should immediately appear.
-5. Enter a Stripe test card for the payment info.
-	- I used the following:
-	```
-	Card Number: 4242 4242 4242
-	Expiration Date: Any future date (e.g. 01/25)
-	CVC: Any three number (e.g. 123)
-	Zip Code: Any zip code (e.g. 90275)
-6. Tap the `Pay` button. You should get a popup with a huge amount of text saying the payment was successful. 
-7. After you're finished debugging make sure to remove any code you changed in Step 2.
-## Authors
-Josh Steubs, Ryland Sepic, DJ Chen, Liusyu Gao
+[link](https://docs.google.com/presentation/d/1rQv9g68kdYzwZZeUzQoziAHqYe9eTaeaaZwmLB0veOw/edit#slide=id.g8884b6f2ee_1_8)
+
+## Server
+
+The *Server* directory contains Firebase functions necessary to host and run the 
+Stripe API remotely from Firebase.
+
+## Seda
+
+The code pertaining to the iOS app itself. 
+
+### Classes
+
+*FirebaseHelper* is a helper class designed to setup and maintain the user's information
+and connection to Firebase. 
+
+*Crypto* is the cryptography functions implemented using CryptoKit. The user creates 
+a private key and it is stored within the key chain associated with the app and the device.
+
+### Views and Controllers
+
+**User enters app:**
+* *LoginViewController* 
+* *RegisterViewController* 
+
+**Chat:**
+User picks a target of who they would like to talk to, and then they can chat with 
+that person. The chat is encrypted if the people talking have gone through the friending
+process. 
+* *TargetViewController* 
+* *ChatViewController* 
+
+**Profile:**
+The main center for where a user will take care of 
+their transfers. They can view their balance, load more money onto their account, 
+add friends, make a transfer, or view their payment history. 
+* *ProfileViewController* 
+
+**Load money:**
+If the user wants to add more money to their account they navigate through the 
+set of view controllers, choosing how much money they wish to upload, and scanning 
+their bank card using CardScan.
+* *LoadBalanceViewController*
+* *PaymentViewController*
+* *ScanCardViewController*
+
+**Friending:**
+To exchange public keys user's friend one another. They enter the name of who they 
+would like to friend and that person accepts the request.
+* *AcceptFriendViewController*
+* *DeleteFriendRequestViewController*
+* *FriendsViewController*
+
+**Sending money:** 
+User chooses a recepient from their list of friends, specifies an amount, along with an optional message.
+The payment is then sent encrypted to the receiver.
+* *TransactionViewController*
+* *TransferViewController*
+
+**History:**
+The user can view their transaction history. After the transaction is complete, the transaction is fully encrypted to hide the information that 
+could not be encrypted during the standard transfer, username and recipient's name. 
+The data is then encrypted and stored. When the user wants to view their history, it is decrypted and 
+can be seen.
+* *HistoryTableViewController*
+* *TransactionDetailsViewController*
+
