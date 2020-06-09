@@ -74,8 +74,6 @@ class ChatViewController: UIViewController {
     }
     
     @IBAction func sendPressed(_ sender: UIButton) {
-       // let friend_pub_key = retrieveFriendsKey(targetUser: self.targetUser)
-        
         let encryption_queue = DispatchQueue(label: "encryption_queue")
         let group = DispatchGroup()
         
@@ -95,6 +93,7 @@ class ChatViewController: UIViewController {
                     if let document = document {
                         // If balance is unable to be placed in then use -1
                         guard let bal = document.get("friend_public_key") as? String, let bal_mine = document.get("user_public_key") as? String else {
+                            group.leave()
                             return
                         }
                         self.friend_pub_key = bal
@@ -107,37 +106,49 @@ class ChatViewController: UIViewController {
             
             group.wait()
             
-            guard let friendsKey = self.crypto?.convertStringToKey(keyRaw: self.friend_pub_key), let myPubKey = self.crypto?.convertStringToKey(keyRaw: self.my_pub_key) else {
-                return
-            }
-            
-            guard let messageBody = self.crypto?.encrypt(friendsKey, clearText: message_text) else {
-                print("Could not encrypt message")
-                return
-            }
-            
-            guard let senderBody = self.crypto?.encrypt(myPubKey, clearText: message_text) else {
-                print("Could not encrypt message")
-                return
-            }
-            
-            print("messagebody \(messageBody)")
-            if let messageSender = Auth.auth().currentUser?.email {
-                
-                FirebaseHelper.shared_instance.db.collection("messages").addDocument(data: ["sender" : messageSender,
-                                                             "body": messageBody,
-                                                             "senderBody" : senderBody,
-                                                             "time": Date().timeIntervalSince1970,
-                                                             "target": (self.targetUser + "@seda.com")]) { (error) in
-                    if let err = error {
-                        print(err)
-                    } else {
-                        DispatchQueue.main.async {
-                            self.messageText.text = ""
+            /// If encryption is in place then send encrypted message
+            /// Else just send plain text
+            if let friendsKey = self.crypto?.convertStringToKey(keyRaw: self.friend_pub_key),
+                let myPubKey = self.crypto?.convertStringToKey(keyRaw: self.my_pub_key),
+                let messageBody = self.crypto?.encrypt(friendsKey, clearText: message_text),
+                let senderBody = self.crypto?.encrypt(myPubKey, clearText: message_text)
+            {
+                if let messageSender = Auth.auth().currentUser?.email {
+                    
+                    FirebaseHelper.shared_instance.db.collection("messages").addDocument(data: ["sender" : messageSender,
+                                                                 "body": messageBody,
+                                                                 "senderBody" : senderBody,
+                                                                 "time": Date().timeIntervalSince1970,
+                                                                 "target": (self.targetUser + "@seda.com")]) { (error) in
+                        if let err = error {
+                            print(err)
+                        } else {
+                            DispatchQueue.main.async {
+                                self.messageText.text = ""
+                            }
                         }
                     }
-                }
-            } // if
+                } // if messageSender
+            } else {
+                if let messageSender = Auth.auth().currentUser?.email {
+                    FirebaseHelper.shared_instance.db.collection("messages")
+                        .addDocument(data: [
+                            "sender" : messageSender,
+                             "body": message_text,
+                             "senderBody" : message_text,
+                             "time": Date().timeIntervalSince1970,
+                             "target": (self.targetUser + "@seda.com")])
+                    { (error) in
+                        if let err = error {
+                            print(err)
+                        } else {
+                            DispatchQueue.main.async {
+                                self.messageText.text = ""
+                            }
+                        }
+                    }
+                } // if messageSender
+            } // if true then cipher text else clearText
         } // async queue
     } // func
 } // class
