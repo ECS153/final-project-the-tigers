@@ -21,7 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enableAutoToolbar = false
         ScanViewController.configure(apiKey: "yTAstrsjCkEQ45aoUXNnGdDqd1JNXBXQ")
         Stripe.setDefaultPublishableKey("pk_test_p30YdZ9cUHnjMjfE1dttZn6k0017n2egmd")
-                
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        // Sets shadow (line below the bar) to a blank image
+        UINavigationBar.appearance().shadowImage = UIImage()
+        // Sets the translucent background color
+        UINavigationBar.appearance().backgroundColor = .clear
+        // Set translucent. (Default value is already true, so this can be removed if desired.)
+        UINavigationBar.appearance().isTranslucent = true
         return true
     }
 
